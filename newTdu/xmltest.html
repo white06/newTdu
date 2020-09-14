@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/layui/css/layui.css"/>
+    <script type="text/javascript" src="luyin.js"></script>
+
+</head>
+<body>
+
+<script>
+    /*
+
+     if (window.XMLHttpRequest)
+     {// code for IE7+, Firefox, Chrome, Opera, Safari
+     xmlhttp=new XMLHttpRequest();
+     }
+     else
+     {// code for IE6, IE5
+     xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+     }
+     xmlhttp.open("GET","xml/9c9ebfc0-a2a8-4aab-aa8f-c7134df956e4.EXM",false);
+     xmlhttp.send();
+     xmlDoc=xmlhttp.responseXML;
+
+     console.log(xmlDoc)*/
+
+    var strXmlUrl = "xml/9c9ebfc0-a2a8-4aab-aa8f-c7134df956e4.EXM";
+    //let strSettled : string = "";
+    var req = new XMLHttpRequest;
+    req.open('GET', strXmlUrl, false);
+    req.send(null);
+    if (req.readyState == 4) {
+        strSettled = req.responseText;
+    }
+    var XMLDocument = new DOMParser().parseFromString(strSettled, "text/xml");
+    if (XMLDocument == null) {
+        console.log("[TDuInfo]:" + strXmlUrl + " read error");
+    }
+    console.log(XMLDocument);
+
+
+    var xmStr = xml2String(XMLDocument);
+    console.log(xmStr);
+
+    /**
+     * xml工具
+     * xml对象和String字符串之间的转换
+     *
+     */
+
+//convert string to xml object (将字符串转换成xml对象)
+    function string2XML(xmlString) {
+        //所有浏览器统一用这种方式处理(因为高版本的浏览器都支持)
+        var parser = new DOMParser();
+        var xmlObject = parser.parseFromString(xmlString, "text/xml");
+        return xmlObject;
+    }
+
+    //convert xml object to string (将xml对象转换成字符串)
+    function xml2String(xmlObject) {
+        //所有浏览器统一用这种方式处理(因为高版本的浏览器都支持)
+        return (new XMLSerializer()).serializeToString(xmlObject);
+    }
+    /*
+     fileType: 1--新建  2--更改;
+    * */
+    console.log("xmStr:" + typeof(xmStr));
+    $.ajax({
+        type: 'POST',
+        url: "../tdu-base/DevelopScenesController/xmlTest.action",
+        data: {
+            "xmStr": xmStr,
+            "fileType":"1",
+            "sceneName":"音乐厅场景",
+            "rootId":"556414aa-d727-441f-a3c7-5ed9da6db105",
+            "userID": "4d272f66-9dac-4b87-a2a1-22b6e5910779",
+            //"userID": "c4873616-9340-46b3-9bcb-30b463f0c3b8",
+            "sceneID": "9c9ebfc0-a2a8-4aab-aa8f-c7134df956e4",
+            //"sceneID": "ad9a0ad2-12b1-49df-ad45-19f2a6d1207b",
+            "operateID": "c4873616-9340-46b3-9bcb-30b463f0c3b8",
+            "subjectTreeId":"a4bc82f4-f25c-4431-8562-6d2561ce082f"
+        },
+        success: function (ret) {
+            alert(ret);
+        }
+    });
+
+</script>
+</body>
+</html>

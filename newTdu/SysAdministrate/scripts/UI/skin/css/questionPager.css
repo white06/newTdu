@@ -1,0 +1,74 @@
+﻿@charset "utf-8";
+/* 描述:轮机工程专业适任考试与仿真系统-考试页面
+ * 时间:2014-6-15
+ */
+ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border-style:none;}
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,textarea,input[type="text"]{font-size:100%;vertical-align:baseline;}
+body{font-family:"Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti;font:normal normal normal 12px/1.6 normal;color:#333;}
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block;}
+audio,canvas,video{display:inline-block;*display:inline;*zoom:1;}
+audio:not([controls]){display:none;}[hidden]{display:none;}
+*{-webkit-text-size-adjust:none;}
+*:focus{outline:none;}
+a{color:#333;text-decoration:none;cursor:pointer;}
+a:focus,input:focus{-moz-outline-style:none;outline-style:none;}
+a:hover{text-decoration:underline;}
+del{text-decoration:line-through;}
+table{border-collapse:collapse;border-spacing:0;}
+ul,ol{list-style:none;}
+textarea{resize:none;}
+em,i{font-style:normal;}
+img{vertical-align:middle;}
+.clear:before,.clear:after{content:"";display:table;}
+.clear:after{clear:both;}
+.clear{zoom:1;}
+.fl{float:left;}
+.fr{float:right;}
+.yahei{font-family:"Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti;}
+.ulib-r3{moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;border-top-left-radius:3px 3px;border-top-right-radius:3px 3px;border-bottom-right-radius:3px 3px;border-bottom-left-radius:3px 3px;}
+.fn-nowrap{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+ 
+.body-content{margin:0;padding:0;width:100%;height:100%;}
+html,body{margin:0;padding:0;width:100%;height:100%;}
+.tdqt-con{width:100%;height:100%;}
+.tdqt-lfpanel{float:left;width:280px;height:100%;padding-top:51px;background-color:#f6fcff;}
+.tdqt-rgpanel{float:right;width:100%;height:100%;margin-right:-280px;padding-top:51px;}
+.tdqt-rgcon{padding-right:280px;height:100%;}
+.tdqt-lfscroll{height:100%;overflow-y:scroll;}
+.tdqt-rgscroll{height:100%;overflow-y:scroll;}
+a.tdqt-btn{display:block;margin:10px 15px;padding:5px 0;background:#94c849;font-size:1.4em;text-align:center;color:#fff;}
+a.tdqt-btn:hover{background:#8abf3e;text-decoration:none;}
+ul.tdqt-menu{padding:0 15px;}
+ul.tdqt-menu li{height:30px;line-height:30px;}
+ul.tdqt-menu li:hover{background-color:#e0f5ff;}
+ul.tdqt-menu li a{color:#28c;}
+ul.tdqt-menu li a:hover{text-decoration:none;}
+ul.tdqt-menu li.active{background-color:#cef;font-weight:bold;}
+ul.tdqt-menu li a i.icon{display:inline-block;width:16px;height:16px;margin:0 5px;background:url('../img/page-icon.png') no-repeat 0 4px;}
+ul.tdqt-menu li a.fl{width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+ul.tdqt-menu li a.fr{display:none;margin-right:5px;font-weight:lighter;}
+ul.tdqt-menu li:hover a.fr{display:block;}
+
+.tdqt-navpanel{margin:15px 15px 0 15px;background-color:#fff;border:#bdddff 1px solid;}
+.tdqt-tab-holder{height:46px;margin:-1px 0 0 -1px;border-bottom:#0c99f2 4px solid;text-align:left;}
+.tdqt-tab-holder ul li{float:left;word-wrap:normal;}
+.tdqt-tab-holder ul li a{display:inline-block;margin:0;padding:10px 13px 6px 13px;font-size:1.4em;color:#085bb0;}
+.tdqt-tab-holder ul li a:hover{background-color:#43b6ff;text-decoration:none;color:#fff;}
+.tdqt-tab-holder ul li a.active,.tdqt-tab-holder ul li a.active:hover{background-color:#0c99f2;border-bottom:none;color:#fff;}
+
+.tdqt-tabnav{margin:15px;}
+table.tdqt-tb{width:100%;border-top:#ddd 1px solid;border-left:#ddd 1px solid;}
+table.tdqt-tb th,table.tdqt-tb td{padding:5px;border-right:#ddd 1px solid;border-bottom:#ddd 1px solid;}
+table.tdqt-tb thead th{background-color:#f3f3f3;white-space:nowrap;text-align:center;}
+table.tdqt-tb thead th.fen-cell{width:70px;}
+table.tdqt-tb tbody th{width:30px;text-align:center;font-weight:lighter;}
+input.fen-text{width:50px;margin-right:5px;text-align:center;}
+
+.select-sty select{width:100%;-webkit-appearance:none !important;background-color:#fff;background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI2cHgiIGhlaWdodD0iM3B4IiB2aWV3Qm94PSIwIDAgNiAzIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA2IDMiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIHBvaW50cz0iNS45OTIsMCAyLjk5MiwzIC0wLjAwOCwwICIvPjwvc3ZnPg==");background-repeat:no-repeat;background-position:97% center;border: 1px solid #cccccc;padding: 0.5rem;font-size:0.875rem;height:2.3125rem;}
+.select-sty select.radius{border-radius:3px;}
+.select-sty select:hover{background-color:#f3f3f3;border-color:#999;}
+.choose-panel{width:46%;height:320px;overflow:scroll;border:#aaa 1px solid}
+ul.my-choose-list li{word-break:break-all;word-wrap:break-word;}
+ul.choose-qt-list li{padding:2px 5px;border-bottom:#ddd 1px solid;}
+ul.choose-qt-list li span.qt-name{display:block;width:86%;word-break:break-all;word-wrap:break-word;}
+input.ch-checkbox{margin:-2px 5px 0 0;vertical-align:middle;}

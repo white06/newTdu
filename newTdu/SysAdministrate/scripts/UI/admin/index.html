@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="gbk">
+<title></title>
+    <meta name="description" content=" ">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="../skin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="../skin/css/index_across.css" id="cssid">
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var clientWidth = document.documentElement.clientWidth+document.body.clientWidth;
+		var clientHeight = document.documentElement.clientHeight+document.body.clientHeight;
+		if (clientWidth > clientHeight)
+		{
+		$('#cssid').attr('href','../skin/css/index_across.css');
+		}
+		else
+		{
+		$('#cssid').attr('href','../skin/css/index_vertical.css');
+		}
+		
+		$('.selected').click(function(){
+			$(this).next('.select-con').show();
+		});
+		$('.select-con').find('dd').click(function(){
+			$('.select-con').hide();
+			var select_text=$(this).text();
+			$(this).parents('#s_specialty').find('.selected').text(select_text);
+		});
+	});
+	
+	function wpopshow(){
+		jQuery('.right-bar').css({width:0}).animate({width:85});
+		setTimeout('wpophide()',5000);
+	}
+	function wpophide(){
+		jQuery('.right-bar').css({width:85}).animate({width:0});
+	}
+</script>
+</head>
+<body class="home yahei" scroll="no">
+<div class="header-bar shadow2">
+	<h1 class="fl"> </h1>
+    <div class="fr clear">
+        <a class="fl person-opt ulib-r3"><i class="icon"><img src="../skin/img/person.png" width="100%" /></i>个人信息</a>
+        <a class="fl tool-opt ulib-r3" onclick="wpopshow();"><i class="icon"><img src="../skin/img/opt.png" width="100%" /></i></a>
+    </div>
+</div>
+<div class="right-bar">
+	<ul class="right-opt">
+    	<li>
+        	<a class="ulib-r3" href="javascript:">
+            	<div><img src="../skin/img/quit64.png" width="100%"></div>
+                <div>退出</div>
+            </a>
+        </li>
+        <li>
+        	<a class="ulib-r3" href="javascript:">
+            	<div><img src="../skin/img/quit64.png" width="100%"></div>
+                <div>退出</div>
+            </a>
+        </li>
+        <li>
+        	<a class="ulib-r3" href="javascript:">
+            	<div><img src="../skin/img/quit64.png" width="100%"></div>
+                <div>退出</div>
+            </a>
+        </li>
+        <li>
+        	<a class="ulib-r3" href="javascript:">
+            	<div><img src="../skin/img/quit64.png" width="100%"></div>
+                <div>退出</div>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="home-content">
+	<ul class="widget_content clear">
+    	<li>
+        	<a href="collegelist.html" class="widget4x2 ulib-r3 widget_orange" target="_blank">学院管理</a>
+        </li>
+        <li>
+        	<a href="accountlist.html" class="widget4x2 ulib-r3 widget_purple" target="_blank">帐号管理</a>
+        </li>
+        <li>
+        	<a class="widget4x2 ulib-r3 widget_darkgreen" target="_blank">权限设置</a>
+        </li>
+    </ul>
+</div>
+<div class="bottom-bar">
+	<div>系统提示内容</div>
+    <div>系统提示内容</div>
+</div>
+</body>
+</html>

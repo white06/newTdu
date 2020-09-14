@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>功能演示2 - 通用分页组件</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/custom/jquery-1.8.3.min.js"></script>
+    <script src="../../js/api.js"></script>
+    <style>
+        .layui-form-label{
+            color: white;
+        }
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: rgba(60, 65, 84, 1);
+        }
+
+        .layui-form-label{
+            font-size:22px;
+            font-family:PingFangSC-Medium,PingFang SC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+            width: 120px;text-align: center
+        }
+        .layui-form{
+
+        }
+        .layui-input-block{
+            margin-left: 150px;
+        }
+        .layui-form-item{
+            margin-bottom: 20px;
+        }
+        .layui-table[lay-skin=row] {
+            border-top: 2px solid #2E3546;
+            border-width: 2px;
+            border-style: solid;
+            border-color: #2E3546;
+        }
+        .layui-table{
+            background: #3C4154;
+            color: white;
+        }
+        .layui-table thead tr{
+            background: #3C4154;
+            color: white;
+            border: 2px solid #2E3546;
+        }
+        .layui-table[lay-even] tr:nth-child(2n){
+            background: #3C4154;
+            border: 2px solid #2E3546;
+        }
+        .layui-table th{
+            border-color: #2E3546;
+        }
+        .layui-table[lay-even] tr:nth-child(n){
+            border-color: #2E3546;
+        }
+        .layui-btn{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+        }
+
+        .layui-form-radio div{
+            color: white;
+        }
+    </style>
+
+
+</head>
+<body>
+
+<div id="showUser" style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;">
+    <div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;">
+    <div class="layui-card" style="background:rgba(52,57,76,1);">
+        <div class="layui-card-body layui-row layui-col-space10" style="width: 90%;padding-left: 1.5%;">
+            <div class="layui-col-md6" style="width: 40%">
+                <input id="search" type="text" name="title" placeholder="请搜索" autocomplete="off" class="layui-input">
+                <button  onclick="search()" type="button" class="layui-btn" style="position: absolute;top: 5px;right: 5px;"><i  class="layui-icon layui-icon-search"></i></button><!--style="color: #5CCDB2"-->
+            </div>
+            <button onclick="refresh()" style="margin-top: 5px;vertical-align: middle;margin-left: 2%;margin-right: 2%" class="layui-btn layui-btn-radius">刷新账号</button>
+            <button onclick="addUser()" style="margin-top: 5px;vertical-align: middle;margin-left: 2%;margin-right: 2%" type="button" class="layui-btn">添加账号</button>
+            <button style="margin-top: 5px;vertical-align: middle;margin-left: 2%;margin-right: 2%" type="button" class="layui-btn" onclick="excel()">批量导入</button>
+        </div>
+
+    </div>
+</div>
+    <div class="layui-card" style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;">
+        <div class="layui-card-body">
+            <table class="layui-table" lay-even="" lay-skin="row">
+                <colgroup>
+                    <col width="auto">
+                    <col width="auto">
+                    <col width="auto">
+                    <col>
+                </colgroup>
+                <thead >
+                <tr>
+                    <th>账号</th>
+                    <th>姓名</th>
+                    <th>创建日期</th>
+                    <th>性别</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="test2">
+                <tr>
+                    <td>贤心</td>
+                    <td>汉族</td>
+                    <td>1989-10-14</td>
+                    <td>人生似修行</td>
+                    <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                        <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--></td>
+                </tr>
+                </tbody>
+
+            </table>
+            <div id="test-laypage-demo20"></div>
+        </div>
+    </div>
+</div>
+
+<div id="addUser"  style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;">
+    <form class="layui-form" action="" style="padding-left: 15%;
+            padding-right: 25%;">
+        <div class="layui-form-item" style="padding-top: 30px">
+            <label class="layui-form-label" style="">账号 : </label>
+            <div class="layui-input-block" style=" ">
+                <input id="title" type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入账号" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名 : </label>
+            <div class="layui-input-block">
+                <input id="name" type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">单选框</label>
+            <div class="layui-input-block">
+                <input style="color: white" class="addSex" type="radio" name="sex" value="男" title="男" checked="">
+                <input style="color: white" class="addSex" type="radio" name="sex" value="女" title="女">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码 : </label>
+            <div class="layui-input-block">
+                <input id="password" type="text" name="password" lay-verify="password" lay-reqtext="密码是必填项，岂能为空？" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+
+            <label class="layui-form-label">确认密码 : </label>
+            <div class="layui-input-block"  >
+                <input id="realpassword" type="text" placeholder="请确认密码"  name="realpassword" lay-verify="password" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">单选框</label>
+            <div class="layui-input-block" style="color: white">
+                <input type="radio" name="role" value="3" title="学生" checked="">
+                <input type="radio" name="role" value="2" title="老师">
+                <input type="radio" name="role" value="1" title="管理员">
+            </div>
+        </div>
+        <div class="layui-form-item" style="padding-bottom: 20px;">
+            <div class="layui-input-block">
+                <button   style="background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:3px;
+            width: 20%;
+            margin-left: 10%;;display: inline-block;
+            margin-right: 10%;" type="submit" class="layui-btn" lay-submit="" lay-filter="component-form-demo1">保存</button>
+                <button   style="background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:3px;
+            width: 20%;
+            margin-left: 10%;;display: inline-block;
+            margin-right: 10%;" type="submit" class="layui-btn">返回</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+
+
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script>
+
+    $("#addUser").css("display","none")
+
+    var content="editUser.html";
+
+    var content1="excel.html";
+
+    function excel() {
+        var index1 =layer.open({
+            type: 2,
+            title: false,
+            shadeClose: true,
+            shade: 0.8,
+            area: ['55%', '55%'],
+            //content: 'content/cz/kaoshi.php' //iframe的url
+            content: content1, //iframe的url
+            cancel: function(){
+                //右上角关闭回调
+                flag=1
+                console.log("1111")
+                //return false 开启该代码可禁止点击该按钮关闭
+            },
+            end: function () {
+                if(flag==0){
+                    addreturn();
+                }
+            }
+        });
+    }
+
+    function editUser(id) {
+        var index =layer.open({
+            type: 2,
+            title: false,
+            shadeClose: true,
+            shade: 0.8,
+            area: ['35%', '45%'],
+            //content: 'content/cz/kaoshi.php' //iframe的url
+            content: content+'?userId='+id, //iframe的url
+            cancel: function(){
+                //右上角关闭回调
+                flag=1
+                console.log("1111")
+                //return false 开启该代码可禁止点击该按钮关闭
+            },
+            end: function () {
+                if(flag==0){
+                    addreturn();
+                }
+            }
+        });
+    }
+
+
+    layui.config({
+        base: '../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'laypage','table','form','element'], function () {
+        var laypage = layui.laypage,
+            form = layui.form,
+            element = layui.element,
+        table = layui.table;
+
+
+        window.search=function () {
+            layer.msg($("#search").val());
+            var content =$("#search").val();
+            $.ajax({
+                type: "POST",
+                url: houtaiurl+"UsersController/seleStuBySearch.action",
+                data : {"content":content},
+                async: false,
+                success: function (data) {
+                    testLayPageData = data;
+                }
+            });
+
+            laypage.render({
+                elem: 'test-laypage-demo20'
+                , count: testLayPageData.length
+                , jump: function (obj) {
+                    //模拟渲染
+                    document.getElementById('test2').innerHTML = function () {
+                        console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                        console.log(testLayPageData)
+                        var arr = []
+                            , thisData = testLayPageData.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                        console.log(thisData)
+                        layui.each(thisData, function (index, item) {
+
+                            var html = '<tr><th>';
+                            html+=''+item.userName+'';
+                            html+='</th><th>';
+                            html+=''+item.name+'';
+                            html+='</th><th>'
+                            html+=''+item.createDate+'';
+                            html+='</th><th>';
+                            html+=''+item.sex+'';
+                            html+='</th><td>';
+                            html+=  '<a class="layui-btn layui-btn-xs" lay-event="edit" onclick="editUser(\'' + item.id + '\')" >编辑角色</a>';
+                            html+='</td></tr>';
+                            arr.push(html);
+                        });
+                        return arr.join('');
+                    }();
+                }
+            });
+        }
+
+        //监听工具条
+        table.on('tool(test-table-operate)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'detail'){
+                layer.msg('ID：'+ data.id + ' 的查看操作');
+            } else if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+            }
+        });
+
+
+        //将一段数组分页展示
+
+        //测试数据
+        var testLayPageData = [
+            '北京',
+            '上海',
+            '广州'
+        ];
+
+
+        window.refresh = function () {
+            $.ajax({
+                type: "POST",
+                url: houtaiurl+"UsersController/seleAllUsers.action",
+                async: false,
+                success: function (data) {
+                    testLayPageData = data;
+                    $("#search").val("");
+                }
+            });
+
+            laypage.render({
+                elem: 'test-laypage-demo20'
+                , count: testLayPageData.length
+                , jump: function (obj) {
+                    //模拟渲染
+                    document.getElementById('test2').innerHTML = function () {
+                        console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                        console.log(testLayPageData)
+                        var arr = []
+                            , thisData = testLayPageData.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                        console.log(thisData)
+                        layui.each(thisData, function (index, item) {
+
+                            var html = '<tr><th>';
+                            html+=''+item.userName+'';
+                            html+='</th><th>';
+                            html+=''+item.name+'';
+                            html+='</th><th>'
+                            html+=''+item.createDate+'';
+                            html+='</th><th>';
+                            html+=''+item.sex+'';
+                            html+='</th><td>';
+                            html+=  '<a class="layui-btn layui-btn-xs" lay-event="edit" onclick="editUser(\'' + item.id + '\')" >编辑角色</a>';
+                            html+='</td></tr>';
+                            arr.push(html);
+                        });
+                        return arr.join('');
+                    }();
+                }
+            });
+
+        }
+
+        window.addUser = function () {
+            $("#showUser").css("display","none")
+            $("#addUser").css("display","block")
+
+            $("#title").val("");
+            $("#name").val("");
+            //     $(".sex").val(data.sex);
+            // $(".role").val(data.name);
+            $("#password").val("");
+            $("#realpassword").val("");
+        }
+        /* 监听提交新增 */
+        form.on('submit(component-form-demo1)', function(data){
+            if(data.field.title==""||data.field.title==null){
+                layer.alert("账号不能为空!");
+            }else if(data.field.name==""||data.field.name==null){
+                layer.alert("姓名不能为空！");
+            }else if(data.field.password==""||data.field.password==null){
+                layer.alert("密码不能为空！");
+            }else if(data.field.realpassword==""||data.field.realpassword==null){
+                layer.alert("确认密码不能为空！");
+            }else if(data.field.password!=data.field.realpassword){
+                layer.alert("两次密码输入不一致！");
+            }else{
+               $.ajax({
+                    type : "POST",
+                    url : userurl+"UsersController/insUser.action",
+                    async: false,
+                    data : {"username":data.field.title,"name":data.field.name,"sex":data.field.sex,"password":data.field.password,"role":data.field.role},
+                    success : function(data) {
+                        console.log(data);
+                        if(data=="ture"){
+                            console.log("------")
+                            $("#showUser").css("display","block")
+                            $("#addUser").css("display","none")
+                            refresh();
+                        }
+                    }
+                })
+            }
+            console.log(data);
+            parent.layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+
+        $.ajax({
+            type: "POST",
+            url: houtaiurl+"UsersController/seleAllUsers.action",
+            async: false,
+            success: function (data) {
+                testLayPageData = data;
+            }
+        });
+
+        //调用分页
+        laypage.render({
+            elem: 'test-laypage-demo20'
+            , count: testLayPageData.length
+            , jump: function (obj) {
+                //模拟渲染
+                document.getElementById('test2').innerHTML = function () {
+                    console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                    console.log(testLayPageData)
+                    var arr = []
+                        , thisData = testLayPageData.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                    console.log(thisData)
+                    layui.each(thisData, function (index, item) {
+
+                        var html = '<tr><th>';
+                        html+=''+item.userName+'';
+                        html+='</th><th>';
+                        html+=''+item.name+'';
+                        html+='</th><th>'
+                        html+=''+item.createDate+'';
+                        html+='</th><th>';
+                        html+=''+item.sex+'';
+                        html+='</th><td>';
+                        html+=  '<a class="layui-btn layui-btn-xs" lay-event="edit" onclick="editUser(\'' + item.id + '\')" >编辑角色</a>';
+                        html+='</td></tr>';
+                        arr.push(html);
+                    });
+                    return arr.join('');
+                }();
+            }
+        });
+
+    });
+</script>
+</body>

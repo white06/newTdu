@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Sence bgSound="" fps="30" m_nLimitErrorCount="10" navgation="" resetLoop="true" scores="9.27553e-039" time="117966">
+	<SubTitles/>
+	<Audios/>
+	<OperStep width="4"/>
+	<ProjectConfig ProjectName="">
+		<ProjectDescribe>
+			<BackGroundPicture>bagualoujiazai.jpg</BackGroundPicture>
+			<SchoolName/>
+			<CollegeName/>
+			<CourseName/>
+			<ProfessionName code=""/>
+			<PrincipalName/>
+			<ProjectMembers/>
+			<ProjectDetail/>
+		</ProjectDescribe>
+	</ProjectConfig>
+	<MusicOfficeInfo volume="6553">
+		<MaterialInfos>
+			<Material name="后墙QRD" squre="128.8">
+				<AbsorptionAbsorpitivity frequency="125">0.15</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="250">0.1</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="500">0.1</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="1000">0.07</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="2000">0.06</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="4000">0.07</AbsorptionAbsorpitivity>
+			</Material>
+			<Material name="侧墙MLS" squre="741">
+				<AbsorptionAbsorpitivity frequency="125">0.15</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="250">0.1</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="500">0.1</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="1000">0.07</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="2000">0.06</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="4000">0.07</AbsorptionAbsorpitivity>
+			</Material>
+			<Material name="天花板和舞台背墙GRG" squre="861">
+				<AbsorptionAbsorpitivity frequency="125">0.1</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="250">0.01</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="500">0.01</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="1000">0.01</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="2000">0.05</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="4000">0.05</AbsorptionAbsorpitivity>
+			</Material>
+			<Material name="木地板" squre="465">
+				<AbsorptionAbsorpitivity frequency="125">0.15</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="250">0.11</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="500">0.1</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="1000">0.07</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="2000">0.06</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="4000">0.07</AbsorptionAbsorpitivity>
+			</Material>
+			<Material name="实木门" squre="21.12">
+				<AbsorptionAbsorpitivity frequency="125">0.15</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="250">0.11</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="500">0.1</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="1000">0.07</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="2000">0.06</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="4000">0.07</AbsorptionAbsorpitivity>
+			</Material>
+			<Material name="圆柱" squre="236">
+				<AbsorptionAbsorpitivity frequency="125">0.15</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="250">0.11</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="500">0.1</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="1000">0.07</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="2000">0.06</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="4000">0.07</AbsorptionAbsorpitivity>
+			</Material>
+			<Material name="观众席座" squre="396">
+				<AbsorptionAbsorpitivity frequency="125">0.4</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="250">0.65</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="500">0.7</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="1000">0.78</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="2000">0.73</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="4000">0.77</AbsorptionAbsorpitivity>
+			</Material>	
+			<Material name="观察窗" squre="10">
+				<AbsorptionAbsorpitivity frequency="125">0.1</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="250">0.01</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="500">0.1</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="1000">0.07</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="2000">0.06</AbsorptionAbsorpitivity>
+				<AbsorptionAbsorpitivity frequency="4000">0.07</AbsorptionAbsorpitivity>
+			</Material>																		
+		</MaterialInfos>
+	</MusicOfficeInfo>
+	<Propertys>
+		<Navgation speed="20">Trackball</Navgation>
+		<AnimationState>false</AnimationState>
+		<AnimationSpeed>1</AnimationSpeed>
+		<MultViews>false</MultViews>
+		<SenceType>Simulation</SenceType>
+		<BackGround a="0.2" b="0.2" g="0.2" r="0.2"/>
+		<ActObjRGBA/>
+		<Tools bgColor="false" caption="true" findview="false" showVP="false" sound="true"/>
+		<InfoWin/>
+		<AssistPic/>
+		<ToolAutoBack>false</ToolAutoBack>
+		<HaveRota>false</HaveRota>
+		<HintPos>0</HintPos>
+		<BigPos>0</BigPos>
+		<SmallPos>0</SmallPos>
+		<Goods num="0"/>
+		<VRApp>false</VRApp>
+		<TwinkleMode>1</TwinkleMode>
+		<BackGndImage/>
+		<CursorImage/>
+		<ToUseToolAndAssemb>false</ToUseToolAndAssemb>
+		<ToUseErrorSound>false</ToUseErrorSound>
+	</Propertys>
+	<Billboards/>
+	<ViewPorts>
+		<ViewPort slave="false">
+			<Name>正面</Name>
+			<Pos x="619.591003" y="-16456.199219" z="2502.649902"/>
+			<Rot x="84.305008" y="-0.000000" z="-0.000000"/>
+		</ViewPort>
+		<ViewPort slave="false">
+			<Name>背面01</Name>
+			<Pos x="1078.473000" y="614.971000" z="1490.254000"/>
+			<Rot x="84.000000" y="0.000000" z="-180.000000"/>
+		</ViewPort>
+	</ViewPorts>
+	<Nodes useEnvironment="true">
+		<Node>
+			<Name>颌右中切牙牙体预备工具</Name>
+			<File ModelID="3522abf3-80ca-4ff7-bda5-8b67f1245262" UserID="4d272f66-9dac-4b87-a2a1-22b6e5910779" dynamic="false" level="0">3522abf3-80ca-4ff7-bda5-8b67f1245262.tdb</File>
+			<Pos x="0" y="0" z="0"/>
+			<Rot x="0" y="0" z="0"/>
+			<Scale x="1" y="1" z="1"/>
+		</Node>
+		<!--添加场景环境，目前暂开放以下接口供测试使用-->
+		<Environments useGround="false" useSkybox="false">
+			<skyTexture/>	<!--图片名称,程序会在skin目录下查找,不填写，程序默认的skybox-->
+			<groundColor b="" g="" r=""/>	<!--不填写，程序默认白色-->
+			<environmentTexture>environment.dds</environmentTexture> <!--同skyTexture，不填写，程序默认得环境贴图,会造成加载时间过长-->
+													  <!--如果要自定义，建议使用dds或env环境文件,同样在skins目录下-->
+		</Environments>		
+		<Switch>
+			<Choice>0</Choice>
+			<Case name="用物准备">用物准备</Case>
+		</Switch>
+	</Nodes>
+	<VariableNodes>
+		<Variable>
+			<Name>开始</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions>
+				<Condition jump="false" level="0" name="101-LoadRightWebpage" notTime="0" notValue="0" stepValue="0" sync="false" time="0" value="1"/>
+			</PostConditions>
+			<ActiveObj/>
+			<AnimaObj/>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>0</StartTime>
+			<StopTime>0</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>101-LoadRightWebpage</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions>
+				<Condition jump="false" level="0" name="1011-LoadRightWebpage" notTime="0" notValue="0" stepValue="0" sync="false" time="0" value="1"/>
+			</PostConditions>
+			<ActiveObj/>
+			<AnimaObj/>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>0</StartTime>
+			<StopTime>0</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort>用物准备</ViewPort>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>1011-LoadRightWebpage</Name>
+			<Type step="-10">LoadRightWebpage</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions>
+				<Condition jump="false" level="0" name="102-LoadBottomWebpage" notTime="0" notValue="0" stepValue="0" sync="false" time="0" value="1"/>
+			</PostConditions>
+			<ActiveObj/>
+			<AnimaObj>index-3.html</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>0</StartTime>
+			<StopTime>0</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort>用物准备</ViewPort>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>102-LoadBottomWebpage</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions>
+				<Condition jump="false" level="0" name="1021-LoadBottomWebpage" notTime="0" notValue="0" stepValue="0" sync="false" time="0" value="1"/>
+			</PostConditions>
+			<ActiveObj/>
+			<AnimaObj/>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>0</StartTime>
+			<StopTime>0</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort>用物准备</ViewPort>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>1021-LoadBottomWebpage</Name>
+			<Type step="-10">LoadBottomWebpage</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions>
+				<Condition jump="false" level="0" name="103-LoadLeftWebpage" notTime="0" notValue="0" stepValue="0" sync="false" time="0" value="1"/>
+			</PostConditions>
+			<ActiveObj/>
+			<AnimaObj>index-2.html</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>35</StartTime>
+			<StopTime>45</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>103-LoadLeftWebpage</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions>
+				<Condition jump="false" level="0" name="1031-LoadLeftWebpage" notTime="0" notValue="0" stepValue="0" sync="false" time="0" value="1"/>
+			</PostConditions>
+			<ActiveObj/>
+			<AnimaObj/>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>55</StartTime>
+			<StopTime>56</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>1031-LoadLeftWebpage</Name>
+			<Type step="-10">LoadLeftWebpage</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions/>
+			<ActiveObj/>
+			<AnimaObj>leftaudio.html</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>55</StartTime>
+			<StopTime>65</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>104-排龈刀</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions>
+				<Condition logic="And" name="104-排龈刀" type="Equal" value="0"/>
+			</PreConditions>
+			<PostConditions>
+				<Condition jump="false" level="0" name="1041-排龈刀" notTime="0" notValue="0" stepValue="0" sync="false" time="0" value="1"/>
+			</PostConditions>
+			<ActiveObj/>
+			<AnimaObj>group009,group009,group010,group010,paiyinxian,paiyinxian,paiyindao,paiyindao,group011,group011,group012,group012,lanbiao,huangbiao,hongbiao,group013,lanbiao,huangbiao,hongbiao</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>75</StartTime>
+			<StopTime>76</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>1041-排龈刀</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions/>
+			<ActiveObj/>
+			<AnimaObj>paiyinxian,paiyindao</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>75</StartTime>
+			<StopTime>85</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>105-球钻</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions>
+				<Condition logic="And" name="105-球钻" type="Equal" value="0"/>
+			</PreConditions>
+			<PostConditions>
+				<Condition jump="false" level="0" name="1051-球钻" notTime="0" notValue="0" stepValue="0" sync="false" time="0" value="1"/>
+			</PostConditions>
+			<ActiveObj/>
+			<AnimaObj>group009,group009,group010,group010,paiyinxian,paiyinxian,paiyindao,paiyindao,group011,group011,group012,group012,lanbiao,huangbiao,hongbiao,group013,lanbiao,huangbiao,hongbiao</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>95</StartTime>
+			<StopTime>96</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>1051-球钻</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions/>
+			<ActiveObj/>
+			<AnimaObj>paiyindao,group011</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>95</StartTime>
+			<StopTime>105</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>106-火焰车针</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions>
+				<Condition logic="And" name="106-火焰车针" type="Equal" value="0"/>
+			</PreConditions>
+			<PostConditions>
+				<Condition jump="false" level="0" name="1061-火焰车针" notTime="0" notValue="0" stepValue="0" sync="false" time="0" value="1"/>
+			</PostConditions>
+			<ActiveObj/>
+			<AnimaObj>group009,group009,group010,group010,paiyinxian,paiyinxian,paiyindao,paiyindao,group011,group011,group012,group012,lanbiao,huangbiao,hongbiao,group013,lanbiao,huangbiao,hongbiao</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>115</StartTime>
+			<StopTime>116</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>1061-火焰车针</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions/>
+			<ActiveObj/>
+			<AnimaObj>group011,group012</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>115</StartTime>
+			<StopTime>125</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>107-鱼雷状金刚砂车针</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions>
+				<Condition logic="And" name="107-鱼雷状金刚砂车针" type="Equal" value="0"/>
+			</PreConditions>
+			<PostConditions>
+				<Condition jump="false" level="0" name="1071-鱼雷状金刚砂车针" notTime="0" notValue="0" stepValue="0" sync="false" time="0" value="1"/>
+			</PostConditions>
+			<ActiveObj/>
+			<AnimaObj>group009,group009,group010,group010,paiyinxian,paiyinxian,paiyindao,paiyindao,group011,group011,group012,group012,lanbiao,huangbiao,hongbiao,group013,lanbiao,huangbiao,hongbiao</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>135</StartTime>
+			<StopTime>136</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>1071-鱼雷状金刚砂车针</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions/>
+			<ActiveObj/>
+			<AnimaObj>group012,lanbiao,huangbiao,hongbiao</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>135</StartTime>
+			<StopTime>145</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>108-抛光套装</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions>
+				<Condition logic="And" name="108-抛光套装" type="Equal" value="0"/>
+			</PreConditions>
+			<PostConditions>
+				<Condition jump="false" level="0" name="1081-抛光套装" notTime="0" notValue="0" stepValue="0" sync="false" time="0" value="1"/>
+			</PostConditions>
+			<ActiveObj/>
+			<AnimaObj>group009,group009,group010,group010,paiyinxian,paiyinxian,paiyindao,paiyindao,group011,group011,group012,group012,lanbiao,huangbiao,hongbiao,group013,lanbiao,huangbiao,hongbiao</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>155</StartTime>
+			<StopTime>156</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>1081-抛光套装</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions/>
+			<ActiveObj/>
+			<AnimaObj>group013,lanbiao,huangbiao,hongbiao</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>155</StartTime>
+			<StopTime>165</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>109-关闭</Name>
+			<Type step="-10">Step</Type>
+			<Disp/>
+			<PreConditions>
+				<Condition logic="And" name="109-关闭" type="Equal" value="0"/>
+			</PreConditions>
+			<PostConditions>
+				<Condition jump="false" level="0" name="1091-关闭" notTime="0" notValue="0" stepValue="0" sync="false" time="0" value="1"/>
+			</PostConditions>
+			<ActiveObj/>
+			<AnimaObj>group009,group009,group010,group010,paiyinxian,paiyinxian,paiyindao,paiyindao,group011,group011,group012,group012,lanbiao,huangbiao,hongbiao,group013,lanbiao,huangbiao,hongbiao</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>170</StartTime>
+			<StopTime>171</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+		<Variable>
+			<Name>1091-关闭</Name>
+			<Type step="-10">EndDialog</Type>
+			<Disp/>
+			<PreConditions/>
+			<PostConditions/>
+			<ActiveObj/>
+			<AnimaObj>确定要关闭吗?</AnimaObj>
+			<Tools/>
+			<Assemble/>
+			<AnimaLoop>false</AnimaLoop>
+			<StartTime>0</StartTime>
+			<StopTime>0</StopTime>
+			<Random>false</Random>
+			<MinValue>0</MinValue>
+			<MaxValue>1</MaxValue>
+			<CurValue>0</CurValue>
+			<Audio/>
+			<Text/>
+			<PictureType>提示文字</PictureType>
+			<PicturePath/>
+			<ViewPort/>
+			<Assess>false</Assess>
+			<OrderCon/>
+			<People/>
+			<Warn/>
+		</Variable>
+	</VariableNodes>
+	<Measures/>
+	<InitStates disp="" subject="基于可变混响的多功能音乐厅教学仿真"/>
+	<VariableStates/>
+	<Routes/>
+</Sence>

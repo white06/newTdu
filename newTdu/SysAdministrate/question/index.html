@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<link rel="stylesheet" type="text/css" href="../scripts/bootstrap.min.css"/>-->
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/themes/color.css" />
+    <link rel="stylesheet" type="text/css" href="../scripts/MyCss.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/content/ztree/css/zTreeStyle/zTreeStyle.css" />
+    <link rel="stylesheet" type="text/css" href="../scripts/zTreeCSS/demo.css" />
+    <script type="text/javascript" src="../scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="../scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.ztree.core-3.5.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.ztree.exedit-3.5.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="../scripts/PublicPoolName.js"></script>
+    <script type="text/javascript" src="../scripts/Plugins/jquery-easyui-1.4.1/MyJS-Extend.js"></script>
+    <script type="text/javascript" src="../scripts/Plugins/jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../scripts/Plugins/jquery-easyui-1.4.1/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../scripts/QuestionTree.js"></script>
+    <script type="text/javascript" src="../scripts/showContent.js"></script>
+    <script type="text/javascript" src="../scripts/JqPlugin.js"></script>
+
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <style>
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: rgba(60, 65, 84, 1);
+        }
+
+        .layui-form-label{
+            font-size:18px;
+            font-family:PingFangSC-Medium,PingFang SC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+            width: 120px;text-align: center
+        }
+        .layui-form{
+
+        }
+        .layui-input-block{
+            margin-left: 150px;
+        }
+        .layui-textarea {
+            min-height: 100px;
+            height: 100%;
+            line-height: 20px;
+            padding: 6px 10px;
+            resize: vertical
+        }
+        .layui-form-item{
+            margin-bottom: 20px;
+        }
+        .layui-table[lay-skin=row] {
+            border-top: 2px solid #2E3546;
+            border-width: 2px;
+            border-style: solid;
+            border-color: #2E3546;
+        }
+        .layui-table{
+            background: #3C4154;
+            color: white;
+        }
+        .layui-table thead tr{
+            background: #3C4154;
+            color: white;
+            border: 2px solid #2E3546;
+        }
+        .layui-table[lay-even] tr:nth-child(2n){
+            background: #3C4154;
+            border: 2px solid #2E3546;
+        }
+        .layui-table th{
+            border-color: #2E3546;
+        }
+        .layui-table[lay-even] tr:nth-child(n){
+            border-color: #2E3546;
+        }
+        .layui-input, .layui-select, .layui-textarea {
+            line-height: 1.3;
+            line-height: 38px \9;
+            border-width: 1px;
+            border-style: solid;
+            border-color:#3C4154 ;
+            background-color: #3C4154;
+            border-radius: 2px;
+        }
+        input::-webkit-input-placeholder {
+            color: white;
+        }
+        .layui-input:hover, .layui-textarea:hover {
+            color: white;
+            border-color: #3C4154 !important
+        }
+
+        .layui-input:focus, .layui-textarea:focus {
+            color: white;
+            border-color: #3C4154 !important
+        }
+
+
+
+
+        /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+        ::-webkit-scrollbar
+        {
+            width: 10px;
+            height: 8px;
+            background-color: #3C4154;
+        }
+
+        /*定义滚动条轨道 内阴影+圆角*/
+        ::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+        }
+
+        /*定义滑块 内阴影+圆角*/
+        ::-webkit-scrollbar-thumb
+        {
+            border-radius: 25px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #555;
+        }
+
+        ul.ztree {
+            margin-top: 0px;
+            border: 1px solid #2E3546;
+            background: #2E3546;
+        }
+        .layui-btn{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:3px;
+            width: 100%;
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+
+        .layui-colla-item{
+            border-color: #3C4154;
+
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+        .layui-collapse{
+            border-color: #2E3546;
+        }
+        .layui-colla-content{
+            border-color: #2E3546;
+        }
+    </style>
+
+
+</head>
+<body>
+
+<div class="row-fluid">
+    <div class="form-horizontal">
+        <div class="form-group my-top-bar">
+            <div class="col-md-11 col-sm-10 col-lg-11">
+                <select id="sourcetree" name="sourcetree" class="form-control" style="max-width: 100%;">
+
+
+
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div style="margin:2% 2%;width: 16%;height: 90%;position: absolute;left: 0%;top: 0%;"><!--background:rgba(52,57,76,1);-->
+    <div class="col-md-10" style="width: 13.3%">
+        <input type="button" value="新增目录" class="btn btn-primary" style="width:auto;margin:0px 0 30px 0;float:left" id="addKnowledge" />
+    </div>
+<div class="row-fluid">
+    <div class=" col-lg-2 col-md-3 col-xs-3 col-sm-3 text-center my-tree-style">
+        <ul id="treeDemo" class="ztree"></ul>
+        <!--<div style="margin-top: 20px;">
+            <input type="button" value="新增知识点" class="btn btn-primary" style=" float: left" id="addKnowledge" />
+            <input hidden id="rootid" />
+            <br />
+        </div>-->
+        <div style="margin-top: 15px;">
+            <form method="post" enctype="multipart/form-data" id="uploadForm">
+                <div style="height:80px;background: #2E3546">
+                    <input id="mysubjectid" hidden name="subjectid" value="" />
+                    <input id="filequestion" data-ng-options="prompt:'请选择上传文件‘" type="file" name="filequestion" style="width:70%;height:20px" />
+                </div>
+                <br />
+                <input type="button" class="layui-btn" value="导入当前科目" onclick="doUpload()"  />
+            </form>
+        </div>
+
+        <button type="button" class="layui-btn" onclick="window.location.href='导入试题模版.xls'">题库模板点击下载</button>
+        <!--<a href="导入试题模版.xls" downland="导入试题模版">题库模版点击下载</a>-->
+        <br />
+
+    </div>
+</div>
+</div>
+
+<div id="danxuan" style="margin:2% 2%;width: 76%;height:auto;background: #2E3546;position: absolute;right: 0%;top: 0%;">
+    <div class="layui-collapse" lay-accordion="" style="margin: 2% 2%">
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title">单选题</h2>
+            <div class="layui-colla-content layui-show">
+
+                <div class="layui-card" style="background:rgba(52,57,76,1)">
+                    <div class="layui-card-body">
+
+                        <div center="center" style=";width: 20%;position:absolute">
+                           <button class="layui-btn" onclick="addDanxuan()">添加单选题</button>
+                        </div>
+
+                        <div center="center" style="margin: 0 auto;padding-bottom: 20px;padding-top: 10px;margin-left: 36%">
+                            <p style="font-size:22px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);letter-spacing:2px;">单选题</p>
+                        </div>
+
+                        <table class="layui-table" lay-even="" lay-skin="row">
+                            <colgroup>
+                                <col width="auto">
+                                <col width="auto">
+                                <col width="auto">
+                                <col>
+                            </colgroup>
+                            <thead >
+                            <tr >
+                                <th>类型</th>
+                                <th style="text-align: center" >题干</th>
+                                <th>分数</th>
+                                <th style="width: 10%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="test2">
+                            <tr>
+                                <td>单选题</td>
+                                <td>贤心</td>
+                                <td>5</td>
+                                <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                        <div id="test-laypage-demo20"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="layui-colla-item">
+        <h2 class="layui-colla-title">多选题</h2>
+        <div class="layui-colla-content">
+
+            <div class="layui-card" style="background:rgba(52,57,76,1)">
+                <div class="layui-card-body">
+
+                    <div center="center" style=";width: 20%;position:absolute">
+                        <button class="layui-btn" onclick="addDuoxuan()">添加多选题</button>
+                    </div>
+
+                    <div center="center" style="margin: 0 auto;padding-bottom: 20px;padding-top: 10px;margin-left: 36%">
+                        <p style="font-size:22px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);letter-spacing:2px;">多选题</p>
+                    </div>
+
+                    <table class="layui-table" lay-even="" lay-skin="row">
+                        <colgroup>
+                            <col width="auto">
+                            <col width="auto">
+                            <col width="auto">
+                            <col>
+                        </colgroup>
+                        <thead >
+                        <tr >
+                            <th>类型</th>
+                            <th style="text-align: center" >题干</th>
+                            <th>分数</th>
+                            <th style="width: 10%">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="test3">
+                        <tr>
+                            <td>单选题</td>
+                            <td>贤心</td>
+                            <td>5</td>
+                            <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                    <div id="test-laypage-demo21"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title">填空题</h2>
+            <div class="layui-colla-content">
+
+                <div class="layui-card" style="background:rgba(52,57,76,1)">
+                    <div class="layui-card-body">
+
+                        <div center="center" style=";width: 20%;position:absolute">
+                            <button class="layui-btn" onclick="addTiankong()">添加填空题</button>
+                        </div>
+
+                        <div center="center" style="margin: 0 auto;padding-bottom: 20px;padding-top: 10px;margin-left: 36%">
+                            <p style="font-size:22px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);letter-spacing:2px;">填空题</p>
+                        </div>
+
+                        <table class="layui-table" lay-even="" lay-skin="row">
+                            <colgroup>
+                                <col width="auto">
+                                <col width="auto">
+                                <col width="auto">
+                                <col>
+                            </colgroup>
+                            <thead >
+                            <tr >
+                                <th>类型</th>
+                                <th style="text-align: center" >题干</th>
+                                <th>分数</th>
+                                <th style="width: 10%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="test4">
+                            <tr>
+                                <td>单选题</td>
+                                <td>贤心</td>
+                                <td>5</td>
+                                <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                        <div id="test-laypage-demo22"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title">判断题</h2>
+            <div class="layui-colla-content">
+
+                <div class="layui-card" style="background:rgba(52,57,76,1)">
+                    <div class="layui-card-body">
+
+                        <div center="center" style=";width: 20%;position:absolute">
+                            <button class="layui-btn" onclick="addPanduan()">添加判断题</button>
+                        </div>
+
+                        <div center="center" style="margin: 0 auto;padding-bottom: 20px;padding-top: 10px;margin-left: 36%">
+                            <p style="font-size:22px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);letter-spacing:2px;">判断题</p>
+                        </div>
+
+                        <table class="layui-table" lay-even="" lay-skin="row">
+                            <colgroup>
+                                <col width="auto">
+                                <col width="auto">
+                                <col width="auto">
+                                <col>
+                            </colgroup>
+                            <thead >
+                            <tr >
+                                <th>类型</th>
+                                <th style="text-align: center" >题干</th>
+                                <th>分数</th>
+                                <th style="width: 10%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="test5">
+                            <tr>
+                                <td>单选题</td>
+                                <td>贤心</td>
+                                <td>5</td>
+                                <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                        <div id="test-laypage-demo23"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title">问答题</h2>
+            <div class="layui-colla-content">
+
+                <div class="layui-card" style="background:rgba(52,57,76,1)">
+                    <div class="layui-card-body">
+
+                        <div center="center" style=";width: 20%;position:absolute">
+                            <button class="layui-btn" onclick="addWenda()">添加问答题</button>
+                        </div>
+
+                        <div center="center" style="margin: 0 auto;padding-bottom: 20px;padding-top: 10px;margin-left: 36%">
+                            <p style="font-size:22px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);letter-spacing:2px;">问答题</p>
+                        </div>
+
+                        <table class="layui-table" lay-even="" lay-skin="row">
+                            <colgroup>
+                                <col width="auto">
+                                <col width="auto">
+                                <col width="auto">
+                                <col>
+                            </colgroup>
+                            <thead >
+                            <tr >
+                                <th>类型</th>
+                                <th style="text-align: center" >题干</th>
+                                <th>分数</th>
+                                <th style="width: 10%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="test6">
+                            <tr>
+                                <td>单选题</td>
+                                <td>贤心</td>
+                                <td>5</td>
+                                <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                        <div id="test-laypage-demo24"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<input hidden id="rootid" />
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/api.js"></script>
+<script>
+    function doUpload() {
+        var formData = new FormData($("#uploadForm")[0]);
+        //console.log(knowId);
+        //console.log(1111111)
+        var fd=new FormData;
+        var file=$('#filequestion')[0].files[0];
+        //console.log(file+"----11");
+        fd.append("file",file);
+        //console.log(fd)
+        //console.log(formData)
+        $.ajax({
+            url:houtaiurl+'UserExcelController/getQuestion.action?file='+fd+'&knowId='+knowId,
+            type: 'POST',
+            data: fd/*formData*/,
+            enctype: 'multipart/form-data',
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (returndata) {
+                //console.log(returndata)
+                if (returndata == "导入成功") {
+                    alert(returndata);
+                    window.location.reload();
+                }
+                else {
+                    alert(returndata);
+                    window.location.reload();
+                }
+            },
+            error: function (returndata) {
+                alert("导入失败");
+                window.location.reload();
+            }
+        });
+    }
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
+        var laydate = layui.laydate //日期
+            ,laypage = layui.laypage //分页
+            ,layer = layui.layer //弹层
+            ,table = layui.table //表格
+            ,carousel = layui.carousel //轮播
+            ,upload = layui.upload //上传
+            ,element = layui.element //元素操作
+
+        //测试数据
+        var testLayPageData = [
+            '北京',
+            '上海',
+            '广州'
+        ];
+        //测试数据
+        var testLayPageData2 = [
+            '北京',
+            '上海',
+            '广州'
+        ];
+        //测试数据
+        var testLayPageData3 = [
+            '北京',
+            '上海',
+            '广州'
+        ];
+        //测试数据
+        var testLayPageData4 = [
+            '北京',
+            '上海',
+            '广州'
+        ];
+
+        //测试数据
+        var testLayPageData5 = [
+            '北京',
+            '上海',
+            '广州'
+        ];
+
+
+        /*
+        *   type =1  单选   type=2  多选   type=3   填空  type=4   判断  type=5   问答
+        * */
+
+
+    var bianji = 1;
+        window.addDanxuan =  function (){
+            var content = "xuanzeti.html";
+            bianji = 0
+            var index =layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                //content: 'content/cz/kaoshi.php' //iframe的url
+                content: content+"?bianji="+bianji+"&knowId="+knowId+"&type=1", //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    flag=1
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    updateQuestion(knowId);
+                }
+            });
+        }
+
+        window.addDuoxuan =  function (){
+            var content = "duoxuanti.html";
+            bianji = 0
+            var index =layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                //content: 'content/cz/kaoshi.php' //iframe的url
+                content: content+"?bianji="+bianji+"&knowId="+knowId+"&type=2", //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    flag=1
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    updateQuestion(knowId);
+                }
+            });
+        }
+        window.addTiankong =  function (){
+            var content = "tiankongti.html";
+            bianji = 0
+            var index =layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                //content: 'content/cz/kaoshi.php' //iframe的url
+                content: content+"?bianji="+bianji+"&knowId="+knowId+"&type=3", //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    flag=1
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    updateQuestion(knowId);
+                }
+            });
+        }
+
+        window.addPanduan =  function (){
+            var content = "panduan.html";
+            bianji = 0
+            var index =layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                //content: 'content/cz/kaoshi.php' //iframe的url
+                content: content+"?bianji="+bianji+"&knowId="+knowId+"&type=4", //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    flag=1
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    updateQuestion(knowId);
+                }
+            });
+        }
+
+        window.addWenda =  function (){
+            var content = "wendati.html";
+            bianji = 0
+            var index =layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                //content: 'content/cz/kaoshi.php' //iframe的url
+                content: content+"?bianji="+bianji+"&knowId="+knowId+"&type=5", //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    flag=1
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    updateQuestion(knowId);
+                }
+            });
+        }
+       window.showDanxuan =  function (id){
+           var content = "xuanzeti.html";
+           bianji=1;
+            var index =layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                //content: 'content/cz/kaoshi.php' //iframe的url
+                content: content+"?bianji="+bianji+"&questionid="+id+"&knowId="+knowId+"&type=1", //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    flag=1
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    updateQuestion(knowId);
+                }
+            });
+        }
+        window.showDuoxuan =  function (id){
+            var content = "duoxuanti.html";
+            bianji=1;
+            var index =layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                //content: 'content/cz/kaoshi.php' //iframe的url
+                content: content+"?bianji="+bianji+"&questionid="+id+"&knowId="+knowId+"&type=2", //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    flag=1
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    updateQuestion(knowId);
+                }
+            });
+        }
+        window.showTiankong =  function (id){
+            var content = "tiankongti.html";
+            bianji=1;
+            var index =layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                //content: 'content/cz/kaoshi.php' //iframe的url
+                content: content+"?bianji="+bianji+"&questionid="+id+"&knowId="+knowId+"&type=3", //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    flag=1
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    updateQuestion(knowId);
+                }
+            });
+        }
+        window.showPanDuan =  function (id){
+            var content = "panduan.html";
+            bianji=1;
+            var index =layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                //content: 'content/cz/kaoshi.php' //iframe的url
+                content: content+"?bianji="+bianji+"&questionid="+id+"&knowId="+knowId+"&type=4", //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    flag=1
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    updateQuestion(knowId);
+                }
+            });
+        }
+
+        window.showWenDa=function (id) {
+            var content = "wendati.html";
+            bianji=1;
+            var index =layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['60%', '60%'],
+                //content: 'content/cz/kaoshi.php' //iframe的url
+                content: content+"?bianji="+bianji+"&questionid="+id+"&knowId="+knowId+"&type=5", //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    flag=1
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    updateQuestion(knowId);
+                }
+            });
+        }
+
+        window.updateQuestion = function (id) {
+            $("#danxuan").css("display","block");
+
+            /*  subjectid 暂时写死*/
+            var subjectid = "6050b62c-4afd-4cab-94c6-57b5c9578f10";
+
+            /*
+            * 单选
+            * */
+            $.ajax({
+                type: "POST",
+                url: houtaiurl+"QuestionController/GetSingleChoiceQuestionJson.action?knowledgeid=" + id + "&&random=" + Math.random() + "&&subjectid="+subjectid,
+                async: false,
+                success: function (data) {
+                    testLayPageData = data;
+                }
+            });
+
+            //调用分页
+            laypage.render({
+                elem: 'test-laypage-demo20'
+                , count: testLayPageData.length
+                , jump: function (obj) {
+                    //模拟渲染
+                    document.getElementById('test2').innerHTML = function () {
+                        console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                        console.log(testLayPageData)
+                        var arr = []
+                            , thisData = testLayPageData.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                        console.log(thisData)
+                        layui.each(thisData, function (index, item) {
+                            console.log(item);
+                            var html = '<tr><th>';
+                            html+=''+item.type+'';
+                            html+='</th><th>';
+                            html+=''+item.title+'';
+                            html+='</th><th>'
+                            html+=''+item.fenshu+'';
+                            html+='</th><td>';
+                            html+=  '<a class="layui-btn layui-btn-xs" lay-event="edit" onclick="showDanxuan(\''+item.id+'\')">编辑</a>';
+                            html+='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" onclick="delQuestion(\''+item.id+'\')">删除</a>';
+                            html+='</td></tr>';
+                            arr.push(html);
+                        });
+                        return arr.join('');
+                    }();
+                }
+            });
+
+            /*
+            * 多选
+            * */
+            var subjectid = "6050b62c-4afd-4cab-94c6-57b5c9578f10";
+            $.ajax({
+                type: "POST",
+                url: houtaiurl+"QuestionController/GetMulChoiceQuestionJson.action?knowledgeid=" + id + "&&random=" + Math.random() + "&&subjectid="+subjectid,
+                async: false,
+                success: function (data) {
+                    testLayPageData2 = data;
+                }
+            });
+
+            //调用分页
+            laypage.render({
+                elem: 'test-laypage-demo21'
+                , count: testLayPageData2.length
+                , jump: function (obj) {
+                    //模拟渲染
+                    document.getElementById('test3').innerHTML = function () {
+                        console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                        console.log(testLayPageData2)
+                        var arr = []
+                            , thisData = testLayPageData2.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                        console.log(thisData)
+                        layui.each(thisData, function (index, item) {
+                            console.log(item);
+                            var html = '<tr><th>';
+                            html+=''+item.type+'';
+                            html+='</th><th>';
+                            html+=''+item.title+'';
+                            html+='</th><th>'
+                            html+=''+item.fenshu+'';
+                            html+='</th><td>';
+                            html+=  '<a class="layui-btn layui-btn-xs" lay-event="edit" onclick="showDuoxuan(\''+item.id+'\')">编辑</a>';
+                            html+='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" onclick="delQuestion(\''+item.id+'\')">删除</a>';
+                            html+='</td></tr>';
+                            arr.push(html);
+                        });
+                        return arr.join('');
+                    }();
+                }
+            });
+
+            /*
+             * 填空
+             * */
+            var subjectid = "6050b62c-4afd-4cab-94c6-57b5c9578f10";
+            $.ajax({
+                type: "POST",
+                url: houtaiurl+"QuestionController/GetFillblankQuestionJson.action?knowledgeid=" + id + "&&random=" + Math.random() + "&&subjectid="+subjectid,
+                async: false,
+                success: function (data) {
+                    testLayPageData3 = data;
+                }
+            });
+
+            //调用分页
+            laypage.render({
+                elem: 'test-laypage-demo22'
+                , count: testLayPageData3.length
+                , jump: function (obj) {
+                    //模拟渲染
+                    document.getElementById('test4').innerHTML = function () {
+                        console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                        console.log(testLayPageData3)
+                        var arr = []
+                            , thisData = testLayPageData3.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                        console.log(thisData)
+                        layui.each(thisData, function (index, item) {
+                            console.log(item);
+                            var html = '<tr><th>';
+                            html+=''+item.type+'';
+                            html+='</th><th>';
+                            html+=''+item.title+'';
+                            html+='</th><th>'
+                            html+=''+item.fenshu+'';
+                            html+='</th><td>';
+                            html+=  '<a class="layui-btn layui-btn-xs" lay-event="edit" onclick="showTiankong(\''+item.id+'\')">编辑</a>';
+                            html+='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" onclick="delQuestion(\''+item.id+'\')">删除</a>';
+                            html+='</td></tr>';
+                            arr.push(html);
+                        });
+                        return arr.join('');
+                    }();
+                }
+            });
+
+            /*
+             * 判断题
+             * */
+            var subjectid = "6050b62c-4afd-4cab-94c6-57b5c9578f10";
+            $.ajax({
+                type: "POST",
+                url: houtaiurl+"QuestionController/GetIsTureQuestionJson.action?knowledgeid=" + id + "&&random=" + Math.random() + "&&subjectid="+subjectid,
+                async: false,
+                success: function (data) {
+                    testLayPageData4 = data;
+                }
+            });
+
+            //调用分页
+            laypage.render({
+                elem: 'test-laypage-demo23'
+                , count: testLayPageData4.length
+                , jump: function (obj) {
+                    //模拟渲染
+                    document.getElementById('test5').innerHTML = function () {
+                        console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                        console.log(testLayPageData4)
+                        var arr = []
+                            , thisData = testLayPageData4.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                        console.log(thisData)
+                        layui.each(thisData, function (index, item) {
+                            console.log(item);
+                            var html = '<tr><th>';
+                            html+=''+item.type+'';
+                            html+='</th><th>';
+                            html+=''+item.title+'';
+                            html+='</th><th>'
+                            html+=''+item.fenshu+'';
+                            html+='</th><td>';
+                            html+=  '<a class="layui-btn layui-btn-xs" lay-event="edit" onclick="showPanDuan(\''+item.id+'\')">编辑</a>';
+                            html+='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" onclick="delQuestion(\''+item.id+'\')">删除</a>';
+                            html+='</td></tr>';
+                            arr.push(html);
+                        });
+                        return arr.join('');
+                    }();
+                }
+            });
+
+            /*
+             * 問答题
+             * */
+            var subjectid = "6050b62c-4afd-4cab-94c6-57b5c9578f10";
+            $.ajax({
+                type: "POST",
+                url: houtaiurl+"QuestionController/GetTextAreaQuestionJson.action?knowledgeid=" + id + "&&random=" + Math.random() + "&&subjectid="+subjectid,
+                async: false,
+                success: function (data) {
+                    testLayPageData5 = data;
+                }
+            });
+
+            //调用分页
+            laypage.render({
+                elem: 'test-laypage-demo24'
+                , count: testLayPageData5.length
+                , jump: function (obj) {
+                    //模拟渲染
+                    document.getElementById('test6').innerHTML = function () {
+                        console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                        console.log(testLayPageData5)
+                        var arr = []
+                            , thisData = testLayPageData5.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                        console.log(thisData)
+                        layui.each(thisData, function (index, item) {
+                            console.log(item);
+                            var html = '<tr><th>';
+                            html+=''+item.type+'';
+                            html+='</th><th>';
+                            html+=''+item.title+'';
+                            html+='</th><th>'
+                            html+=''+item.fenshu+'';
+                            html+='</th><td>';
+                            html+=  '<a class="layui-btn layui-btn-xs" lay-event="edit" onclick="showWenDa(\''+item.id+'\')">编辑</a>';
+                            html+='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" onclick="delQuestion(\''+item.id+'\')">删除</a>';
+                            html+='</td></tr>';
+                            arr.push(html);
+                        });
+                        return arr.join('');
+                    }();
+                }
+            });
+
+        }
+
+
+
+        window.delQuestion=function (id) {
+            $.post(houtaiurl + "ExamController/delExam.action", data = { id: id }, function (data) {
+                if (data) {
+                    layer.msg("删除成功");
+                    updateQuestion(knowId);
+                }
+                else {
+                    layer.msg("删除失败");
+                }
+            });
+        }
+
+        //拖拽上传
+        upload.render({
+            elem: '#test10'
+            ,url: '/upload/'
+            ,done: function(res){
+                console.log(res)
+            }
+        });
+
+        //监听折叠
+        element.on('collapse(test)', function(data){
+            layer.msg('展开状态：'+ data.show);
+        });
+    });
+</script>
+</body>
+</html>

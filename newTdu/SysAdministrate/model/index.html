@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/themes/color.css" />
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/zTreeStyle.css" />
+
+    <script type="text/javascript" src="../scripts/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="../../js/layer/layer.js"></script>
+    <script type="text/javascript" src="../scripts/PublicPoolName.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.ztree.core-3.5.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.ztree.exedit-3.5.js"></script>
+    <script type="text/javascript" src="ModelTree.js"></script>
+    <script type="text/javascript" src="../scripts/Plugins/jquery-easyui-1.4.1/MyJS-Extend.js"></script>
+    <script type="text/javascript" src="../scripts/Plugins/jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../scripts/Plugins/jquery-easyui-1.4.1/easyui-lang-zh_CN.js"></script>
+    <script src="../../js/api.js"></script>
+
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/layui/layui.js"></script>
+
+    <script type="text/javascript">
+        $("#subject").off("change").on("change", function() {
+            console.log("1111")
+        })
+    </script>
+
+    <style>
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: rgba(60, 65, 84, 1);
+        }
+        .panel-body {
+            background-color: #2E3546;
+            color: white;
+            font-size: 100%;
+        }
+        .tabs-header, .tabs-tool {
+            background-color: #2E3546;
+        }
+        .tabs-header{
+            border-color: #2E3546;
+        }
+        .tabs-panels{
+            border-color: #2E3546;
+        }
+        .tabs{
+            border-bottom-color:#2E3546 ;
+        }
+        .tabs-first{
+            background-color: #3C4154;
+        }
+
+        .layui-btn{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:3px;
+        }
+    </style>
+
+</head>
+<body >
+
+
+<div class="easyui-layout"  style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 600px">
+
+    <div style="width: 19%;background-color: #2E3546;height: 100%;border-right: 2px solid #3C4154">
+        <ul id="treeDemo" class="ztree" >
+
+        </ul>
+        <ul>
+            <button class="layui-btn" id="addFirModelTree" onclick="addFirModelTree()" type="button">新增目录</button>
+        </ul>
+    </div>
+    <div style="width: 80%;background-color: #2E3546    ;height:100%;position: absolute;top: 0px;left: 20%;">
+        <div id="tt" class="easyui-tabs" style="width:100%;height:100%"></div>
+
+
+</div>
+</div>
+<script>
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
+        var laydate = layui.laydate //日期
+            ,laypage = layui.laypage //分页
+            ,layer = layui.layer //弹层
+            ,table = layui.table //表格
+            ,carousel = layui.carousel //轮播
+            ,upload = layui.upload //上传
+            ,element = layui.element //元素操作
+
+
+
+        element.render();
+
+
+        /* 触发事件 */
+        var active = {
+            tabAdd: function(){
+                /* 新增一个Tab项 */
+                element.tabAdd('demo', {
+                    title: '新选项'+ (Math.random()*1000|0) /* 用于演示 */
+                    ,content: '内容'+ (Math.random()*1000|0)
+                    ,id: new Date().getTime() /* 实际使用一般是规定好的id，这里以时间戳模拟下 */
+                })
+            }
+            ,tabDelete: function(othis){
+                /* 删除指定Tab项 */
+                element.tabDelete('demo', '22');
+                othis.addClass('layui-btn-disabled');
+            }
+            ,tabChange: function(){
+                /* 切换到指定Tab项 */
+                element.tabChange('demo', '33');
+            }
+        };
+
+        $('#component-tabs .site-demo-active').on('click', function(){
+            var othis = $(this), type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+    });
+</script>
+</body>
+</html>

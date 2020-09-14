@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="gbk">
+<title> </title>
+    <meta name="description" content=" ">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="../skin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="../skin/css/index_across.css" id="cssid">
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var clientWidth = document.documentElement.clientWidth+document.body.clientWidth;
+		var clientHeight = document.documentElement.clientHeight+document.body.clientHeight;
+		if (clientWidth > clientHeight)
+		{
+		$('#cssid').attr('href','../skin/css/index_across.css');
+		}
+		else
+		{
+		$('#cssid').attr('href','../skin/css/index_vertical.css');
+		}
+		
+		$('.header-more').click(function(){
+			$(this).hide();
+			$('.header-rgopt').show();
+			setTimeout('rgopthide()',3000);
+		});
+		
+	});
+	
+	function wpopshow(){
+		jQuery('.right-bar').css({width:0}).animate({width:85});
+		setTimeout('wpophide()',5000);
+	}
+	function wpophide(){
+		jQuery('.right-bar').css({width:85}).animate({width:0});
+	}
+	function rgopthide(){
+		$('.header-more').show();
+		$('.header-rgopt').hide();
+	}
+</script>
+</head>
+<body class="home yahei" scroll="no">
+<div class="header-bar shadow2">
+	<h1 class="fl"> </h1>
+    <div class="header-rgopt clear">
+    	<select class="fl choose-subjects ulib-r3">
+            <optgroup label="口腔">
+            	<option>某某课</option>
+            </optgroup>
+            <optgroup label="护理">
+            	<option>心电监护</option>
+            	<option>某某课</option>
+            </optgroup>
+        </select>
+        <a class="fl person-opt ulib-r3"><i class="icon"><img src="skin/img/person.png" width="100%" /></i>个人信息</a>
+        <a class="fl tool-opt ulib-r3" onClick="wpopshow();"><i class="icon"><img src="skin/img/opt.png" width="100%" /></i></a>
+    </div>
+    <i class="header-more"><img src="skin/img/more.png" /></i>
+</div>
+<div class="right-bar">
+	<ul class="right-opt">
+    	<li>
+        	<a class="ulib-r3" href="javascript:">
+            	<div><img src="../skin/img/quit64.png" width="100%"></div>
+                <div>退出</div>
+            </a>
+        </li>
+        <li>
+        	<a class="ulib-r3" href="javascript:">
+            	<div><img src="../skin/img/quit64.png" width="100%"></div>
+                <div>退出</div>
+            </a>
+        </li>
+        <li>
+        	<a class="ulib-r3" href="javascript:">
+            	<div><img src="../skin/img/quit64.png" width="100%"></div>
+                <div>退出</div>
+            </a>
+        </li>
+        <li>
+        	<a class="ulib-r3" href="javascript:">
+            	<div><img src="../skin/img/quit64.png" width="100%"></div>
+                <div>退出</div>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="nav-bg">
+    <div class="nav-panel">
+    	<ul>
+        	<li>
+            	<a class="active ulib-r3" href="javascript:">教学</a>
+            </li>
+            <li>
+            	<a class="ulib-r3" href="javascript:">实训</a>
+            </li>
+            <li>
+            	<a class="ulib-r3" href="javascript:">考核</a>
+            </li>
+            <li>
+            	<a class="ulib-r3" href="javascript:">教学资源</a>
+            </li>
+            <li>
+            	<a class="ulib-r3" href="javascript:">教学资源</a>
+            </li>
+            <li>
+            	<a class="ulib-r3" href="javascript:">教学资源</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="page-content">
+	<ul class="widget_content clear">
+    	<li>
+        	<a class="widget4x2 ulib-r3 widget_orange"><img src="../skin/img/add.png" height="100%"></a>
+        </li>
+        <li>
+            <a class="widget2x2 ulib-r3 widget_darkblue"><span class="fn-nowrap" title="护理评估">做前准备</span></a>
+            <a class="widget2x2 ulib-r3 widget_red"><img src="../skin/img/add.png" height="100%"></a>
+        </li>
+        <li>
+            <a class="widget1x1 ulib-r3 widget_darkgreen"><span class="fn-nowrap" title="护理评估">灌注饮食</span></a>
+            <a class="widget1x1 ulib-r3 widget_darkred"><span class="fn-nowrap" title="护理评估">插管固定</span></a>
+            <a class="widget1x1 ulib-r3 widget_green"><span class="fn-nowrap" title="护理评估">健康教育</span></a>
+            <a class="widget1x1 ulib-r3 widget_blue"><img src="../skin/img/add.png" height="100%"></a>
+        </li>
+    </ul>
+</div>
+<div class="bottom-bar">
+	<div>系统提示内容</div>
+    <div>系统提示内容</div>
+</div>
+</body>
+</html>

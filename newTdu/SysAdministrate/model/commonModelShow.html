@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="../scripts/jquery-1.8.0.min.js"></script>
+   	 <!--  	<script type="text/javascript" src="../Scripts/index.js"></script>-->
+   	 	<script type="text/javascript">
+   	 	$(document).ready(function(){ 
+   	 	
+   	 		//1.初始化，加载所有数据
+   	 		
+   	 		
+			doGetObjects();
+            	var b=getRequest();
+        		var index_i=b['subModelId'];
+                $("#insertTree").attr({ onclick: "window.location='create.php?subModelId=" + index_i+"'" });
+                
+            
+   	 	});
+   	 	
+   	 	
+   	 	//获取网址后面id信息
+   	 	function getRequest(){
+    		var url=location.search;
+    		var	theRequest= new Object();
+    		var strs="";
+    		if(url.indexOf("?")!=-1){
+    			var str= url.substr(1);
+    			strs=str.split("&");
+    			for(var i=0; i<strs.length; i++ ){
+    				theRequest[strs[i].split("=")[0]]= decodeURIComponent(strs[i].split("=")[1]);
+    			}
+    		}
+    		return theRequest;
+    	}
+   	 	
+   	 	
+   	 	
+ 		//初始化操作
+		function doGetObjects(){
+			var a=getRequest();
+        	var index_id=a['subModelId'];
+	//	var url="../../../ModelController/getModelInfos.action?subModelId="+index_id;
+		//获取科目id
+	//		var subjectKey={subjectKey:$(window.parent.document).find("#subject").val()};
+		$.ajax({
+		type:"POST",
+		url:"../../../ModelController/getModelInfos.action?subModelId="+index_id,
+		success:function(data){
+			if(data.length>0){
+				setTableBodyRows(data)
+			}
+		}
+	});
+}
+
+//搜索操作，下一页
+		function upCurrent_click(){
+			var a=getRequest();
+        	var index_id=a['subModelId'];
+	//	var url="../../../ModelController/getModelInfos.action?subModelId="+index_id;
+		//获取科目id
+	//		var subjectKey={subjectKey:$(window.parent.document).find("#subject").val()};
+		$.ajax({
+		type:"POST",
+		url:"../../../ModelController/getModelInfos.action?subModelId="+index_id,
+		success:function(data){
+			if(data.length>0){
+				upCurrent_clickShow(data);
+			}
+		}
+	});
+}
+
+//搜索操作，上一页
+		function downCurrent_click(){
+			var a=getRequest();
+        	var index_id=a['subModelId'];
+	//	var url="../../../ModelController/getModelInfos.action?subModelId="+index_id;
+		//获取科目id
+	//		var subjectKey={subjectKey:$(window.parent.document).find("#subject").val()};
+		$.ajax({
+		type:"POST",
+		url:"../../../ModelController/getModelInfos.action?subModelId="+index_id,
+		success:function(data){
+			if(data.length>0){
+				downCurrent_clickShow(data);
+			}
+		}
+	});
+}
+
+		//在页面上显示数据
+		function setTableBodyRows(result){
+		//获取tbody对象
+		
+		//图片路径文件
+		
+		var imgurl="img_model/";
+		
+		//页面总数
+		var totalInfo=parseInt(result.length);
+		if(totalInfo%10!=0){
+			totalInfo=parseInt(totalInfo/10)+1;
+		}else{
+			totalInfo=parseInt(totalInfo/10);
+		}
+		var totalPage=$("#totalInfos");
+		totalPage.empty();
+		totalPage.append(totalInfo);
+		
+		//总数量
+		var alls=result.length;
+		var allModels=$("#allModel");
+		allModels.empty();
+		allModels.append(alls);
+		
+		var tbody=$("#treeTbody");
+		//清空tbody中的内容
+			tbody.empty();
+			var i=0;
+			var j=10;
+			if(j>alls){
+			j=alls;
+			}
+			
+		for(;i<j;i++){
+			var tdb=result[i].tdb.substr(result[i].tdb.lastIndexOf('/')+1);
+			var tr=$("<tr></tr>");
+			tr.append("<td>"+result[i].name+"</td>");
+			tr.append("<td><img alt=\"缩略图\" height=\"50\" width=\"50\" src=\"../../model/"+result[i].name+"/"+result[i].imgurl+"\"></td>");
+			tr.append("<td>"+tdb+"</td>");
+			tr.append("<td><a href=\"../../model/"+result[i].name+"/"+result[i].max+".zip\" style=\"color:blue\">"+result[i].max+"</a></td>");
+			tbody.append(tr);
+			}
+		}	
+
+//下一页
+		function upCurrent_clickShow(result){
+		//得到页面页数信息
+		var	pageCurrent_=$("#currentPage");
+		//图片路径文件
+		var imgurl="img_model/";
+			var totals=result.length;
+			//每页显示
+			var pageCurrent=parseInt($("#currentPage").text());
+			var totalPage_=parseInt($("#totalInfos").text());
+			var i=pageCurrent*10;
+			if(pageCurrent<totalPage_){
+				pageCurrent=parseInt(pageCurrent)+1;
+				pageCurrent_.empty();
+				pageCurrent_.append(pageCurrent);
+				var tbody=$("#treeTbody");
+		//清空tbody中的内容
+			tbody.empty();
+			var j=10;
+			if(result.length-i<10){
+				j=totals;
+			}else{
+			var j=pageCurrent*10;
+				
+			}
+		for(;i<j;i++){
+			var tdb=result[i].tdb.substr(result[i].tdb.lastIndexOf('/')+1);
+			var tr=$("<tr></tr>");
+			tr.append("<td>"+result[i].name+"</td>");
+			tr.append("<td><img alt=\"缩略图\" height=\"50\" width=\"50\" src=\"../../model/"+result[i].name+"/"+result[i].imgurl+"\"></td>");
+			tr.append("<td>"+tdb+"</td>");
+			tr.append("<td><a href=\"../../model/"+result[i].name+"/"+result[i].max+".zip\" style=\"color:blue\">"+result[i].max+"</a></td>");
+			tbody.append(tr);
+				
+			}
+			
+		}
+	}
+	
+//上一页
+	function downCurrent_clickShow(result){
+		//得到页面页数信息
+			var	pageCurrent_=$("#currentPage");
+			
+			//图片路径文件
+		
+		var imgurl="img_model/";
+		
+			var totals=result.length;
+			//每页显示
+			var pageCurrent=parseInt($("#currentPage").text());
+			var totalPage_=parseInt($("#totalInfos").text());
+			if(pageCurrent>1){
+				pageCurrent=parseInt(pageCurrent)-1;
+				pageCurrent_.empty();
+				pageCurrent_.append(pageCurrent);
+				var tbody=$("#treeTbody");
+		//清空tbody中的内容
+			tbody.empty();
+			var i=(pageCurrent-1)*10;
+			var j=10;
+			if(result.length-i<10){
+				j=totals;
+			}else{
+			var j=pageCurrent*10;
+				
+			}
+		for(;i<j;i++){
+			var tdb=result[i].tdb.substr(result[i].tdb.lastIndexOf('/')+1);
+			var tr=$("<tr></tr>");
+			tr.append("<td>"+result[i].name+"</td>");
+			tr.append("<td><img alt=\"缩略图\" height=\"50\" width=\"50\" src=\"../../model/"+result[i].name+"/"+result[i].imgurl+"\"></td>");
+			tr.append("<td>"+tdb+"</td>");
+			tr.append("<td><a href=\"../../model/"+result[i].name+"/"+result[i].max+".zip\" style=\"color:blue\">"+result[i].max+"</a></td>");
+			tbody.append(tr);
+				
+			}
+			
+		}
+	}
+	
+		function deleteTree(modelId){
+			var url_1="../../../ModelController/deleteModel.action"
+			var model_Id={m_id:modelId};
+			$.post(url_1,model_Id,function(result){
+				doGetObjects();
+			});
+		}
+   	 	</script>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			table{
+				border-collapse:collapse;
+				width:90%;
+			}
+			th{
+				background-color: #e0ecff;
+			}
+			table,td{
+				border:1px solid #95B8E7;
+			}
+			th,td{
+				padding-left:10px;
+				text-align: center;
+			}
+			.tableth{
+				padding-left:10px;
+			}
+			#bodydiv{
+				height:70px;
+			}
+			#bodydiv2{
+				margin-bottom:10px;
+			}
+			#bodydiv3{
+				margin-bottom:10px;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div id="bodydiv">	
+		</div>
+		<div id="bodydiv2">
+	  <button id="insertTree" class="insertTree" type="button">新增</button>
+		</div>
+		</div>
+		<table id="treeTable">
+			<thead>
+				<tr class="tableth">
+				<th id="subjectTreeName">模型名称</th>
+				<th id="treeId">缩略图</th>
+				<th id="treeType">tdb</th>
+				<th id="status">Max</th>
+			</tr>
+			</thead>
+			<tbody id="treeTbody">
+				
+			</tbody>
+		</table>
+		<div id="bodydiv3">
+		<a>当前页数：</a><a id="currentPage">1</a><a>
+		<a href="javascript:void(0);" onclick="downCurrent_click()">上一页</a>
+		<a href="javascript:void(0);" onclick="upCurrent_click()">下一页</a>
+		<a>总页数：</a><a id="totalInfos"></a>
+		<a>总数：</a><a id="allModel"></a>
+		</div>
+	</body>
+</html>

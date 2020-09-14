@@ -1,0 +1,173 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<link rel="stylesheet" href="../../js/layui/css/layui.css">
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/custom/jquery-1.8.3.min.js"></script>
+
+<script>
+var index = parent.layer.getFrameIndex(window.name);
+var	KnowledgeId1 =parent.layer.KnowledgeId;
+var treeId1 = parent.layer.treeId;
+var lei1 = parent.layer.lei;
+$(document).ready(function(){
+var str = GetRequest();
+		eval(str)
+		KnowledgeId1 = str.KnowledgeId
+		treeId1 = str.treeId
+		lei1 = str.lei
+		console.log(KnowledgeId1,treeId1,lei1)
+	//console.log(subid1,lei1)
+	
+})
+function GetRequest() {
+		var url = location.search; //获取url中"?"符后的字串  
+		var theRequest = new Object();
+		if (url.indexOf("?") != -1) {
+			var str = url.substr(1);
+			strs = str.split("&");
+			for (var i = 0; i < strs.length; i++) {
+				theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+			}
+		}
+		return theRequest;
+	}
+function saveFolder(name,sel){
+if(sel==null||sel==""){
+	alert("请选择类别！");
+		return
+	}
+	console.log(sel)
+	if(sel=="0"){
+	var str = "random=" + Math.random() + "&Content=" + name + "&id=" +KnowledgeId1 + "&lei=" +lei1 +"&subid=" + treeId1;
+	console.log(str)
+	 $.ajax({
+            type: "Post",
+            url: "../../../tdu-base/DevelopModelController/insModels.action",
+            data:str,
+            async: false,
+            success: function (data) {
+            
+           parent.layer.close(index);
+            
+           // $("#contentDiv").load('content/cz/caozuo.php');
+     //      document.getElementById('divShow').contentWindow.location.reload(true);
+            }
+        });
+        }else if(sel=="1"){
+        var File1 = $("#dir")[0].files;
+        if(File1.length==0){
+            alert("请选择文件夹上传！");
+            return
+        }
+        if(name==""){
+            alert("请输入标题！");
+            return
+        }
+        var data= new FormData;
+        data.append("KnowledgeId",KnowledgeId1);
+        data.append("name",name);
+        data.append("cusstyle","default");
+        data.append("treeId1",treeId1);
+        console.log(treeId1)
+        for(var i=0; i<File1.length;i++){
+            data.append('file', File1[i]);
+        }
+    	 $.ajax({
+            type: "Post",
+            url: "../../../tdu-base/DevelopModelController/AddModelsContentFile.action",
+            /*data:{ KnowledgeId: KnowledgeId1,
+                   name: name,
+                   "cusstyle":"",
+                   treeId:treeId1},*/
+             data:data,
+             contentType:false,
+             processData:false,
+            async: false,
+            success: function (data) {
+           parent.layer.close(index);
+           // $("#contentDiv").load('content/cz/caozuo.php');
+       //    document.getElementById('divShow').contentWindow.location.reload(true);
+            }
+        });
+    }
+	
+}
+</script>
+
+
+<div style="height:45px;font-size:32px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(0,0,0,1);
+line-height:45px;text-align: center;margin-top: 20px;margin-bottom: 20px;">新增文件夹
+</div>
+
+<div id="addNew" style="" class="form">
+
+    <form class="layui-form" action="" method="post" id="createdepform">
+        <!-- ../../ModelController/addModelOrView.action -->
+        <!--enctype="multipart/form-data"  -->
+        <div class="layui-form-item"
+             style="margin: 0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
+            <img src="../../img/三色—icon19.png" alt="">
+
+            <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
+                <select lay-filter="business" name="interest" lay-verify="required" data-ratio="true" id="testSelect">
+                    <option value="0">文件夹</option>
+                    <option value="1">模型</option>
+                </select>
+            </div>
+
+        </div>
+        <div id="file" class="layui-form-item" style="margin: 0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
+            <img src="../../img/三色—icon19.png" alt="">
+
+            <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
+                <input type="hidden" name="type" value="1"/>
+                <input id="dir" type="file" name="file" webkitdirectory mozdirectory style="width: auto"/>
+            </div>
+
+        </div>
+        <div class="item" style="margin:0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
+            <img src="../../img/三色—icon19备份.png" alt="">
+            <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
+                <input type="text" name="Name"  lay-verify="title" autocomplete="off" placeholder="请输入标题"
+                       class="layui-input" id="name">
+            </div>
+        </div>
+
+        <div style="text-align:center;margin: 0 auto;width: 25%;margin-top: 40px;margin-bottom: 20px;
+height:40px;
+background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+border-radius:36px;">
+            <a style="height:28px;
+font-size:20px;
+font-family:PingFangSC-Regular,PingFang SC;
+font-weight:400;
+color:rgba(255,255,255,1);
+line-height:40px;" class="add-btn ulib-r3" href="javascript:"
+               onclick="saveFolder($('input[name=Name]').val(),$('#testSelect option:selected') .val());">保存</a>
+        </div>
+    </form>
+
+</div>
+<script>
+
+    $("#file").hide();
+
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+        form.on('select(business)', function(data){
+            console.log(data.value);
+            if(data.value==0){
+                $("#file").hide();
+            }else if(data.value==1){
+                $("#file").show();
+            }
+        })
+    });
+</script>

@@ -1,0 +1,360 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+</head>
+<!--<link type="text/css" href="style.css" rel="stylesheet"/>-->
+<link rel="stylesheet" href="../../js/layui/css/layui.css">
+<!--<link href="../../model/Css.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="../../model/MyCss.css"/>
+<link rel="stylesheet" href="../../model/page.css"/>-->
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/custom/jquery-1.8.3.min.js"></script>
+<script src="../../js/api.js"></script>
+
+<script>
+    var index = parent.layer.getFrameIndex(window.name);
+    var subid1 = parent.layer.subid;
+    var lei1 = parent.layer.lei;
+    $(document).ready(function () {
+        var str = GetRequest();
+        eval(str)
+        subid1 = str.subid
+        lei1 = str.lei
+        console.log(subid1, lei1)
+
+    })
+
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+</script>
+<style>
+    .layui-table[lay-skin=row] {
+        border-top: 2px solid #2E3546;
+        border-width: 2px;
+        border-style: solid;
+        border-color: #2E3546;
+    }
+
+    .layui-table {
+        background: #3C4154;
+        color: white;
+    }
+
+    .layui-table thead tr {
+        background: #3C4154;
+        color: white;
+        border: 2px solid #2E3546;
+    }
+
+    .layui-table[lay-even] tr:nth-child(2n) {
+        background: #3C4154;
+        border: 2px solid #2E3546;
+    }
+
+    .layui-table th {
+        border-color: #2E3546;
+    }
+
+    .layui-table[lay-even] tr:nth-child(n) {
+        border-color: #2E3546;
+    }
+
+    .layui-input {
+        border-color: #3C4154;
+    }
+
+    .layui-input {
+        background: #3C4154;
+        color: white;
+    }
+
+    .layui-form-select dl {
+        border: 1px solid #3C4154;
+        background-color: #3C4154;
+        padding: 0;
+    }
+    .layui-input:hover, .layui-textarea:hover {
+        color: white;
+        border-color: #3C4154 !important
+    }
+
+    .layui-input:focus, .layui-textarea:focus {
+        color: white;
+        border-color: #3C4154 !important
+    }
+</style>
+
+<div id="addNew" style="margin:0 2%;width: 96%;" class="form">
+    <div>
+        <div class="layui-card" style="padding-top: 20px;">
+            <div class="layui-card-body">
+
+                <table class="layui-table" lay-even="" lay-skin="row">
+                    <colgroup>
+                        <col width="auto">
+                        <col width="auto">
+                        <col width="auto">
+                        <col>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>项目名称</th>
+                        <th>样式</th>
+                        <th>状态</th>
+                    </tr>
+                    </thead>
+                    <tbody id="test3">
+                    <tr>
+                        <td>
+                            <div class="layui-form">
+                            <div class="layui-form-item">
+                            <div class="layui-input-block" style="margin-left: 0px;">
+                                <input id="subjectTree" value="" type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+                            </div>
+                        </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="layui-form">
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block" style="margin-left: 0px;">
+                                        <select id="treeStyle" name="interest" lay-filter="aihao">
+                                            <option value="0">模型库</option>
+                                            <option value="1">场景库</option>
+                                            <option value="2">题库</option>
+                                            <option value="3">考试</option>
+                                            <option value="4">资源类</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+
+
+
+                            <div class="layui-form">
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block" style="margin-left: 0px;">
+                                        <select id="treeStatus" name="interest" lay-filter="aihao">
+                                        <option value="0">禁用</option>
+                                        <option value="1">启用</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+                <div id="test-laypage-demo20"></div>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: inline-block;text-align:center;margin: 0 12.5%;width: 25%;margin-top: 40px;margin-bottom: 20px;
+height:40px;
+background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+border-radius:5px;">
+        <a style="height:28px;
+font-size:20px;
+font-family:PingFangSC-Regular,PingFang SC;
+font-weight:400;
+color:rgba(255,255,255,1);
+line-height:40px;" class="add-btn ulib-r3" href="javascript:"
+           onclick="submitTree()">保存</a>
+    </div>
+
+
+    <div style="display: inline-block;text-align:center;margin: 0 auto;width: 25%;margin-top: 40px;margin-bottom: 20px;
+height:40px;
+background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+border-radius:5px;">
+        <a style="height:28px;
+font-size:20px;
+font-family:PingFangSC-Regular,PingFang SC;
+font-weight:400;
+color:rgba(255,255,255,1);
+line-height:40px;" class="add-btn ulib-r3" href="javascript:" onclick="back()">返回</a>
+    </div>
+</div>
+<script>
+
+    var subjectKey = "ff75ffcf-8aca-4e0f-874c-70d20f21ade0";
+
+    var index = parent.layer.getFrameIndex(window.name);
+    var treeid = parent.layer.treeid;
+    $(document).ready(function () {
+        /*var str = GetRequest();
+        eval(str)
+        treeid = str.treeid*/
+
+    })
+
+
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+
+
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element','form'], function () {
+        var laydate = layui.laydate //日期
+            , laypage = layui.laypage //分页
+            , layer = layui.layer //弹层
+            , table = layui.table //表格
+            , carousel = layui.carousel //轮播
+            , upload = layui.upload //上传
+            , element = layui.element //元素操作
+            , form = layui.form;
+
+
+        //监听工具条
+        table.on('tool(test-table-operate)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                layer.msg('ID：' + data.id + ' 的查看操作');
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                layer.alert('编辑行：<br>' + JSON.stringify(data))
+            }
+        });
+
+
+        //将一段数组分页展示
+
+        //测试数据
+        var testLayPageData = [
+            '北京',
+            '上海',
+            '广州'
+        ];
+
+
+        /*$.ajax({
+            type: "POST",
+            url: houtaiurl + "CourseTreeController/getTreeSourse.action?treeid=" + treeid,
+            async: false,
+            success: function (data) {
+                testLayPageData = data;
+
+                var state = ""
+
+                if (data.status == 0) {
+                    state = "启用";
+                } else {
+                    state = "禁用";
+                }
+                var html = '<tr><td>' +
+                    '<div class="layui-form"><div class="layui-form-item"><div class="layui-input-block" style="margin-left: 0px;"><input id="subjectTree" value="' +
+                    '' + data.treeName + '' +
+                    '"type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input"></div></div></div>'+
+                    /!*'' + data.treeName + '' +*!/
+                    '</td><td >' +
+
+                    '<div class="layui-form"><div class="layui-form-item"><div class="layui-input-block" style="margin-left: 0px;"><select id="treeStyle" name="interest" lay-filter="aihao">';
+                if(data.style=="1"){
+                    html+='<option value="1" selected="selected">1</option>'+
+                        '<option value="2">2</option>'+
+                        '<option value="3">3</option>'+
+                        '<option value="4">4</option>'
+                }else if(data.style=="2"){
+                    html+='<option value="1">1</option>'+
+                        '<option value="2" selected="selected">2</option>'+
+                        '<option value="3">3</option>'+
+                        '<option value="4">4</option>'
+                }
+                else if(data.style=="3"){
+                    html+='<option value="1">1</option>'+
+                        '<option value="2">2</option>'+
+                        '<option value="3" selected="selected">3</option>'+
+                        '<option value="4">4</option>'
+                }
+                else if(data.style=="4"){
+                    html+='<option value="1">1</option>'+
+                        '<option value="2">2</option>'+
+                        '<option value="3">3</option>'+
+                        '<option value="4" selected="selected">4</option>'
+                }
+
+                html +='</select></div></div></div></td><td> <div class="layui-form"> <div class="layui-form-item"> <div class="layui-input-block" style="margin-left: 0px;"> <select id="treeStatus" name="interest" lay-filter="aihao">';
+                if (data.status =="0") {
+                    console.log("0")
+                    html += '<option value="0" selected="selected">启用</option><option value="1" >禁用</option>';
+                } else if(data.status =="1"){
+                    console.log("1")
+                    html += '<option value="0" >启用</option><option value="1" selected="selected">禁用</option>';
+                }
+                html += '</select> </div> </div> </div> </td></tr>';
+                //document.getElementById('test3').innerHTML = html;
+                $("#test3").html(html)
+
+                form.render();
+            }
+        });*/
+
+
+        //监听提交
+        /*form.on('submit(formDemo)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });*/
+    });
+
+    //提交添加科目树
+    function submitTree(){
+        var subjectTree1=$("#subjectTree").val();
+        var treeStyle1=$("#treeStyle").val();
+        var treeStatus1=$("#treeStatus").val();
+        var subjectid=$('.choosesub',parent.parent.document)[0].id;//$(window.parent.document).find("#subject").val();
+            $.ajax({
+                url:houtaiurl+"CourseTreeController/submitTree.action",
+                type:"POST",
+                data:{ subjectId:subjectid,subjectTree:subjectTree1,treeStyle:treeStyle1,treeStatus:treeStatus1},
+                success:function(res){
+                    window.parent.location.reload();
+                    var index1 = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index1);
+                }
+            });
+
+    }
+    function back() {
+        window.parent.location.reload();
+        var index1 = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index1);
+    }
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+</script>

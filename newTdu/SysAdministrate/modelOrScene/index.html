@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>功能演示2 - 通用分页组件</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../css/content/bootstrap.css" />
+    <link rel="stylesheet" href="../../css/content/Site.css" />
+    <link rel="stylesheet" href="../../css/content/MyCss.css" />
+    <link rel="stylesheet" href="../../css/content/FileLoadCss/jquery.fileupload.css" />
+    <link rel="stylesheet" href="../../css/content/FileLoadCss/jquery.fileupload-noscript.css" />
+    <link rel="stylesheet" href="../../css/content/FileLoadCss/jquery.fileupload-ui-noscript.css" />
+    <link rel="stylesheet" href="../../css/content/FileLoadCss/jquery.fileupload-ui.css" />
+    <link rel="stylesheet" href="../../css/content/zTreeCSS/zTreeStyle/zTreeStyle.css" />
+
+    <link rel="stylesheet" href="zTreeCSS/demo.css" />
+    <link rel="stylesheet"   href="../../css/content/kindeditor-4.1.10/themes/default/default.css" />
+
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/themes/color.css" />
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../model/css/zTreeStyle.css" />
+
+
+
+    <script charset="utf-8" src="../../css/content/jquery-1.10.2.js"></script>
+    <script charset="utf-8" src="../../css/content/kindeditor-4.1.10/kindeditor.js"></script>
+    <script charset="utf-8" src="../../css/content/kindeditor-4.1.10/lang/zh_CN.js"></script>
+    <script type="text/javascript" src="../../css/content/PublicPoolName.js"></script>
+    <script src="../../css/content/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../css/content/ztree/js/jquery.ztree.all.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../../css/content/JPlayer/js/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="../../css/content/JPlayer/js/jquery.grab.js"></script>
+    <script type="text/javascript" src="../../css/content/JPlayer/js/mod.csstransforms.min.js"></script>
+    <script type="text/javascript" src="../../css/content/JPlayer/js/circle.player.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="../../css/content/JPlayer/skin/pink.flag/jplayer.pink.flag.css" />
+    <link type="text/css" rel="stylesheet" href="../../css/content/JPlayer/skin/circle.skin/circle.player.css" />
+    <script type="text/javascript" src="../../css/content/MyHtmlEditor.js"></script>
+    <script type="text/javascript" src="../../css/content/JqPlugin.js"></script>
+    <script src="../../css/content/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../js/api.js"></script>
+    <script src="tree.js"></script>
+    <!--<script src="addModelOrSceneContent.js"></script>-->
+
+    <style type="text/css">
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: rgba(60, 65, 84, 1);
+        }
+        body {
+            padding-top: 0px;
+            font-size: 16px;
+        }
+
+        ul.ztree {
+            height: 280px;
+            width: 200%;
+            margin-top: 0px;
+            margin-left:-40%;
+        }
+        ul.ztreeQuestion {
+            right :750px;
+            bottom:220px;
+            height: 300px;
+            width: 40%;
+            float:right;
+            margin-top: -280px;
+            margin-left:20%;
+        }
+        .custom-table {
+            border-top: 2px solid #2E3546;
+            border-left: 2px solid #2E3546;
+            width: 100%;
+        }
+
+        .custom-table thead th {
+            background-color: #3C4154;
+            text-align: center;
+        }
+
+        .custom-table th, .custom-table td {
+            border-bottom: 2px solid #2E3546;
+            border-right: 2px solid #2E3546;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .custom-table td input[type='text'] {
+            width: 100%;
+        }
+
+        #sourcelist td a:first-child {
+            border-right: 1px solid #000;
+            padding: 3px 10px;
+        }
+
+        #sourcelist td a:not(:first-child) {
+            padding: 3px 10px;
+        }
+
+        #sourcepreview a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        #sourcepreview a:active, a:hover {
+            background-color: #0c99f2;
+            color: #fff;
+        }
+
+        .custom-list {
+            border: 1px solid #AAA;
+            overflow: scroll;
+            padding: 0px;
+            height: 280px;
+            width:125%;
+            max-height: 280px;
+            margin-left:-40px;
+        }
+
+        .custom-list ul {
+            list-style: none outside none;
+        }
+
+        .custom-list ul li:not(.listhead) {
+            border-bottom: 1px solid #ddd;
+            list-style: none outside none;
+            font-size: 16px;
+            padding: 2px 5px;
+        }
+
+        .listhead {
+            border-bottom: 1px solid #ddd;
+            list-style: none outside none;
+            font-size: 16px;
+        }
+
+        .listhead span {
+            border: 1px solid #aaa;
+            padding: 5px 10%;
+        }
+
+
+        .tdqt-navpanel {
+            margin: 15px 15px 0 15px;
+            background-color: #3C4154;
+            border: #3C4154 1px solid;
+        }
+
+        .tdqt-tab-holder {
+            height: 46px;
+            margin: -1px 0 0 -1px;
+            border-bottom: #2E3546 4px solid;
+            text-align: left;
+        }
+
+        .tdqt-tab-holder ul li {
+            float: left;
+            word-wrap: normal;
+            list-style: none;
+        }
+
+        .tdqt-tab-holder ul li a {
+            display: inline-block;
+            margin: 0;
+            padding: 9px 12px;
+            font-size: 1.4em;
+            color: white;
+            text-decoration: none;
+        }
+
+        .tdqt-tab-holder ul li a:hover {
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            text-decoration: none;
+            color: white;
+        }
+
+        .tdqt-tab-holder ul li a.active, .tdqt-tab-holder ul li a.active:hover {
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-bottom: none;
+            color: #fff;
+        }
+
+        a:focus, input:focus {
+            -moz-outline-style: none;
+            outline-style: none;
+        }
+
+        .well {
+            margin: 0 0 20px;
+            padding: 13px;
+        }
+
+        .form-horizontal{
+            width:80% ;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+
+        /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+        ::-webkit-scrollbar
+        {
+            width: 10px;
+            height: 8px;
+            background-color: #3C4154;
+        }
+
+        /*定义滚动条轨道 内阴影+圆角*/
+        ::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+        }
+
+        /*定义滑块 内阴影+圆角*/
+        ::-webkit-scrollbar-thumb
+        {
+            border-radius: 25px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #555;
+        }
+        .btn-primary{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+        }
+
+        .panel-body {
+            background-color: #2E3546;
+            color: white;
+            font-size: 100%;
+        }
+        .tabs-header, .tabs-tool {
+            background-color: #2E3546;
+        }
+        .tabs-header{
+            border-color: #2E3546;
+        }
+        .tabs-panels{
+            border-color: #2E3546;
+        }
+        .tabs{
+            border-bottom-color:#2E3546 ;
+        }
+        .tabs-first{
+            background-color: #3C4154;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height:auto">
+
+
+    <div class="row-fluid" style="margin-top:30px;height: 600px;">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-1" for="sourcetree" style="color: white">资源树</label>
+                <div class="col-md-10">
+                    <select id="sourcetree" name="sourcetree" class="form-control" style=" max-width: 100%;">
+
+
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-5 col-xs-5 col-lg-offset-2 col-md-offset-1 col-sm-offset-0 col-xs-offset-0" style="height: 420px;width:40%;margin-left: 25%">
+            <input type="button" value="新增目录" class="btn btn-primary" style="width: 30%;margin:10px 0 30px 0;float:left" id="addKnowledge" />
+            <input type="button" value="发布更新" class="btn btn-primary" style="width: 30%;;margin:10px 0 30px 0;float:right" id="updateJS" />
+
+            <ul id="treeDemo" class="ztree"></ul>
+            <input hidden type="button" class="" id="addcontent" value="" />
+        </div>
+        <div style="clear: both;"></div>
+
+        <div style="width: 100%;background:rgba(52,57,76,1);height:100%;position: relative">
+            <div id="tt" class="easyui-tabs" style="width:100%;height:100%"></div>
+
+
+        </div>
+    </div>
+
+    <input hidden id="saveTreeNode" />
+    <input hidden id="prevsourceid" />
+    <a id="userId" style="display: none" ></a>
+
+    <input hidden id="rootid" />
+
+
+</div>
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script type="text/javascript">
+    function Closemydlgmaterial() {
+        $("#dlgmaterial").html("");
+        $("#dlgmaterial").dialog('close');
+    }
+    function Closemydlg3() {
+        $("#dlgmaterial").html("");
+    }
+    function Closemydlgbeforsetting() {
+        $("#dlgbeforsetting").html("");
+        $("#dlgbeforsetting").dialog('close');
+    }
+    function Closemydlg4() {
+        $("#dlgbeforsetting").html("");
+    }
+
+    layui.config({
+        base: '../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'table','element'], function(){
+        var admin = layui.admin
+            ,element = layui.element
+            ,table = layui.table;
+    });
+</script>
+</body>

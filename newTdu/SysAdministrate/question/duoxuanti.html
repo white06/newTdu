@@ -1,0 +1,143 @@
+<meta charset="UTF-8">
+<script src="../../js/layer/layer.js"></script>
+<script src="../../js/api.js"></script>
+<style type="text/css">
+.nanduDiv{
+	width:33%;float:left;
+}
+label{float:left;}
+</style>
+<div style="width:99%;height:90%;background:white;">
+<div id="tianjiakuang" style="text-align: center;width:100%;height:100%;margin-left:auto;margin-right:auto;background-color:white;border:1px solid white;padding:5px;overflow:auto;">
+		<div id="shuxing" style="width:600px;display:block;float:left;font-size:1.2em;height:100px;">
+	<span style="display:block;width:100px;float:left;height:50px;line-height:50px;text-align:center">试题难度:</span>
+	<div style="width:500px;float:left;height:50px;line-height:50px;">
+		<div class="nanduDiv">
+			<label><input type="radio" class="nandu" name="nandu" checked="checked" value="简单" />简单</label>
+		</div>
+		<div class="nanduDiv">
+			<label><input type="radio" class="nandu" name="nandu" value="普通" />普通</label>
+			
+		</div>
+		<div class="nanduDiv">
+			<label><input type="radio" class="nandu" name="nandu" value="困难" />困难</label>
+			
+		</div>
+		
+	
+	</div>
+	
+	<div style="width:600px;float:left;clear:both;height:50px">
+		<span style="display:block;width:100px;float:left;height:50px;line-height:50px;text-align:center">试题分数:</span>
+		
+		<input type="number" id="fenshu" value="5" style="width:80px;float:left;height:30px;line-height:30px;margin-top:10px;text-align:center;"/>					
+		<span style="display:block;width:20px;float:left;height:50px;line-height:50px;">分</span>
+		<input type="button" onclick="showNum()" value="增加选项和答案" style="width:130px;height:50px;text-align:center;line-height:50px;border:0;background:#4d637b;color:white;font-size:100%;">
+		
+		</div>
+	</div>
+
+<div style="width: 98%;height:80px;margin:0 auto;margin-top:20px;float:left;clear:both;">
+	<span style="float: left;display:block;width:100px;font-size:1.2em" >题&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;干:</span>
+	<textarea id="tigan" style="resize: none;float: left;height:80px;max-height:80px;width:80%;max-width:980px" ></textarea>
+	<input class="uptupian" type="file" id="tu0" name="customfile" style="float: left;width:100px;display:none" />
+		<input type="text" id="tu0_id" hidden>
+		
+		
+</div>
+<div style="width: 600px;height:80px;margin:0 auto;margin-top:20px;float:left;clear:both;">
+	<span style="float: left;display:block;width:100px;font-size:1.2em" >选&nbsp;&nbsp;&nbsp;&nbsp;项A:</span>
+	<textarea type="text" id="xuanxiang1" required="required" style="resize: none;float: left;height:80px;max-height:80px;width:380px;max-width:380px" ></textarea>				
+	<input hidden class="uptupian" type="file" id="tu1" name="customfile" style="float: left;width:100px;display:none" />
+	<input type="text" id="tu1_id" style="display: none;">
+</div>
+<div>
+	<img hidden width="50px" height="50px" id="tu1_img" src="">
+</div>
+<div style="width: 600px;height:80px;margin:0 auto;margin-top:20px;float:left;">
+	<span style="float: left;display:block;width:100px;font-size:1.2em" >选&nbsp;&nbsp;&nbsp;&nbsp;项B:</span>				
+	<textarea type="text" id="xuanxiang2" required="required" style="resize: none;float: left;height:80px;max-height:80px;width:380px;max-width:380px" ></textarea>		
+	<input hidden class="uptupian" type="file" id="tu2" name="customfile" style="float: left;width:100px;display:none" />
+	<input type="text" id="tu2_id" style="display: none;">
+</div>
+<div>
+	<img hidden width="50px" height="50px" id="tu2_img" src="">
+</div>
+<div style="width: 600px;height:80px;margin:0 auto;margin-top:20px;float:left;clear:both;">
+	<span style="float: left;display:block;width:100px;font-size:1.2em" >选&nbsp;&nbsp;&nbsp;&nbsp;项C</span>
+	<textarea type="text" id="xuanxiang3" required="required" style="resize: none;float: left;height:80px;max-height:80px;width:380px;max-width:380px" ></textarea>		
+	<input hidden class="uptupian" type="file" id="tu3" name="customfile" style="float: left;width:100px;display:none" />
+	<input type="text" id="tu3_id" style="display: none;">
+</div>
+<div>
+	<img hidden width="50px" height="50px" id="tu3_img" src="">
+</div>
+<div style="width: 600px;height:80px;margin:0 auto;margin-top:20px;float:left;">
+	<span style="float: left;display:block;width:100px;font-size:1.2em" >选&nbsp;&nbsp;&nbsp;&nbsp;项D:</span>
+	<textarea type="text" id="xuanxiang4" required style="resize: none;float: left;height:80px;max-height:80px;width:380px;max-width:380px" ></textarea>		
+	<input hidden class="uptupian" type="file" id="tu4" name="customfile" style="float: left;width:100px;display:none" />
+	<input type="text" id="tu4_id" style="display: none;">
+</div>
+<div class="E" style="width: 600px;height:80px;margin:0 auto;margin-top:20px;float:left;" hidden>
+	<span style="float: left;display:block;width:100px;font-size:1.2em" >选&nbsp;&nbsp;&nbsp;&nbsp;项E:</span>
+	<textarea type="text" id="xuanxiang5" style="resize: none;float: left;height:80px;max-height:80px;width:380px;max-width:380px" ></textarea>		
+	<input hidden class="uptupian" type="file" id="tu4" name="customfile" style="float: left;width:100px;display:none" />
+	<input type="text" id="tu5_id" style="display: none;">
+</div>
+<div class="F" style="width: 600px;height:80px;margin:0 auto;margin-top:20px;float:left;" hidden>
+	<span style="float: left;display:block;width:100px;font-size:1.2em" >选&nbsp;&nbsp;&nbsp;&nbsp;项F:</span>
+	<textarea type="text" id="xuanxiang6" style="resize: none;float: left;height:80px;max-height:80px;width:380px;max-width:380px" ></textarea>		
+	<input hidden class="uptupian" type="file" id="tu4" name="customfile" style="float: left;width:100px;display:none" />
+	<input type="text" id="tu6_id" style="display: none;">
+	</div>
+
+
+<div style="width:90%;height:50px;margin:0 auto;margin-top:20px;float:left;clear:both">
+	<span style="float: left;display:block;width:100px;font-size:1.2em" >答&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;案:</span>	
+	<div style="width: auto;height:50px;float:left;">
+		<div style="width:auto;height:50px;float:left;">
+			<label><input type="checkbox" class="daan" name="daan" value="A" />&nbsp;&nbsp;A&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		</div>	
+		<div style="width:auto;height:50px;float:left;">
+			<label><input type="checkbox" class="daan" name="daan" value="B" />&nbsp;&nbsp;B&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		</div>	
+		<div style="width:auto;height:50px;float:left;">
+			<label><input type="checkbox" class="daan" name="daan" value="C" />&nbsp;&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		</div>	
+		<div style="width:auto;height:50px;float:left;">
+			<label><input type="checkbox" class="daan" name="daan" value="D" />&nbsp;&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		</div>	
+		<div class="E" style="width:auto;height:50px;float:left;" hidden>
+			<label><input type="checkbox" class="daan" name="daan" value="E" />&nbsp;&nbsp;E&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		</div>
+		<div class="F" style="width:auto;height:50px;float:left;" hidden>
+				<label><input type="checkbox" class="daan" name="daan" value="F" />&nbsp;&nbsp;F&nbsp;&nbsp;&nbsp;&nbsp;</label>
+			</div>						
+		</div>
+		
+</div>
+
+
+
+<input id="buttonNum" type="text" style="display: none" value="0">
+<div style="width: 98%;height:80px;margin:0 auto;margin-top:20px;float:left;clear:both">
+	<span style="float: left;display:block;width:100px;font-size:1.2em" >解&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;析:</span>			
+	<textarea type="text" id="jiexi" style="resize: none;float: left;height:80px;max-height:80px;width:80%;max-width:980px" ></textarea>
+	
+</div>
+<div style="width: 98%;height:50px;margin-top:20px;float:left;clear:both">
+	<input id="tijiao" type="button" value="提交" onclick="zuhe('多选题')" style="width:150px;height:50px;text-align:center;line-height:50px;border:0;background:#4d637b;color:white;font-size:100%;" />
+</div>
+<input id="switchId" type="text" style="display: none"/>
+</div>
+</div>
+<script type="text/javascript" src="../scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="../scripts/newExamAdd.js"></script>
+<script>
+$(function(){
+	//绑定所有name=customfile的input进行change事件
+	$("input[name=customfile]").on("change",function(){
+		upfile($(this));
+	});
+})
+</script>

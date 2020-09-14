@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://xiangyuecn.github.io/Recorder/recorder.mp3.min.js"></script>
+</head>
+<body>
+<input type="button" onclick="startRec()" value="开始录音">
+<hr>
+<input type="button" onclick="playRec()" value="结束并播放">
+<input type="button" onclick="uploadRec()" value="结束并上传">
+
+<script>
+    var rec;
+    function startRec(){
+        rec=Recorder();//使用默认配置，mp3格式
+
+        //打开麦克风授权获得相关资源
+        rec.open(function(){
+            //开始录音
+            rec.start();
+        },function(msg,isUserNotAllow){
+            //用户拒绝了权限或浏览器不支持
+            alert((isUserNotAllow?"用户拒绝了权限，":"")+"无法录音:"+msg);
+        });
+    };
+</script>
+</body>
+</html>

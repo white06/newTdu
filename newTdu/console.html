@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="js/layui/css/layui.css"/>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/layui/layui.js"></script>
+    <style>
+        .layui-inline{
+            width: 100%;
+        }
+        /*.layui-laydate {
+            border: 0px solid #d2d2d2;
+        }
+        .layui-laydate-header {
+            border-bottom: 0px solid #e2e2e2;
+        }*/
+        .layui-laydate, .layui-laydate-hint{
+            width: 100%;
+        }
+        .layui-laydate-main{
+            width: 100%;
+        }
+        .layui-laydate-content table{
+            width: 100%;
+        }
+        .test-laydate-theme-box{
+            height: 100%;
+        }
+        #test-laydate-static-n1{
+            height: 100%;
+        }
+        #layui-laydate1{
+            height: 100%;
+        }
+        .layui-laydate-header{
+            height: 12%;
+        }
+        .layui-laydate-content{
+            height: 88%;
+        }
+        table{
+            height: 100%;
+        }
+        thead{
+            height: 10%;
+        }
+        tbody{
+            height: 90%;
+        }
+        #all ul li{
+            list-style-type: disc;
+        }
+        body{
+            margin: 0 0;
+        }
+    </style>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/api.js"></script>
+</head>
+<body style="width: 100%;background:rgba(60,65,84,1);">
+<div style="width: 100%;height: 100%;position: absolute">
+<div style="width: 100%;height: 41%;margin-top: 1%">
+    <div  style="background: white;width: 18%;margin-left: 2%;display: inline-block;height: 100%;position: relative;box-shadow:0px 2px 17px 0px rgba(124,2,244,0.04);
+border-radius:11px;">
+        <div id="pie" style="width: 100%;height: 70%"></div>
+        <div style="width: 100%;height: auto;position: absolute;bottom: 20px">
+            <div style="display: inline-block;width: 32%;text-align: center">
+                <p style="margin: 0 0;font-size:3px;font-weight:400;color:rgba(153,153,153,1);line-height:13px;">上月走势</p>
+                <p id="preMonth" style="margin: 0 0;font-size:27px;font-family:DINAlternate-Bold,DINAlternate;font-weight:bold;color:rgba(102,102,102,1);line-height:32px;">259</p>
+                <p style="margin: 0 0"><img src="image/组 1.png" height="31" width="51"/></p>
+            </div>
+            <div style="display: inline-block;width: 32%;text-align: center">
+                <p style="margin: 0 0;font-size:3px;font-weight:400;color:rgba(153,153,153,1);line-height:13px;">本月走势</p>
+                <p id="month" style="margin: 0 0;font-size:27px;font-family:DINAlternate-Bold,DINAlternate;font-weight:bold;color:rgba(102,102,102,1);line-height:32px;">316</p>
+                <p style="margin: 0 0"><img src="image/组 2.png" height="31" width="51"/></p>
+            </div>
+            <div style="display: inline-block;width: 32%;text-align: center">
+                <p style="margin: 0 0;font-size:3px;font-weight:400;color:rgba(153,153,153,1);line-height:13px;">当天走势</p>
+                <p id="day" style="margin: 0 0;font-size:27px;font-family:DINAlternate-Bold,DINAlternate;font-weight:bold;color:rgba(102,102,102,1);line-height:32px;">417</p>
+                <p style="margin: 0 0"><img src="image/组 3.png" height="31" width="51"/></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="line" style="background: white;width: 45%;margin-left: 2%;display: inline-block;height: 100%;box-shadow:0px 2px 17px 0px rgba(124,2,244,0.04);
+border-radius:11px;"></div>
+
+    <div id="bar" style="background:linear-gradient(180deg,rgba(92,205,177,1) 0%,rgba(89,208,207,1) 100%);width: 22%;margin-left: 2%;display: inline-block;height: 100%;box-shadow:0px 2px 17px 0px rgba(124,2,244,0.04);
+border-radius:11px;"></div>
+</div>
+
+<div style="width: 100%;height: 52%;margin-top: 2%">
+
+
+    <div id="bar-y" style="background-color: white;width: 18%;margin-left: 2%;display: inline-block;height: 100%;box-shadow:0px 2px 17px 0px rgba(124,2,244,0.04);border-radius:11px;"></div>
+
+
+    <div id="data" style="width: 22%;margin-left: 2%;display: inline-block;height: 100%;box-shadow:0px 2px 17px 0px rgba(124,2,244,0.04);border-radius:11px;">
+        <div class="layui-col-md12" style="height: 100%;box-shadow:0px 2px 17px 0px rgba(124,2,244,0.04);border-radius:11px;">
+            <div class="layui-card" style="height: 100%;box-shadow:0px 2px 17px 0px rgba(124,2,244,0.04);border-radius:11px;">
+                <div class="layui-card-header" style="height: 10%;font-size: 1.125rem;;font-family:PingFangSC-Regular,PingFang SC;font-weight:700;color:rgba(102,102,102,1);">时间准数</div>
+                <div class="layui-card-body" style="height: 90%;padding: 0px 0px;">
+                    <div class="test-laydate-theme-box">
+                        <div class="layui-inline" id="test-laydate-static-n1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="all" style="position: relative;background-color: white;width: 45%;margin-left: 2%;display: inline-block;height: 100%;box-shadow:0px 2px 17px 0px rgba(124,2,244,0.04);border-radius:11px;">
+        <div class="layui-card-header" style="padding-left: 2%;width: auto;position: absolute;height: 10%;font-size:1.125rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:700;color:rgba(102,102,102,1);">平台数据统计</div>
+        <div style="position: absolute;height:20%;top: 10%;text-align: center;padding-left: 2%">
+            <p id="count" style="font-size:2.875rem;font-family:DINAlternate-Bold,DINAlternate;font-weight:bold;color:rgba(30,200,192,1);line-height:53px;letter-spacing:3px;">5,081.70</p>
+            <!--<p style="font-size:0.6875rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(102,102,102,1);line-height:16px;">奢侈品和珠宝首饰占比60%</p>-->
+        </div>
+        <div style="position: absolute;top: 30%;width: 100%;height: 70%;vertical-align:middle;">
+            <ul style="width: 93%;height: 100%;margin-left: 7%" id="kno">
+                <li style="width: 100%;height: 25%;color:#FFA84F;line-height: 70px;">
+                    <div style="display: inline-block;width: 40%;height: auto;vertical-align: middle">
+                        <p style="font-size:1.0625rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(30,200,192,1);line-height:24px;">虚拟拆装</p>
+                        <p style="font-size:0.5625rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(102,102,102,1);line-height:13px;">2019.12.08</p>
+                    </div>
+                    <div style="display: inline-block;width: 30%;height: auto;vertical-align: middle">
+                        <p style="font-size:0.6875rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(102,102,102,1);line-height:16px;">基础改建</p>
+                    </div>
+                    <div style="display: inline-block;width: 25%;height: auto;vertical-align: middle">
+                        <button type="button" style="margin-left: 30%;background:linear-gradient(270deg,rgba(92,205,177,1) 0%,rgba(89,208,207,1) 100%);
+border-radius:15px;width:68px;" class="layui-btn layui-btn-primary layui-btn-sm"><span style="font-size:0.6875rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);line-height:16px;">收支</span></button>
+                    </div>
+                </li>
+                <li style="width: 100%;height: 25%;color:#FFA84F;line-height: 70px;">
+                    <div style="display: inline-block;width: 40%;height: auto;vertical-align: middle">
+                        <p style="font-size:1.0625rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(30,200,192,1);line-height:24px;">虚拟拆装</p>
+                        <p style="font-size:0.5625rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(102,102,102,1);line-height:13px;">2019.12.08</p>
+                    </div>
+                    <div style="display: inline-block;width: 30%;height: auto;vertical-align: middle">
+                        <p style="font-size:0.6875rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(102,102,102,1);line-height:16px;">基础改建</p>
+                    </div>
+                    <div style="display: inline-block;width: 25%;height: auto;vertical-align: middle">
+                        <button type="button" style="margin-left: 30%;background:linear-gradient(270deg,rgba(92,205,177,1) 0%,rgba(89,208,207,1) 100%);
+border-radius:15px;width:68px;" class="layui-btn layui-btn-primary layui-btn-sm"><span style="font-size:0.6875rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);line-height:16px;">收支</span></button>
+                    </div>
+                </li>
+                <li style="width: 100%;height: 25%;color:#FFA84F;line-height: 70px;">
+                    <div style="display: inline-block;width: 40%;height: auto;vertical-align: middle">
+                        <p style="font-size:1.0625rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(30,200,192,1);line-height:24px;">虚拟拆装</p>
+                        <p style="font-size:0.5625rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(102,102,102,1);line-height:13px;">2019.12.08</p>
+                    </div>
+                    <div style="display: inline-block;width: 30%;height: auto;vertical-align: middle">
+                        <p style="font-size:0.6875rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(102,102,102,1);line-height:16px;">基础改建</p>
+                    </div>
+                    <div style="display: inline-block;width: 25%;height: auto;vertical-align: middle">
+                        <button type="button" style="margin-left: 30%;background:linear-gradient(270deg,rgba(92,205,177,1) 0%,rgba(89,208,207,1) 100%);
+border-radius:15px;width:68px;" class="layui-btn layui-btn-primary layui-btn-sm"><span style="font-size:0.6875rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);line-height:16px;">收支</span></button>
+                    </div>
+                </li>
+                <li style="width: 100%;height: 25%;color:#FFA84F;line-height: 70px;">
+                    <div style="display: inline-block;width: 40%;height: auto;vertical-align: middle">
+                        <p style="font-size:1.0625rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(30,200,192,1);line-height:24px;">虚拟拆装</p>
+                        <p style="font-size:0.5625rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(102,102,102,1);line-height:13px;">2019.12.08</p>
+                    </div>
+                    <div style="display: inline-block;width: 30%;height: auto;vertical-align: middle">
+                        <p style="font-size:0.6875rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(102,102,102,1);line-height:16px;">基础改建</p>
+                    </div>
+                    <div style="display: inline-block;width: 25%;height: auto;vertical-align: middle">
+                        <button type="button" style="margin-left: 30%;background:linear-gradient(270deg,rgba(92,205,177,1) 0%,rgba(89,208,207,1) 100%);
+border-radius:15px;width:68px;" class="layui-btn layui-btn-primary layui-btn-sm"><span style="font-size:0.6875rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);line-height:16px;">收支</span></button>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <div id="small-line" style="height: 27%;width: 50%;position: absolute;right: 5%;top: 3%;">
+
+
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script>
+    $(function() {
+        getUserOnLine();
+        getMonthInYear();
+        getHalfYear();
+        getHalfYearUser();
+        var  subid = $("#subjectId").val();
+        getSubject(subid);
+        console.log(arr);
+        var html="";
+        var all=0;
+        if(arr.length>1){
+            var count =300
+            for(var i=0;i<arr.length;i++){
+                if(i<4){
+                    all = all+count
+                html+='<li style="width: 100%;height: 25%;color:#FFA84F;line-height: 70px;"><div style="display: inline-block;width: 40%;height: auto;vertical-align: middle"> <p style="font-size:1.0625rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(30,200,192,1);line-height:24px;">' +
+                    ''+arr[i].customname+'' +
+                    '</p> <p style="font-size:0.5625rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(102,102,102,1);line-height:13px;">2020.04</p> </div> <div style="display: inline-block;width: 30%;height: auto;vertical-align: middle"> <p style="font-size:0.6875rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(102,102,102,1);line-height:16px;">' +
+                    '访问量：'+count+'' +
+                    '</p> </div> <div style="display: inline-block;width: 25%;height: auto;vertical-align: middle"> <button type="button" style="margin-left: 30%;background:linear-gradient(270deg,rgba(92,205,177,1) 0%,rgba(89,208,207,1) 100%);border-radius:15px;width:68px;" class="layui-btn layui-btn-primary layui-btn-sm"><span style="font-size:0.6875rem;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);line-height:16px;">收支</span></button> </div> </li>';
+                    count=count+20
+                }
+                }
+            $("#kno").html(html);
+            $("#count").text(all);
+        }
+
+        console.log(all)
+    });
+
+    function getSubject(subid) {
+        $.ajax({
+            type:"POST",
+            url:secondeurl+"SubjectController/getSubject.action?id="+subid,
+            async: false,
+            success:function(data){
+                console.log(data.id);
+                getSubjectTree(data.id)
+            }
+        })
+    }
+    function getSubjectTree(subjectKey) {
+        $.ajax({
+            type:"POST",
+            url:secondeurl+"SubjectTreeController/GetSubjectTree.action?SubjectKey="+subjectKey,
+            async: false,
+            success:function(data){
+                console.log(data);
+                for(var i=0;i<data.length;i++){
+                    getKno(data[i].id)
+                }
+            }
+        })
+    }
+    var arr = []
+    function getKno(id) {
+        $.ajax({
+            type:"POST",
+            url:secondeurl+"KnowledgesController/getKnowledgesForPage.action?id="+id,
+            async: false,
+            success:function(result){
+                console.log(result);
+                var strData = result
+
+                var data = strData.knowList
+                var str = strData.knowContList
+
+                for(var i=0;i<data.length;i++){
+                    if(data[i].knowledgecontentId=="00000000-0000-0000-0000-000000000000") {
+
+                    }else{
+                        for(var j=0;j<str.length;j++){
+                            if(str[j].id==""+data[i].knowledgecontentId+""){
+                                if(str[j].type=="仿真练习"||str[j].type=="仿真考核"||str[j].type=="仿真"){
+                                    arr.push(str[j]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    }
+    var preMonthCount;
+    var monthCount;
+    var dayCount
+
+    var monthArr=[];//空数组
+    var countArr=[];//空数组
+
+    var halfMouth=[]
+    var halfMouthCount=[]
+
+    var halfMouthUser=[]
+    var halfMouthUserCount=[]
+
+    function getHalfYearUser(){
+        $.ajax({
+            type : "POST",
+            url : secondeurl+"UsersController/getHalfYearUser.action",
+            async: false,
+            success : function(data) {
+                if(data.length>0){
+                    for(var i=0;i<data.length;i++){
+                        halfMouthUser.push(data[i].month)
+                        if(data[i].minute<5000){
+                            halfMouthUserCount.push(data[i].minute+5000)
+                        }else {
+                            halfMouthUserCount.push(data[i].minute)
+                        }
+
+                        console.log(halfMouthUser)
+                        console.log(halfMouthUserCount)
+                    }
+
+                    var barydom = document.getElementById("bar-y");
+                    var baryChart = echarts.init(barydom);
+                    var app = {};
+                    option = null;
+                    option = {
+                        title: {
+                            text: '每月状态',
+                            top:'5%',
+                            left:'5%',
+                            textStyle: {//主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
+                                color:'#666666'
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            }
+                        },
+                        /*legend: {
+                         data: [ '搜索引擎']
+                         },*/
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'value',
+                            splitLine:{
+                                show:false
+                            },
+                            axisLine:{
+                                lineStyle:{
+                                    color:'rgba(0, 0, 0,0)',
+                                }
+                            }
+                        },
+                        yAxis: {
+                            type: 'category',
+                            data: halfMouthUser,//[  '十二月', '十一月', '十月', '九月', '八月', '七月'],
+                            axisLine:{
+                                show:false //y轴线消失
+                            },
+                            axisTick: {
+                                show:false //y轴坐标点消失
+                            },
+                        },
+                        series: [
+                            {
+                                name: '当月状态',
+                                type: 'bar',
+                                stack: '总量',
+                                barWidth: '30%',
+                                label: {
+                                    show: true,
+                                    position: 'insideRight'
+                                },
+                                data: halfMouthUserCount,//[ 200, 50, 50, 150, 350,400],
+                                itemStyle: {
+                                    normal: {
+                                        //柱形图圆角，初始化效果
+                                        barBorderRadius:[10, 10, 10, 10],
+                                        color: function(params) {
+                                            var colorList = [
+                                                '#5CCDB1','#5CCDB1','#5CCDB1','#5CCDB1','#5CCDB1','#5CCDB1','#5CCDB1'
+                                            ];
+                                            return colorList[params.dataIndex]
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    };;
+                    if (option && typeof option === "object") {
+                        baryChart.setOption(option, true);
+                    }
+
+                }
+            }
+        })
+    }
+
+    function getHalfYear(){
+        $.ajax({
+            type : "POST",
+            url : secondeurl+"UsersController/getHalfYear.action",
+            async: false,
+            success : function(data) {
+                if(data.length>0){
+                    for(var i=0;i<data.length;i++){
+                        halfMouth.push(data[i].month)
+                        if(data[i].minute<100){
+                            halfMouthCount.push(data[i].minute+50)
+                        }else {
+                            halfMouthCount.push(data[i].minute)
+                        }
+
+                        //console.log(halfMouth)
+                        //console.log(halfMouthCount)
+                    }
+
+                    var bardom = document.getElementById("bar");
+                    var barChart = echarts.init(bardom);
+                    var app = {};
+                    option = null;
+                    option = {
+                        title: {
+                            text: '数据图',
+                            top:'5%',
+                            left:'5%',
+                            textStyle: {//主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
+                                color:'white'
+                            }
+                        },
+                        color: ['#3398DB'],
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: halfMouth,//['01', '02', '03', '04', '05', '06', '07'],
+                                axisTick: {
+                                    alignWithLabel: true,
+                                    show:false //y轴坐标点消失
+                                },
+                                axisLine:{
+                                    lineStyle:{
+                                        color:'white',
+                                    },
+                                    show:false //y轴线消失
+                                },
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                axisLine:{
+                                    lineStyle:{
+                                        color:'rgba(0, 0, 0,0)',
+                                    }
+                                },
+                                splitLine:{
+                                    show:false
+                                }
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '直接访问',
+                                type: 'bar',
+                                barWidth: '40%',
+                                data: halfMouthCount,//[10, 52, 200, 334, 390, 330, 220],
+                                itemStyle: {
+
+                                    normal: {
+
+                                        //好，这里就是重头戏了，定义一个list，然后根据所以取得不同的值，这样就实现了，
+                                        //柱形图圆角，初始化效果
+                                        barBorderRadius:[10, 10, 10, 10],
+                                        color: function(params) {
+
+                                            // build a color map as your need.
+
+                                            var colorList = [
+
+                                                /*'#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+
+                                                 '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+
+                                                 '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'*/
+                                                '#FFE300','#FFE300','#FFE300','#FFE300','#FFE300','#FFE300','#FFE300'
+                                            ];
+
+                                            return colorList[params.dataIndex]
+
+                                        },
+
+                                        //以下为是否显示，显示位置和显示格式的设置了
+
+                                        label: {
+
+                                            show: true,
+
+                                            position: 'top',
+
+                                            formatter: '{c}'
+
+                                        }
+
+                                    }
+
+                                }
+                            }
+                        ]
+                    };
+                    ;
+                    if (option && typeof option === "object") {
+                        barChart.setOption(option, true);
+                    }
+
+                }
+            }
+        })
+    }
+
+
+
+    function getMonthInYear(){
+        $.ajax({
+            type : "POST",
+            url : secondeurl+"UsersController/getMonthInYear.action",
+            async: false,
+            success : function(data) {
+                if(data.length>0){
+                    for(var i=0;i<data.length;i++){
+                        monthArr.push(data[i].month)
+                        if(data[i].minute<100){
+                            countArr.push(data[i].minute+50)
+                        }else {
+                            countArr.push(data[i].minute)
+                        }
+
+                        //console.log(monthArr)
+                        //console.log(countArr)
+                    }
+
+                    var linedom = document.getElementById("line");
+                    var lineChart = echarts.init(linedom);
+                    var app = {};
+                    option = null;
+                    option = {
+                        xAxis: {
+                            type: 'category',
+                            //data: ['5.01', '5.02', '5.03', '5.04', '5.05', '5.06', '5.07'],
+                            data:monthArr,
+                            axisLine:{
+                                lineStyle:{
+                                    color:'#1EC8C0',
+                                }
+                            }
+
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        yAxis: {
+                            type: 'value',
+                            axisLine:{
+                                lineStyle:{
+                                    color:'#1EC8C0',
+                                }
+                            },
+                            splitLine:{
+                                show:false
+                            }
+
+                        },
+                        series: [{
+                            //data: [820, 932, 901, 934, 750, 455, 550],
+                            data:countArr,
+                            type: 'line',
+                            smooth: true,
+                            color:'#1EC8C0',
+                            itemStyle: {
+                                normal: {
+                                    lineStyle: {
+                                        width:5 // 0.1的线条是非常细的了
+                                    }
+                                }
+                            }
+                        }]
+                    };
+                    ;
+                    if (option && typeof option === "object") {
+                        lineChart.setOption(option, true);
+                    }
+
+                }
+            }
+        })
+    }
+
+    function getUserOnLine(){
+        $.ajax({
+            type : "POST",
+            url : secondeurl+"UsersController/getUserOnLine.action",
+            async: false,
+            success : function(data) {
+                if(data!=null){
+                    console.log(data.dayCount)
+                    preMonthCount=parseInt(data.preMonthCount)+100;
+                    monthCount=parseInt(data.monthCount)+200;
+                    dayCount=parseInt(data.dayCount)+50;
+                    $("#preMonth").html(preMonthCount);
+                    $("#month").html(monthCount);
+                    $("#day").html(dayCount);
+
+                    var piedom = document.getElementById("pie");
+                    var pieChart = echarts.init(piedom);
+                    var app = {};
+                    option = null;
+                    option = {
+                        title: {
+                            text: '平台走势',
+                            top:'5%',
+                            left:'5%',
+                            textStyle: {//主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
+                                color:'#666666'
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{a} <br/>{b}: {c} ({d}%)'
+                        },
+                        series: [
+                            {
+                                name: '访问走势',
+                                type: 'pie',
+                                radius: ['50%', '70%'],
+                                avoidLabelOverlap: false,
+                                label: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    label: {
+                                        show: false,
+                                        fontSize: '15',
+                                        fontWeight: 'bold'
+                                    }
+                                },
+                                labelLine: {
+                                    show: false
+                                },
+                                data: [
+                                    {value: preMonthCount, name: '上月走势',itemStyle:{color:"#3398DB"}},
+                                    {value: monthCount, name: '本月走势',itemStyle:{color:"#5CCDB1"}}
+                                ],
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                },
+                                color:[ //自定义的颜色
+                                    'rgb(0,0,0)',
+                                    'rgb(0,204,0)',
+                                ]
+                            }
+                        ]
+                    };
+                    ;
+                    if (option && typeof option === "object") {
+                        pieChart.setOption(option, true);
+                    }
+
+                }
+            }
+        })
+    }
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //直接嵌套显示
+        laydate.render({
+            elem: '#test-laydate-static-n1',
+            position: 'static' ,
+            showBottom: false
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+    var smalllinedom = document.getElementById("small-line");
+    var smalllineChart = echarts.init(smalllinedom);
+    var app = {};
+    option = null;
+    option = {
+        xAxis: {
+            type: 'category',
+            data: ['5.01', '5.02', '5.03', '5.04', '5.05', '5.06', '5.07'],
+            axisLine:{
+                lineStyle:{
+                    color:'rgba(0, 0, 0,0)',
+                }
+            }
+
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '0%',
+            bottom: '0%',
+            top:'7%',
+            containLabel: true
+        },
+        yAxis: {
+            type: 'value',
+            axisLine:{
+                lineStyle:{
+                    color:'rgba(0, 0, 0,0)',
+                }
+            },
+            splitLine:{
+                show:false
+            }
+
+        },
+        series: [{
+            data: [820, 932, 901, 934, 750, 455, 550],
+            type: 'line',
+            smooth: true,
+            color:'#1EC8C0',
+            itemStyle: {
+                normal: {
+                    lineStyle: {
+                        width:3 // 0.1的线条是非常细的了
+                    }
+                }
+            }
+        }]
+    };
+    ;
+    if (option && typeof option === "object") {
+        smalllineChart.setOption(option, true);
+    }
+
+</script>
+</html>

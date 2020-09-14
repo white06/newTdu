@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script src="js/jquery-1.11.0.min.js"></script>
+        <script src="voice.js"></script>
+    </head>
+<body>
+<script type="text/javascript" src="luyin.js"></script>
+<script type="text/javascript" src="js/baidu_tts_cors.js"></script>
+<script src="js/md5.js"></script>
+<style>
+    audio{
+        display: none;
+    }
+</style>
+<div>
+    <audio id="file" src="SpeechSynthesizer.pcm" controls autoplay></audio>
+    <div style="display: inline-block">
+        <input onclick="startRecording()" type="button" value="录音" style="height: 30px;width: 55px;margin-left: 20px;" />
+        <input onclick="stopRecording()" type="button" value="停止" style="height: 30px;width: 55px;margin-left: 20px;" />
+    </div>
+
+    <!--<input onclick="playRecording()" type="button" value="播放" />
+    <input onclick="uploadAudio()" type="button" value="提交" />-->
+    <div style="display: inline-block;vertical-align: middle;margin-left: 20px;">
+        <div>
+            <input type="text" id="zhongwen" style="height: 30px" />
+        </div>
+        <div>
+            <input type="text" id="text" style="height: 30px;margin-top: 10px"  />
+        </div>
+    </div>
+
+</div>
+<script>
+
+    console.log(parent.userId)
+
+    var recorder;
+    var audio = document.querySelector('audio');
+    function startRecording() {
+        HZRecorder.get(function (rec) {
+            recorder = rec;
+            recorder.start();
+        });
+    }
+
+    var yuin="";
+
+    function stopRecording() {
+
+
+        recorder.stop();
+           // var formData = new FormData();
+        console.log(recorder.getBlob())
+        console.log(recorder.getBlob().type)
+
+        var userId="4d272f66-9dac-4b87-a2a1-22b6e5910779"
+
+        let formData = new FormData();
+        formData.append("userKey",userId);
+        formData.append("number","1");
+        formData.append("pageKey","2");
+        formData.append('file',recorder.getBlob(),"test.pcm");
+        formData.append("type","pcm");
+
+        $.ajax({
+            //url:"../tdu-base/YunyinController/yuyin.action" //上传接口地址
+            url:"../tdu-base/YunyinController/yuyinNew.action" //上传接口地址
+            ,type:"POST"
+            ,contentType:false //让xhr自动处理Content-Type header，multipart/form-data需要生成随机的boundary
+            ,processData:false //不要处理data，让xhr自动处理
+            ,data:formData
+            ,success:function(v){
+                console.log(v);
+                console.log(v.result[0]);
+                $("#zhongwen").val(v.result[0])
+                //fanyiZH(v.result[0]);
+                //fanyiEN(v.result[0]);
+                yuin=v.result[0];
+            }
+            ,error:function(s){
+                console.error("上传失败",s);
+            }
+        });
+
+        /*$.ajax({
+            url:"../tdu-base/UsersController/test.action" //上传接口地址
+            ,type:"POST"
+            ,contentType:false //让xhr自动处理Content-Type header，multipart/form-data需要生成随机的boundary
+            ,processData:false //不要处理data，让xhr自动处理
+            ,data:formData
+            ,success:function(v){
+                console.log("上传成功",v);
+            }
+            ,error:function(s){
+                console.error("上传失败",s);
+            }
+        });*/
+
+           // file=$("#file")[0].files[0];
+           // formData.append("file",file); //传给后台
+           // console.log(file)
+            /*$.ajax({
+                url: '__URL__/uploadMp3File',
+                type:'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function(data){
+
+                }
+            })*/
+    }
+    /*
+    * 中文转英文
+    * */
+    function fanyiZH(str) {
+        var appid = '20200410000415405';
+        var key = 'wMCFDAyXR_z6TTTaRn0z';
+        var salt = (new Date).getTime();
+        var query = '高度600m';
+        query=str;
+// 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
+        var from = 'auto';
+        var to = 'en';
+        var str1 = appid + query + salt +key;
+        var sign = MD5(str1);
+        $.ajax({
+            url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
+            type: 'get',
+            dataType: 'jsonp',
+            data: {
+                q: query,
+                appid: appid,
+                salt: salt,
+                from: from,
+                to: to,
+                sign: sign
+            },
+            success: function (data) {
+                console.log(data)
+                console.log(data.trans_result[0].dst);
+                $("#text").val(data.trans_result[0].dst);
+                tts(data.trans_result[0].dst);
+                console.log(yuin,data.trans_result[0].dst)
+                /*if(data.trans_result[0].dst==yuin){
+                    fanyiEN(""+yuin+"");
+                }*/
+            }
+        });
+    }
+
+    /*
+    英文转中文
+    * */
+    function fanyiEN(str) {
+        console.log(str)
+        var appid = '20200410000415405';
+        var key = 'wMCFDAyXR_z6TTTaRn0z';
+        var salt = (new Date).getTime();
+        var query = '高度600m';
+        query=str;
+// 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
+        var from = 'auto';
+        var to = 'zh';
+        var str1 = appid + query + salt +key;
+        var sign = MD5(str1);
+        $.ajax({
+            url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
+            type: 'get',
+            dataType: 'jsonp',
+            data: {
+                q: query,
+                appid: appid,
+                salt: salt,
+                from: from,
+                to: to,
+                sign: sign
+            },
+            success: function (data) {
+                console.log(data)
+                console.log(data.trans_result[0].dst);
+                $("#text").val(data.trans_result[0].dst);
+            }
+        });
+    }
+    // 初始化变量
+    var audio = null;
+    // 合成按钮
+    function tts(text) {
+
+        //var text = obj.parentNode.previousSibling.parentElement.innerText
+
+        audio = btts({
+            tex: text,
+            tok: '24.819cc0f21c7e79bd0a676d4ba372da44.2592000.1590817509.282335-19184459',
+            spd: 5,
+            pit: 5,
+            vol: 15,
+            per: 4
+        }, {
+            volume: 0.3,
+            autoDestory: true,
+            timeout: 10000,
+            hidden: false,
+            onInit: function (htmlAudioElement) {
+
+            },
+            onSuccess: function(htmlAudioElement) {
+                audio = htmlAudioElement;
+                audio.play();
+
+            },
+            onError: function(text) {
+                alert(text)
+            },
+            onTimeout: function () {
+                alert('timeout')
+            }
+        });
+    }
+
+    function playRecording() {
+        console.log(audio)
+        recorder.play(audio);
+    }
+    function uploadAudio() {
+
+        //提交到服务器
+        recorder.upload("sample_1.php", function (state, e) {
+            switch (state) {
+                case 'uploading':
+                    //var percentComplete = Math.round(e.loaded * 100 / e.total) + '%';
+                    break;
+                case 'ok':
+                    //alert(e.target.responseText);
+                    alert("上传成功");
+                    break;
+                case 'error':
+                    alert("上传失败");
+                    break;
+                case 'cancel':
+                    alert("上传被取消");
+                    break;
+            }
+        });
+    }
+    function blobToFile(theBlob, fileName){
+        //A Blob() is almost a File() - it's just missing the two properties below which we will add
+        theBlob.lastModifiedDate = new Date();
+        theBlob.name = fileName;
+        return theBlob;
+    }
+
+
+</script>
+</body>
+</html>

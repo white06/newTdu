@@ -1,0 +1,178 @@
+/* CSS Document */
+*{
+	margin:0;
+	padding:0;
+	outline:none;
+	font-family:'寰蒋闆呴粦';
+	-webkit-user-select:none;-moz-user-select:none;-o-user-select:none;user-select:none;
+}
+html{
+	width:100%;
+	height:100%;
+	min-width:1337px;
+	min-height:693px;
+	
+	
+
+}
+
+
+body{
+	width:100%;
+	height:100%;
+	min-width:1337px;
+	min-height:693px;
+}
+.bg{
+	width:100%;
+	height:100%;
+	min-width:1337px;
+	min-height:693px;
+	position:absolute;
+	top:0;left:0;
+	background:url(../img/bg_background.png) ;
+	
+}
+.login{
+	position:relative;
+	clear:both;
+	/*background:url(../img/鐧诲綍.png) no-repeat;*/
+	width:400px;
+	height:450px;
+	min-height:350px;
+	min-width:400px;
+	top: 25%;
+	text-align:center;
+	margin:0 17.3% 0 auto;
+	overflow-y:hidden;
+}
+.LoginPanel{
+
+
+	background-image:url(../img/sec_login.png);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	-moz-background-size:100% 100%;
+
+	/*background:rgba(152, 210, 232, 0.15);*//*white;*/
+	position: absolute;
+	height:450px;
+	width: 100%;
+	z-index: 100;
+	border-radius:10px 10px 10px 10px;
+	overflow: hidden;
+	box-shadow: 10px 10px 5px rgba(0,0,0,0.1);
+	transition: all 1s;
+    -moz-transition: all 1s; /* Firefox 4 */
+    -webkit-transition: all 1s; /* Safari 鍜� Chrome */
+    -o-transition: all 1s; /* Opera */
+	
+	/* z-index: 2;
+    position: absolute;
+    width: 100%;
+    border-radius: 5px;
+    height:275px;
+    background: white;
+    box-shadow: 0px 0px 5px #333333;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -175px;
+    transition: all 1s;
+    -moz-transition: all 1s; Firefox 4
+    -webkit-transition: all 1s; Safari 鍜� Chrome
+    -o-transition: all 1s; Opera */
+}
+.UserName{
+	width:65%;
+	height:6%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:10%;
+	
+}
+.PassWord{
+	width:65%;
+	height:6%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:5%;
+}
+.UserName span,.PassWord span{
+	vertical-align:middle;
+	line-height:24px;
+	width:22%;
+	height:24px;
+}
+.UserName input,.PassWord input{
+	width:69%;
+	height:100%;
+}
+.botton{
+	background:url(../img/鎸夐挳.png) no-repeat;
+	width:15%;
+	height:35px;
+	text-align:center;
+	line-height:35px;
+	margin-top:4%;
+	margin-left:60%;
+	letter-spacing:2px;
+	color:#FFFFFF;
+	font-family:"寰蒋闆呴粦";
+}
+span{
+	color:#FFFFFF;
+	font-family:"寰蒋闆呴粦";
+}
+.botton:hover{
+	cursor:pointer;
+	color:blue
+	
+}
+
+.message{
+	position:relative;	
+	float:right;
+	width:672px;
+	height:94px;
+	top: 20%;
+	overflow-y:hidden;
+	/*background:url(../img/瀛︽牎鍚嶇О.png) no-repeat center center;
+	background-size:50% 50%;*/
+	
+}
+#UserName,#PassWord{
+	border:0;
+	/*border-radius:5px;*/
+}
+
+#loginbutton:hover{
+	cursor: pointer;
+}
+#zhuce:hover{
+	cursor: pointer;
+}
+.PasswordButton:hover{
+	cursor: pointer;
+}
+* {
+      margin: 0;
+      padding: 0;
+     }
+     canvas {
+       display: block;
+       position: absolute;
+       top: 0%;
+       z-index:1;;
+     }
+   #particles-js {
+   position: relative;
+   	
+     width: 100%;
+     height: 100%;
+     background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	margin-left: auto;
+	margin-right: auto;
+   }

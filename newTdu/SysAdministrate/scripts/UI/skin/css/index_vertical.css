@@ -1,0 +1,126 @@
+﻿@charset "utf-8";
+/* 描述:轮机工程专业适任考试与仿真系统
+ * 时间:2014-5-3
+ */
+ 
+@media screen and (min-height:800px){
+.header-bar h1{margin-top:0.5%;font-size:2.8em;}
+.header-bar .login-btn{margin-top:0.5%;font-size:2em;}
+.nav-panel li a{font-size:1.2em;}
+.widget_content li{width:92%;height:40px;padding:0 2% 7px 2%;}
+a.widget4x2{height:84%;padding-top:2%;font-size:1.4em;}
+a.widget2x2{height:73%;padding-top:4%;font-size:0.6em;}
+a.widget1x1{height:45%;padding-top:0%;font-size:0.7em;}
+.header-rgopt{display:none;float:left;}
+}
+@media screen and (min-height:750px) and (max-height:799px){
+.header-bar h1{margin-top:0.3%;font-size:2.6em;}
+.header-bar .login-btn{margin-top:0.5%;font-size:1.9em;}
+.nav-panel li a{font-size:1.2em;}
+.widget_content li{width:92%;height:40px;padding:0 2% 7px 2%;}
+a.widget4x2{height:84%;padding-top:2%;font-size:1.4em;}
+a.widget2x2{height:73%;padding-top:4%;font-size:0.6em;}
+a.widget1x1{height:45%;padding-top:0%;font-size:0.7em;}
+.header-rgopt{display:none;float:left;}
+}
+@media screen and (min-height:700px) and (max-height:749px){
+.header-bar h1{margin-top:0;font-size:2.6em;}
+.header-bar .login-btn{margin-top:0.5%;font-size:1.8em;}
+.nav-panel li a{font-size:1.2em;}
+.widget_content li{width:92%;height:40px;padding:0 2% 7px 2%;}
+a.widget4x2{height:84%;padding-top:2%;font-size:1.4em;}
+a.widget2x2{height:73%;padding-top:4%;font-size:0.6em;}
+a.widget1x1{height:45%;padding-top:0%;font-size:0.7em;}
+.header-rgopt{display:none;float:left;}
+}
+@media screen and (min-height:650px) and (max-height:699px){
+.header-bar h1{margin-top:0.3%;font-size:2.4em;}
+.header-bar .login-btn{margin-top:0.5%;font-size:1.7em;}
+.nav-panel li a{font-size:1.2em;}
+.widget_content li{width:92%;height:40px;padding:0 2% 7px 2%;}
+a.widget4x2{height:84%;padding-top:2%;font-size:1.4em;}
+a.widget2x2{height:73%;padding-top:4%;font-size:0.6em;}
+a.widget1x1{height:45%;padding-top:0%;font-size:0.7em;}
+.header-rgopt{display:none;float:left;}
+}
+@media screen and (min-height:600px) and (max-height:649px){
+.header-bar h1{margin-top:0.3%;font-size:2.0em;}
+.header-bar .login-btn{margin-top:0.5%;font-size:1.6em;}
+.nav-panel li a{font-size:1.2em;}
+.widget_content li{width:92%;height:40px;padding:0 2% 7px 2%;}
+a.widget4x2{height:84%;padding-top:2%;font-size:1.4em;}
+a.widget2x2{height:73%;padding-top:4%;font-size:0.6em;}
+a.widget1x1{height:45%;padding-top:0%;font-size:0.7em;}
+.header-rgopt{display:none;float:left;}
+}
+@media screen and (min-height:550px) and (max-height:599px){
+.header-bar h1{margin-top:0.3%;font-size:2.0em;}
+.header-bar .login-btn{margin-top:0.5%;font-size:1.4em;}
+.nav-panel li a{font-size:1.9em;}
+.nav-panel li a{font-size:1.2em;}
+.widget_content li{width:92%;height:40px;padding:0 2% 7px 2%;}
+a.widget4x2{height:84%;padding-top:2%;font-size:1.4em;}
+a.widget2x2{height:73%;padding-top:4%;font-size:0.6em;}
+a.widget1x1{height:45%;padding-top:0%;font-size:0.7em;}
+.header-rgopt{display:none;float:left;}
+}
+@media screen and (min-height:500px) and (max-height:549px){
+.header-bar h1{margin-top:0.3%;font-size:1.9em;}
+.header-bar .login-btn{margin-top:0.5%;font-size:1.2em;}
+.nav-panel li a{font-size:1.2em;}
+.widget_content li{width:92%;height:40px;padding:0 2% 7px 2%;}
+a.widget4x2{height:84%;padding-top:2%;font-size:1.4em;}
+a.widget2x2{height:73%;padding-top:4%;font-size:0.6em;}
+a.widget1x1{height:45%;padding-top:0%;font-size:0.7em;}
+.header-rgopt{display:none;float:left;}
+}
+@media screen and (min-height:450px) and (max-height:499px){
+.header-bar h1{margin-top:0;font-size:1.8em;}
+.header-bar .login-btn{margin-top:0.5%;font-size:1.1em;}
+.nav-panel li a{font-size:1.2em;}
+.widget_content li{width:92%;height:40px;padding:0 2% 7px 2%;}
+a.widget4x2{height:84%;padding-top:2%;font-size:1.4em;}
+a.widget2x2{height:73%;padding-top:4%;font-size:0.6em;}
+a.widget1x1{height:45%;padding-top:0%;font-size:0.7em;}
+.header-rgopt{display:none;float:left;}
+}
+@media screen and (min-height:400px) and (max-height:449px){
+.header-bar h1{margin-top:0.1%;font-size:1.7em;}
+.header-bar .login-btn{margin-top:0.5%;font-size:1.0em;}
+.nav-panel li a{font-size:1.2em;}
+.widget_content li{width:92%;height:40px;padding:0 2% 7px 2%;}
+a.widget4x2{height:84%;padding-top:2%;font-size:1.4em;}
+a.widget2x2{height:73%;padding-top:4%;font-size:0.6em;}
+a.widget1x1{height:45%;padding-top:0%;font-size:0.7em;}
+.header-rgopt{display:none;float:left;}
+}
+@media screen and (min-height:370px) and (max-height:399px){
+.header-bar h1{margin-top:0.1%;font-size:1.6em;}
+.header-bar .login-btn{margin-top:0.5%;font-size:0.9em;}
+.nav-panel li a{font-size:1.2em;}
+.widget_content li{width:92%;height:40px;padding:0 2% 7px 2%;}
+a.widget4x2{height:84%;padding-top:2%;font-size:1.4em;}
+a.widget2x2{height:73%;padding-top:4%;font-size:0.6em;}
+a.widget1x1{height:45%;padding-top:0%;font-size:0.7em;}
+.header-rgopt{display:none;float:left;}
+}
+@media screen and (min-height:300px) and (max-height:369px){
+.header-bar h1{margin-top:0;font-size:1.5em;}
+.header-bar .login-btn{margin-top:0.5%;font-size:0.8em;}
+.nav-panel li a{font-size:1.2em;}
+.widget_content li{width:92%;height:40px;padding:0 2% 7px 2%;}
+a.widget4x2{height:84%;padding-top:2%;font-size:1.4em;}
+a.widget2x2{height:73%;padding-top:4%;font-size:0.6em;}
+a.widget1x1{height:45%;padding-top:0%;font-size:0.7em;}
+.header-rgopt{display:none;float:left;}
+}
+@media screen and (max-height:299px){
+.header-bar h1{margin-top:0;font-size:1.4em;}
+.header-bar .login-btn{margin-top:0.5%;font-size:0.7em;}
+.nav-panel li a{font-size:1.2em;}
+.widget_content li{width:92%;height:40px;padding:0 2% 7px 2%;}
+a.widget4x2{height:84%;padding-top:2%;font-size:1.4em;}
+a.widget2x2{height:73%;padding-top:4%;font-size:0.6em;}
+a.widget1x1{height:45%;padding-top:0%;font-size:0.7em;}
+.header-rgopt{display:none;float:left;}
+}

@@ -1,0 +1,29 @@
+*{
+	font-size:100%;
+}
+body {
+    font-family:verdana,helvetica,arial,sans-serif;
+    padding:20px;
+    font-size:100%;
+    margin:0;
+}
+h2 {
+    font-size:18px;
+    font-weight:bold;
+    margin:0;
+    margin-bottom:15px;
+}
+.demo-info{
+	padding:0 0 12px 0;
+}
+.demo-tip{
+	display:none;
+}
+a.e-link{
+    text-decoration: none;
+    color: #126499
+}
+a.e-link:hover {
+    text-decoration:underline;
+    color:#5cb85c;
+}

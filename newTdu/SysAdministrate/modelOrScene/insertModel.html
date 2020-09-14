@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../scripts/MyCss.css"/>
+    <link rel="stylesheet" href="../scripts/UI/skin/css/base.css"/>
+    <link rel="stylesheet" href="../scripts/UI/skin/css/page.css"/>
+    <script type="text/javascript" src="../scripts/UI/js/jquery.js"></script>
+    <script type="text/javascript" src="../scripts/PublicPoolName.js"></script>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/layui/layui.js"></script>
+    <script src="../../js/api.js"></script>
+    <script type="text/javascript">
+        function addeModelSubmit() {
+            var c = getRequest();
+            var index_id = c['subModelId'];
+            var name = $("input[name=MadelName]").val();
+            console.log(name)
+            $.ajax({
+                type: "POST",
+                url: houtaiurl+"DevelopModelController/AddModelsContentZong.action",
+                data: {"name": name, "cusstyle": "cusstyle", "treeId": index_id},
+                success: function (data) {
+                    console.log(data);
+                    fanhui()
+                }
+            });
+        }
+
+        $(function () {
+            var c = getRequest();
+            var index_id = c['subModelId'];
+            console.log(index_id);
+            $("input[name=subModel_Id]").val(index_id);
+
+        })
+
+        //获取网址后面id信息
+        function getRequest() {
+            var url = location.search;
+            var theRequest = new Object();
+            var strs = "";
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+        function fanhui() {
+            window.history.go(-1);//返回上一页不刷新
+
+            //window.location.href = document.referrer;//返回上一页并刷新，真正实现页面后退并刷新页面
+        }
+    </script>
+    <style>
+        .layui-btn{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:3px;
+            width: 30%;
+            margin-left: 10%;;
+            margin-right: 10%;
+        }
+    </style>
+
+</head>
+<body class="pt40 yahei">
+
+<form action="../../../ModelController/addeModel.action" method="post" id="addeModelSubmit"
+      enctype="multipart/form-data">
+    <div class="page-wrap">
+        <div class="pt50 pb20">
+            <table class="college_tb">
+                <input type="hidden" name="subModel_Id" class="ulib-r3" value=""/>
+                <tbody>
+
+                <tr>
+                    <th style="color: white">模型名称 :&nbsp;&nbsp;</th>
+                    <td>
+                        <input type="text" name="MadelName" class="ulib-r3" value=""/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="text-align:center;"><a class="add-btn ulib-r3 layui-btn" href="javascript:"
+                                           onclick="addeModelSubmit();">添加</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+                class="add-btn ulib-r3 layui-btn" href="javascript:" onclick="fanhui();">返回</a></div>
+    </div>
+</form>
+
+</body>
+</html>

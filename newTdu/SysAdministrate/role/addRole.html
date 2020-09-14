@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/custom/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" language="javascript" src="../../js/api.js"></script>
+
+    <style>
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: rgba(60, 65, 84, 1);
+        }
+        .layui-form-label{
+            font-size:18px;
+            font-family:PingFangSC-Medium,PingFang SC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+            width: 120px;text-align: center
+        }
+        .layui-form{
+
+        }
+        .layui-input-block{
+            margin-left: 150px;
+        }
+        .layui-form-item{
+            margin-bottom: 20px;
+        }
+        .layui-btn{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:3px;
+            margin: 10%;
+        }
+        .layui-textarea {
+            min-height: 150px;
+        }
+    </style>
+</head>
+<body>
+
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width:auto;height:auto;">
+    <form class="layui-form" action="" style="padding-left: 5%;padding-right: 5%;">
+        <div class="layui-form-item" style="padding-top: 5%">
+            <label class="layui-form-label" style="">角色名 : </label>
+            <div class="layui-input-block" style=" ">
+                <input type="text" name="infoName" lay-verify="title" autocomplete="off" placeholder="请输入角色名" class="layui-input">
+            </div>
+        </div><!--
+        <div class="layui-form-item">
+            <label class="layui-form-label">请输入内容：</label>
+            <div class="layui-input-block" style="height: 150px;">
+                <textarea name="info" placeholder="" class="layui-textarea"></textarea>
+            </div>
+        </div>-->
+        <!--<div class="layui-form-item">
+            <label class="layui-form-label">选择类别</label>
+            <div class="layui-input-block">
+                <select name="interest" lay-filter="aihao">
+                    <option value="1" >阅读</option>
+                    <option value="2">游戏</option>
+                    <option value="3">音乐</option>
+                </select>
+            </div>
+        </div>-->
+        <div class="layui-form-item" style="padding-bottom: 5%;padding-top: 5%">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin: 0 10%;">保存</button>
+                <button type="submit" class="layui-btn" style="margin: 0 10%;">返回</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element','form'], function() {
+        var laydate = layui.laydate //日期
+            , laypage = layui.laypage //分页
+            , layer = layui.layer //弹层
+            , table = layui.table //表格
+            , carousel = layui.carousel //轮播
+            , upload = layui.upload //上传
+            , form = layui.form
+            , element = layui.element //元素操作
+
+
+        /* 监听提交新增 */
+        form.on('submit(demo1)', function(data){
+            console.log(data)
+            if(data.field.infoName==""||data.field.infoName==null){
+                layer.alert("角色名不能为空!");
+            }else{
+                $.ajax({
+                    type : "POST",
+                    url : userurl+"UsersController/addRole.action",
+                    data : {"roleName":data.field.infoName},
+                    success : function(data) {
+                        console.log(data)
+                        if(data=="success"){
+                            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                            parent.layer.close(index); //再执行关闭
+                        }
+                    }
+                })
+            }
+            console.log(data);
+            return false;
+        });
+
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>學院</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/layui/layui.js"></script>
+    <script type="text/javascript" language="javascript" src="../js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" language="javascript" src="../../js/api.js"></script>
+    <script type="text/javascript" language="javascript" src="../js/department.js"></script>
+    <style>
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: rgba(60, 65, 84, 1);
+        }
+
+        #contentDiv {
+            position: relative;
+            /*background:url(img/背景.jpg) no-repeat;*/
+            background-size: cover;
+            width:100%;
+            height: 100%;
+            min-width: 770px;
+            margin:  0 0;
+            overflow: auto;
+            /*z-index: 2;*/
+        }
+
+        .layui-form-label{
+            font-size:22px;
+            font-family:PingFangSC-Medium,PingFang SC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+            width: 120px;text-align: center
+        }
+        .layui-input-block{
+            margin-left: 150px;
+        }
+        .layui-form-item{
+            margin-bottom: 20px;
+        }
+        .layui-btn{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:3px;
+            width: 30%;
+            margin-left: 10%;;
+            margin-right: 10%;
+        }
+
+        /*
+
+       */
+        .layui-card {
+            background: #3C4154;
+        }
+        .layui-table[lay-skin=row] {
+            border-top: 2px solid #2E3546;
+            border-width: 2px;
+            border-style: solid;
+            border-color: #2E3546;
+        }
+        .layui-table{
+            background: #3C4154;
+            color: white;
+        }
+        .layui-table thead tr{
+            background: #3C4154;
+            color: white;
+            border: 2px solid #2E3546;
+        }
+        .layui-table[lay-even] tr:nth-child(2n){
+            background: #3C4154;
+            border: 2px solid #2E3546;
+        }
+        .layui-table th{
+            border-color: #2E3546;
+        }
+        .layui-table[lay-even] tr:nth-child(n){
+            border-color: #2E3546;
+        }
+    </style>
+</head>
+<body>
+
+
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;" id="updateDepUser">
+    <form class="layui-form" action="" style="padding-left: 0%;padding-right: 0%">
+        <div class="layui-form-item" style="padding-top: 2.5%;padding-bottom: 2.5%;width: 80%;margin-left: 3%">
+            <label class="layui-form-label" style="">名称 : </label>
+            <div class="layui-input-block" style=" ">
+                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" id="depertName">
+            </div>
+        </div>
+
+
+        <div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;">
+            <div class="layui-card" style="background:rgba(52,57,76,1);">
+                <div class="layui-card-body layui-row layui-col-space10" style="text-align: center;width: 90%;padding-left: 1.5%;">
+                    <label class="layui-form-label" style="">模糊搜索 : </label>
+                    <div class="layui-col-md6" style="width: 60%;">
+                        <input id="search" type="text" name="title" placeholder="请搜索" autocomplete="off" class="layui-input">
+                        <button  onclick="chaxun()" type="button" class="layui-btn" style="margin: 0 0;position: absolute;top: 5px;right: 5px;"><i  class="layui-icon layui-icon-search"></i></button><!--style="color: #5CCDB2"-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div center= class="layui-col-md12">
+                    <div  class="layui-card" style="width: 900px;margin: 0 auto">
+                        <div class="layui-card-body">
+                            <!--<div class="layui-btn-group test-table-operate-btn" style="margin-bottom: 10px;">
+                                <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
+                                <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
+                                <button class="layui-btn" data-type="isAll">验证是否全选</button>
+                            </div>-->
+
+                            <table class="layui-hide" id="test-table-operate" lay-filter="test-table-operate"></table>
+
+                            <script type="text/html" id="test-table-operate-barDemo">
+                                <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+                                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item" style="padding-bottom: 1.5%;padding-top: 1.5%">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo2"onclick="addDepartmentUser()">保存</button>
+                <button type="submit" class="layui-btn" onclick="fanhui()">返回</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;display: none" id="adddepartment">
+<!--    <form class="layui-form" action="">-->
+    <div class="layui-form" style="padding-left: 15%;
+            padding-right: 25%;">
+        <div class="layui-form-item" style="padding-top: 30px">
+            <label class="layui-form-label" style="">名称 : </label>
+            <div class="layui-input-block" style=" ">
+                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" id="name">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">住址 : </label>
+            <div class="layui-input-block">
+                <input type="text" name="address" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" id="address">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话 : </label>
+            <div class="layui-input-block">
+                <input type="text" name="username" lay-verify="required" lay-reqtext="用户名是必填项，岂能为空？" placeholder="请输入" autocomplete="off" class="layui-input" id="phone">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+
+                <label class="layui-form-label">邮箱 : </label>
+                <div class="layui-input-block"  >
+                    <input type="text" placeholder="请输入标题"  name="email" lay-verify="email" autocomplete="off" class="layui-input" id="email">
+                </div>
+        </div>
+<!--        <div class="layui-form-item">-->
+<!--            <label class="layui-form-label">概图 : </label>-->
+<!--            <div class="layui-upload-drag" id="test10">-->
+<!--                <i class="layui-icon"></i>-->
+<!--                <p>点击上传，或将文件拖拽到此处</p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="layui-form-item layui-form-text" style="">
+            <label class="layui-form-label">简介 : </label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" class="layui-textarea" id="jianjie"></textarea>
+            </div>
+        </div>
+        <!--<div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">编辑器</label>
+          <div class="layui-input-block">
+            <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+          </div>
+        </div>-->
+        <div class="layui-form-item" style="padding-bottom: 20px;">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" onclick="baocun()">保存</button>
+                <button type="submit" class="layui-btn" onclick="fanhui()">返回</button>
+            </div>
+        </div>
+   </div>
+
+
+</div>
+
+
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;display: none" id="createdepartment">
+    <!--    <form class="layui-form" action="">-->
+    <div class="layui-form" style="padding-left: 15%;
+            padding-right: 25%;">
+        <div class="layui-form-item" style="padding-top: 30px">
+            <label class="layui-form-label" style="">名称 : </label>
+            <div class="layui-input-block" style=" ">
+                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" id="name2">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">住址 : </label>
+            <div class="layui-input-block">
+                <input type="text" name="address" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" id="address2">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话 : </label>
+            <div class="layui-input-block">
+                <input type="text" name="username" lay-verify="required" lay-reqtext="用户名是必填项，岂能为空？" placeholder="请输入" autocomplete="off" class="layui-input" id="phone2">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+
+            <label class="layui-form-label">邮箱 : </label>
+            <div class="layui-input-block"  >
+                <input type="text" placeholder="请输入标题"  name="email" lay-verify="email" autocomplete="off" class="layui-input" id="email2">
+            </div>
+        </div>
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">概图 : </label>-->
+        <!--            <div class="layui-upload-drag" id="test10">-->
+        <!--                <i class="layui-icon"></i>-->
+        <!--                <p>点击上传，或将文件拖拽到此处</p>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="layui-form-item layui-form-text" style="">
+            <label class="layui-form-label">简介 : </label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" class="layui-textarea" id="jianjie2"></textarea>
+            </div>
+        </div>
+        <!--<div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">编辑器</label>
+          <div class="layui-input-block">
+            <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+          </div>
+        </div>-->
+        <div class="layui-form-item" style="padding-bottom: 20px;">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" onclick="baocun2()">保存</button>
+                <button type="submit" class="layui-btn" onclick="fanhui2()">返回</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="" id="contentDiv" style="display: block">
+    <!--<div onclick="jumpType2()" style="background:rgba(30,37,54,1);width:280px;height:400px;margin-top: 30px;margin-left: 30px;display: inline-block;position: relative">
+        <div  style="width: 100px;height: 100px; position:absolute; position:absolute;top: 50%;left:50%;margin-top: -50px;margin-left: -50px; ">
+            <img src="../../img/icon_more.png" height="100" width="100"/>
+        </div>
+
+        <div style="position: absolute;bottom:90px;width: 100%;text-align: center;height:40px;font-size:22px;
+        font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);line-height:40px;">新建学院</div>
+
+    </div>
+
+    <div id="departmentshow" style="background:rgba(30,37,54,1);width:280px;height:400px;margin-top: 30px;margin-left: 30px;display: inline-block;position: relative">
+        <div style="position: absolute;top: 50px;left: 90px;width: 99px;height: 99px;"><img src="../../img/icon_1.png" style="width: 100%;height: 100%;"/></div>
+
+        <div style="position: absolute;top: 180px;width: 100%;text-align: center;height:40px;font-size:22px;
+        font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);line-height:40px;">华侨大学</div>
+
+
+        <div style="position: absolute;;width: 240px;height: 50px;top: 250px;left: 20px;
+        background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);border-radius:26px;
+        font-size:20px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);line-height:50px;text-align: center">学院编辑</div>
+
+
+        <div style="position: absolute;;width: 110px;height: 50px;top: 320px;left: 20px;
+        background:linear-gradient(131deg,rgba(30,200,192,1) 0%,rgba(107,223,255,1) 100%);border-radius:26px;
+        font-size:20px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);line-height:50px;text-align: center">用户编辑</div>
+        <div style="position: absolute;;width: 110px;height: 50px;top: 320px;left: 150px;
+        background:linear-gradient(218deg,rgba(255,160,141,1) 0%,rgba(255,130,155,1) 100%);border-radius:26px;
+        font-size:20px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);line-height:50px;text-align: center">删除</div>
+
+
+    </div>
+    <div style="background:rgba(30,37,54,1);width:280px;height:400px;margin-top: 30px;margin-left: 30px;display: inline-block;position: relative">
+
+    </div>
+
+    <div style="background:rgba(30,37,54,1);width:280px;height:400px;margin-top: 30px;margin-left: 30px;display: inline-block;position: relative">
+
+    </div>
+
+    <div style="background:rgba(30,37,54,1);width:280px;height:400px;margin-top: 30px;margin-left: 30px;display: inline-block;position: relative">
+
+    </div>
+    <div style="background:rgba(30,37,54,1);width:280px;height:400px;margin-top: 30px;margin-left: 30px;display: inline-block;position: relative">
+
+    </div>
+    <div style="background:rgba(30,37,54,1);width:280px;height:400px;margin-top: 30px;margin-left: 30px;display: inline-block;position: relative">
+
+    </div>
+    <div style="background:rgba(30,37,54,1);width:280px;height:400px;margin-top: 30px;margin-left: 30px;display: inline-block;position: relative">
+
+    </div>
+    <div style="background:rgba(30,37,54,1);width:280px;height:400px;margin-top: 30px;margin-left: 30px;display: inline-block;position: relative">
+
+    </div>-->
+
+
+
+</div>
+
+<script src="../../js/layui/layui.js"></script>
+<script>
+    $("#updateDepUser").hide();
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element','form'], function(){
+        var laydate = layui.laydate //日期
+            ,laypage = layui.laypage //分页
+            ,layer = layui.layer //弹层
+            ,table = layui.table //表格
+            ,carousel = layui.carousel //轮播
+            ,upload = layui.upload //上传
+            ,form = layui.form
+            ,element = layui.element //元素操作
+
+
+        var $ = layui.$
+
+
+        //拖拽上传
+        upload.render({
+            elem: '#test10'
+            ,url: '/upload/'
+            ,done: function(res){
+                console.log(res)
+            }
+        });
+
+        //记录选中的数据:做缓存使用,作为参数传递给后台,然后生成pdf ,压缩
+        var ids =new Array();
+
+        //记录查询出来的数据；
+        var checkIds =new Array();
+
+        //记录需要移除的学生
+        var removeIds =new Array();
+        //当前表格中的全部数据:在表格的checkbox全选的时候没有得到数据, 因此用全局存放变量
+        var table_data=new Array();
+
+
+        var depertId = "";
+
+
+        window.chaxun=function () {
+            layer.msg($("#search").val());
+            var content =$("#search").val();
+
+            if(content!=""){
+                table.render({
+                    elem: '#test-table-operate'
+                    ,url: dapartmenturl+'UsersController/seleUsersByPageDepertmentLikeName.action?depertmentId='+depertId+"&userName="+content
+                    ,width: 'auto'
+                    ,height: 332
+                    ,page: true
+                    ,cols: [[
+                        {type:'checkbox', fixed: 'left'}
+                        ,{field:'id', width:120, title: 'ID', sort: true, fixed: 'left'}
+                        ,{field:'name', width:120, title: '用户名'}
+                        ,{field:'userName', width:120, title: '登录名'}
+
+                        /* ,{field:'city', width:80, title: '城市'}
+                         ,{field:'sign', width: 160, title: '签名'}
+                         ,{field:'experience', width:80, title: '积分', sort: true}
+                         ,{field:'wealth', width:135, title: '财富', sort: true}*/
+                        ,{field:'createDate', width:120, title: '创建日期',templet: function(d){
+                            return  d.createdateyear + "-" + d.createdatemonth + "-" + d.createdateday;
+                        }}
+                        /*,{field:'score', width:80, title: '评分', sort: true, fixed: 'right'}*/
+                        ,{field:'sex', width:120, title: '性别', sort: true}
+                        /*,{width:178, align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo'}*/
+                    ]]
+                    ,  parseData:function (res) {
+                        console.log(res)
+                        return{
+                            "code": 0,
+                            "msg": "success",
+                            "count": res.count, //解析数据长度
+                            "data": res.list
+                        }
+                        console.log(res)
+                    }
+                    ,done:function(res,curr,count){
+
+
+
+                        //数据表格加载完成时调用此函数
+                        //如果是异步请求数据方式，res即为你接口返回的信息。
+                        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+
+                        //设置全部数据到全局变量
+                        table_data=res.data;
+                        console.log(table_data);
+
+                        for (var i = 0; i < res.data.length; i++) {
+
+                            console.log(res.data[i]);
+
+                            //数据id和要勾选的id相同时checkbox选中
+                            if(res.data[i].checked !="0")
+                            {
+                                //这里才是真正的有效勾选
+                                res.data[i]["LAY_CHECKED"]='true';
+                                //找到对应数据改变勾选样式，呈现出选中效果
+                                var index= res.data[i]['LAY_TABLE_INDEX'];
+                                $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').prop('checked', true);
+                                $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').next().addClass('layui-form-checked');
+
+                                ids.push(res.data[i].id);
+                                checkIds.push(res.data[i].id)
+                            }
+                        }
+
+                        //在缓存中找到id ,然后设置data表格中的选中状态
+                        //循环所有数据，找出对应关系，设置checkbox选中状态
+                        for(var i=0;i< res.data.length;i++){
+                            for (var j = 0; j < ids.length; j++) {
+                                //数据id和要勾选的id相同时checkbox选中
+                                if(res.data[i].id == ids[j])
+                                {
+                                    //这里才是真正的有效勾选
+                                    res.data[i]["LAY_CHECKED"]='true';
+                                    //找到对应数据改变勾选样式，呈现出选中效果
+                                    var index= res.data[i]['LAY_TABLE_INDEX'];
+                                    $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').prop('checked', true);
+                                    $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').next().addClass('layui-form-checked');
+                                }
+                            }
+                        }
+                        //设置全选checkbox的选中状态，只有改变LAY_CHECKED的值， table.checkStatus才能抓取到选中的状态
+                        var checkStatus = table.checkStatus('my-table');
+                        if(checkStatus.isAll){
+                            $(' .layui-table-header th[data-field="0"] input[type="checkbox"]').prop('checked', true);
+                            $('.layui-table-header th[data-field="0"] input[type="checkbox"]').next().addClass('layui-form-checked');
+                        }
+                        //得到所有数据
+                        console.log(res);
+                        //得到当前页码
+                        console.log(curr);
+                        //得到数据总量
+                        console.log(count);
+
+                        // 隐藏列
+                        $(".layui-table-box").find("[data-field='id']").css("display","none");
+                    }
+
+                });
+            }else{
+                table.render({
+                    elem: '#test-table-operate'
+                    ,url: dapartmenturl+'UsersController/seleAllUsersByPagedepertment.action?depertmentId='+depertId
+                    ,width: 'auto'
+                    ,height: 332
+                    ,page: true
+                    ,cols: [[
+                        {type:'checkbox', fixed: 'left'}
+                        ,{field:'id', width:120, title: 'ID', sort: true, fixed: 'left'}
+                        ,{field:'name', width:120, title: '用户名'}
+                        ,{field:'userName', width:120, title: '登录名'}
+
+                        /* ,{field:'city', width:80, title: '城市'}
+                         ,{field:'sign', width: 160, title: '签名'}
+                         ,{field:'experience', width:80, title: '积分', sort: true}
+                         ,{field:'wealth', width:135, title: '财富', sort: true}*/
+                        ,{field:'createDate', width:120, title: '创建日期',templet: function(d){
+                            return  d.createdateyear + "-" + d.createdatemonth + "-" + d.createdateday;
+                        }}
+                        /*,{field:'score', width:80, title: '评分', sort: true, fixed: 'right'}*/
+                        ,{field:'sex', width:120, title: '性别', sort: true}
+                        /*,{width:178, align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo'}*/
+                    ]]
+                    ,  parseData:function (res) {
+                        console.log(res)
+                        return{
+                            "code": 0,
+                            "msg": "success",
+                            "count": res.count, //解析数据长度
+                            "data": res.list
+                        }
+                        console.log(res)
+                    }
+                    ,done:function(res,curr,count){
+
+
+
+                        //数据表格加载完成时调用此函数
+                        //如果是异步请求数据方式，res即为你接口返回的信息。
+                        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+
+                        //设置全部数据到全局变量
+                        table_data=res.data;
+                        console.log(table_data);
+
+                        for (var i = 0; i < res.data.length; i++) {
+
+                            console.log(res.data[i]);
+
+                            //数据id和要勾选的id相同时checkbox选中
+                            if(res.data[i].checked !="0")
+                            {
+                                //这里才是真正的有效勾选
+                                res.data[i]["LAY_CHECKED"]='true';
+                                //找到对应数据改变勾选样式，呈现出选中效果
+                                var index= res.data[i]['LAY_TABLE_INDEX'];
+                                $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').prop('checked', true);
+                                $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').next().addClass('layui-form-checked');
+
+                                ids.push(res.data[i].id);
+                                checkIds.push(res.data[i].id)
+                            }
+                        }
+
+                        //在缓存中找到id ,然后设置data表格中的选中状态
+                        //循环所有数据，找出对应关系，设置checkbox选中状态
+                        for(var i=0;i< res.data.length;i++){
+                            for (var j = 0; j < ids.length; j++) {
+                                //数据id和要勾选的id相同时checkbox选中
+                                if(res.data[i].id == ids[j])
+                                {
+                                    //这里才是真正的有效勾选
+                                    res.data[i]["LAY_CHECKED"]='true';
+                                    //找到对应数据改变勾选样式，呈现出选中效果
+                                    var index= res.data[i]['LAY_TABLE_INDEX'];
+                                    $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').prop('checked', true);
+                                    $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').next().addClass('layui-form-checked');
+                                }
+                            }
+                        }
+                        //设置全选checkbox的选中状态，只有改变LAY_CHECKED的值， table.checkStatus才能抓取到选中的状态
+                        var checkStatus = table.checkStatus('my-table');
+                        if(checkStatus.isAll){
+                            $(' .layui-table-header th[data-field="0"] input[type="checkbox"]').prop('checked', true);
+                            $('.layui-table-header th[data-field="0"] input[type="checkbox"]').next().addClass('layui-form-checked');
+                        }
+                        //得到所有数据
+                        console.log(res);
+                        //得到当前页码
+                        console.log(curr);
+                        //得到数据总量
+                        console.log(count);
+
+                        // 隐藏列
+                        $(".layui-table-box").find("[data-field='id']").css("display","none");
+                    }
+
+                });
+            }
+
+        }
+
+
+
+
+        //编辑学院用户
+        window.bianjiUser = function (id,name) {
+            depertId=id;
+            $("#updateDepUser").show();
+            $("#contentDiv").hide();
+            $("#adddepartment").hide();
+            $("#depertName").val(name);
+                    table.render({
+                        elem: '#test-table-operate'
+                        ,url: dapartmenturl+'UsersController/seleAllUsersByPagedepertment.action?depertmentId='+id
+                        ,width: 'auto'
+                        ,height: 332
+                        ,page: true
+                        ,cols: [[
+                            {type:'checkbox', fixed: 'left'}
+                            ,{field:'id', width:120, title: 'ID', sort: true, fixed: 'left'}
+                            ,{field:'name', width:120, title: '用户名'}
+                            ,{field:'userName', width:120, title: '登录名'}
+
+                            /* ,{field:'city', width:80, title: '城市'}
+                             ,{field:'sign', width: 160, title: '签名'}
+                             ,{field:'experience', width:80, title: '积分', sort: true}
+                             ,{field:'wealth', width:135, title: '财富', sort: true}*/
+                            ,{field:'createDate', width:120, title: '创建日期',templet: function(d){
+                                return  d.createdateyear + "-" + d.createdatemonth + "-" + d.createdateday;
+                            }}
+                            /*,{field:'score', width:80, title: '评分', sort: true, fixed: 'right'}*/
+                            ,{field:'sex', width:120, title: '性别', sort: true}
+                            /*,{width:178, align:'center', fixed: 'right', toolbar: '#test-table-operate-barDemo'}*/
+                        ]]
+                        ,  parseData:function (res) {
+                            console.log(res)
+                            return{
+                                "code": 0,
+                                "msg": "success",
+                                "count": res.count, //解析数据长度
+                                "data": res.list
+                            }
+                            console.log(res)
+                        }
+                        ,done:function(res,curr,count){
+
+
+
+                            //数据表格加载完成时调用此函数
+                            //如果是异步请求数据方式，res即为你接口返回的信息。
+                            //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+
+                            //设置全部数据到全局变量
+                            table_data=res.data;
+                            console.log(table_data);
+
+                            for (var i = 0; i < res.data.length; i++) {
+
+                                console.log(res.data[i]);
+
+                                //数据id和要勾选的id相同时checkbox选中
+                                if(res.data[i].checked !="0")
+                                {
+                                    //这里才是真正的有效勾选
+                                    res.data[i]["LAY_CHECKED"]='true';
+                                    //找到对应数据改变勾选样式，呈现出选中效果
+                                    var index= res.data[i]['LAY_TABLE_INDEX'];
+                                    $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').prop('checked', true);
+                                    $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').next().addClass('layui-form-checked');
+
+                                    ids.push(res.data[i].id);
+                                    checkIds.push(res.data[i].id)
+                                }
+                            }
+
+                            //在缓存中找到id ,然后设置data表格中的选中状态
+                            //循环所有数据，找出对应关系，设置checkbox选中状态
+                            for(var i=0;i< res.data.length;i++){
+                                for (var j = 0; j < ids.length; j++) {
+                                    //数据id和要勾选的id相同时checkbox选中
+                                    if(res.data[i].id == ids[j])
+                                    {
+                                        //这里才是真正的有效勾选
+                                        res.data[i]["LAY_CHECKED"]='true';
+                                        //找到对应数据改变勾选样式，呈现出选中效果
+                                        var index= res.data[i]['LAY_TABLE_INDEX'];
+                                        $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').prop('checked', true);
+                                        $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').next().addClass('layui-form-checked');
+                                    }
+                                }
+                            }
+                            //设置全选checkbox的选中状态，只有改变LAY_CHECKED的值， table.checkStatus才能抓取到选中的状态
+                            var checkStatus = table.checkStatus('my-table');
+                            if(checkStatus.isAll){
+                                $(' .layui-table-header th[data-field="0"] input[type="checkbox"]').prop('checked', true);
+                                $('.layui-table-header th[data-field="0"] input[type="checkbox"]').next().addClass('layui-form-checked');
+                            }
+                            //得到所有数据
+                            console.log(res);
+                            //得到当前页码
+                            console.log(curr);
+                            //得到数据总量
+                            console.log(count);
+
+                            // 隐藏列
+                            $(".layui-table-box").find("[data-field='id']").css("display","none");
+                        }
+
+                    });
+        }
+        //监听表格复选框选择
+        table.on('checkbox(test-table-operate)', function(obj){
+
+            console.log(obj.checked); //当前是否选中状态
+            console.log(obj.data); //选中行的相关数据
+            console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+
+            if(obj.type=='all'){
+                var checkStatus = table.checkStatus('test-table-operate')
+                    ,data = checkStatus.data;
+                //  layer.alert(JSON.stringify(data));
+            }
+
+
+
+            console.log(obj);
+            if(obj.checked==true){
+                if(obj.type=='one'){
+                    ids.push(obj.data.id);
+                }else{
+                    for(var i=0;i<table_data.length;i++){
+                        ids.push(table_data[i].id);
+                    }
+                }
+            }else{
+                if(obj.type=='one'){
+                    for(var i=0;i<ids.length;i++){
+                        if(ids[i]==obj.data.id){
+                            ids.remove(i);
+                        }
+                    }
+                }else{
+                    for(var i=0;i<ids.length;i++){
+                        for(var j=0;j<table_data.length;j++){
+                            if(ids[i]==table_data[j].id){
+                                ids.remove(i);
+                            }
+                        }
+                    }
+                }
+            }
+            console.log(ids);
+        });
+        window.addDepartmentUser = function () {
+            console.log(ids)
+            console.log(checkIds)
+
+            var flag = false;
+            if(checkIds.length>0){
+                for (var i =0;i<checkIds.length;i++){
+                    flag = false;
+                    for(var j=0;j<ids.length;j++){
+                        if(checkIds[i]==ids[i]){
+                            flag=true;
+                        }
+                    }
+
+                    if(!flag){
+                        removeIds.push(checkIds[i])
+                    }
+
+                }
+            }
+            console.log(removeIds)
+            console.log(JSON.stringify(ids))
+
+            $.ajax({
+                type : "POST",
+                url : dapartmenturl+"DepartmentController/DepartmentAddUserNew.action",
+                async: false,
+                data : {"departmentId":depertId,"userList":JSON.stringify(ids),"reList":JSON.stringify(removeIds)},
+                success : function(data) {
+                    console.log(data);
+                }
+            })
+
+        }
+
+
+    });
+
+    Array.prototype.remove=function(dx)
+    {
+        if(isNaN(dx)||dx>this.length){return false;}
+        for(var i=0,n=0;i<this.length;i++)
+        {
+            if(this[i]!=this[dx])
+            {
+                this[n++]=this[i]
+            }
+        }
+        this.length-=1
+    }
+
+</script>
+</body>
+</html>

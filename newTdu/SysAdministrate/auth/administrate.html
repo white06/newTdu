@@ -1,0 +1,525 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title>系统管理</title>
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-treegrid/0.2.0/css/jquery.treegrid.min.css">
+
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-treegrid/0.2.0/css/jquery.treegrid.min.css">-->
+
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/api.js"></script>
+    <script src="../../js/layer/layer.js"></script>
+    <script src="../../js/custom/jquery-1.8.3.min.js"></script>
+    <script src="../../layuiadmin/layui/layui.js"></script>
+    <style>
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: #3C4154;
+            color: white;
+        }
+        .fixed-table-container{
+            border: 2px solid #2E3546;
+        }
+        .fixed-table-container thead th{
+            border-left: 2px solid #2E3546;
+        }
+        .table>tbody>tr>td{
+            border-left: 2px solid #2E3546;
+            border-top: 2px solid #2E3546;
+        }
+        .bootstrap-table .table{
+            border-bottom: 2px solid #2E3546;
+        }
+        .bootstrap-table .table{
+            border-bottom: 2px solid #2E3546;
+        }
+        .bootstrap-table .table>thead>tr>th{
+            border-bottom: 2px solid #2E3546;
+        }
+        .bootstrap-table .table>tbody>:hover{
+            background:#337ab7;
+        }
+        .bootstrap-table{
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+        .layui-btn{
+            margin-left: 30px;
+            margin-right: 30px;
+            width: 10%;
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:6px;
+        }
+        .fixed-table-container tbody .selected td {
+            background-color: #3C4154;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;">
+    <!--<h1>权限管理</h1>-->
+    <div style="width: 10px;height: 30px"></div>
+    <table id="table" class="table text-nowrap"></table>
+    <br/>
+    <!--<button οnclick="test()">选择</button>-->
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.12.0/extensions/treegrid/bootstrap-table-treegrid.js"></script>
+<script src="https://cdn.bootcss.com/jquery-treegrid/0.2.0/js/jquery.treegrid.min.js"></script>
+<script type="text/javascript">
+
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function() {
+        var laydate = layui.laydate //日期
+            , laypage = layui.laypage //分页
+            , layer = layui.layer //弹层
+            , table = layui.table //表格
+            , carousel = layui.carousel //轮播
+            , upload = layui.upload //上传
+            , element = layui.element //元素操作
+
+    })
+    var $table = $('#table');
+
+
+    var str = '[{"id":1,"pid":0,"status":1,"name":"用户管理","permissionValue":"open:user:manage"},' +
+        '{"id":2,"pid":0,"status":1,"name":"系统管理","permissionValue":"open:system:manage"},' +
+        '{"id":3,"pid":1,"status":1,"name":"新增用户","permissionValue":"open:user:add"},' +
+        '{"id":14,"pid":1,"status":1,"name":"新增用户","permissionValue":"open:user:add"},' +
+        '{"id":4,"pid":1,"status":1,"name":"修改用户","permissionValue":"open:user:edit"},' +
+        '{"id":5,"pid":1,"status":0,"name":"删除用户","permissionValue":"open:user:del"},' +
+        '{"id":6,"pid":2,"status":1,"name":"系统配置管理","permissionValue":"open:systemconfig:manage"},' +
+        '{"id":7,"pid":2,"status":1,"name":"新增配置","permissionValue":"open:systemconfig:add"},' +
+        '{"id":8,"pid":2,"status":1,"name":"修改配置","permissionValue":"open:systemconfig:edit"},' +
+        '{"id":9,"pid":2,"status":0,"name":"删除配置","permissionValue":"open:systemconfig:del"},' +
+        '{"id":10,"pid":0,"status":1,"name":"系统日志管理","permissionValue":"open:system:manage"},' +
+        '{"id":11,"pid":10,"status":1,"name":"新增日志","permissionValue":"open:log:add"},' +
+        '{"id":12,"pid":10,"status":1,"name":"修改日志","permissionValue":"open:log:edit"},' +
+        '{"id":13,"pid":10,"status":0,"name":"删除日志","permissionValue":"open:log:del"}]'
+
+   /* str='[{"id":"b51905bc-9c65-4716-8d3f-f37275bfc202","link":null,"icon":null,"children":"779c23ba-d229-4d2f-8d19-dba2a3a71208;d87a9704-3f33-4111-9c4d-7083b58c7554;edb08ab1-b65c-4c7c-96e0-d409a978fa44;e15a1f2d-ed8e-47e7-9b84-34cc211fe2cd;f182c8f3-89e1-4a8b-b04c-433db62b1b10","pageName":"个人信息","num":1,"parametersType":0,"pid":0,"_level":0},' +
+        '{"id":"779c23ba-d229-4d2f-8d19-dba2a3a71208","link":"set/user/info.html","icon":null,"children":null,"pageName":"信息修改","num":2,"parametersType":1,"pid":"b51905bc-9c65-4716-8d3f-f37275bfc202","_level":1},' +
+        '{"id":"d87a9704-3f33-4111-9c4d-7083b58c7554","link":"set/user/password.html","icon":null,"children":null,"pageName":"密码修改","num":3,"parametersType":1,"pid":"b51905bc-9c65-4716-8d3f-f37275bfc202","_level":1},' +
+        '{"id":"f182c8f3-89e1-4a8b-b04c-433db62b1b10","link":"/User/UserExport.html","icon":null,"children":null,"pageName":"用户导出","num":6,"parametersType":0,"pid":"b51905bc-9c65-4716-8d3f-f37275bfc202","_level":1},' +
+        '{"id":"f993cc7d-ba05-4ad9-826e-c1b7271699e2","link":null,"icon":null,"children":"bed13f43-9a7b-4654-8b13-a8610206a971;da75adca-e4d8-44ed-8c60-86c78f1c12a8;986fb19a-3f28-415a-82f9-8336ac62bb60;a935ea49-de51-4a5e-ba70-2f5d254799dc;8018ab93-4b4a-41b8-b07c-9d6bbbb6c0d7;c26daa09-e4c8-4e3a-93b5-8290b20cf675;aa81ad54-2d82-4cd0-99a4-c09843bdef95","pageName":"学院管理","num":7,"parametersType":0,"pid":0,"_level":0},' +
+        '{"id":"bed13f43-9a7b-4654-8b13-a8610206a971","link":"department/index.html","icon":null,"children":null,"pageName":"学院","num":8,"parametersType":1,"pid":"f993cc7d-ba05-4ad9-826e-c1b7271699e2","_level":1},' +
+        '{"id":"da75adca-e4d8-44ed-8c60-86c78f1c12a8","link":"major/index.html","icon":null,"children":null,"pageName":"专业","num":9,"parametersType":0,"pid":"f993cc7d-ba05-4ad9-826e-c1b7271699e2","_level":1},' +
+        '{"id":"986fb19a-3f28-415a-82f9-8336ac62bb60","link":"class/index.html","icon":null,"children":null,"pageName":"班级","num":10,"parametersType":0,"pid":"f993cc7d-ba05-4ad9-826e-c1b7271699e2","_level":1},' +
+        '{"id":"a935ea49-de51-4a5e-ba70-2f5d254799dc","link":"subject/index.html","icon":null,"children":null,"pageName":"科目","num":11,"parametersType":0,"pid":"f993cc7d-ba05-4ad9-826e-c1b7271699e2","_level":1},' +
+        '{"id":"8018ab93-4b4a-41b8-b07c-9d6bbbb6c0d7","link":"user/accountList.html","icon":null,"children":null,"pageName":"账号","num":12,"parametersType":0,"pid":"f993cc7d-ba05-4ad9-826e-c1b7271699e2","_level":1},' +
+        '{"id":"aa81ad54-2d82-4cd0-99a4-c09843bdef95","link":"inforMessage/index.html","icon":null,"children":null,"pageName":"信息发布","num":14,"parametersType":0,"pid":"f993cc7d-ba05-4ad9-826e-c1b7271699e2","_level":1},' +
+        '{"id":"e1c4829f-0da0-4dac-a853-f4ee8aeef296","link":null,"icon":null,"children":"99c6fc50-1a24-4686-bd63-b6d566dd10bf;17c01089-7a74-4422-b6ff-bc05ea2e773e;0b9db80e-38ec-45c7-9512-9f9ee7d0ccca;d252655a-4dc0-49b4-8953-5acdee7eb983","pageName":"权限管理","num":15,"parametersType":0,"pid":0,"_level":0},' +
+        '{"id":"99c6fc50-1a24-4686-bd63-b6d566dd10bf","link":"auth/administrate.html","icon":null,"children":null,"pageName":"权限","num":16,"parametersType":0,"pid":"e1c4829f-0da0-4dac-a853-f4ee8aeef296","_level":1},' +
+        '{"id":"d252655a-4dc0-49b4-8953-5acdee7eb983","link":"user/userRolesList.html","icon":null,"children":null,"pageName":"角色分配","num":19,"parametersType":0,"pid":"e1c4829f-0da0-4dac-a853-f4ee8aeef296","_level":1},' +
+        '{"id":"4ffaad3a-afb3-4194-9447-1312145078b3","link":null,"icon":null,"children":"5f289fd9-762a-4828-8671-a1e35ac08323;540759de-271d-4890-9a0c-d55ccc59a159;c664f1bf-6cfa-41e0-b4ef-13cd03901bbb;b378d9e6-15d7-45f0-a768-421176c8c1fe;b5dd21bb-5b49-4568-ab1b-a5659ffc48eb;50d0c8bb-068d-4895-9790-a435b9edc38b;6c18d29a-17be-409b-bf44-21d808f9f2c9;e5f2d22e-09d0-4dc0-b0c5-d661f3066c88;002ede5d-e95d-4b75-a4e8-0a45110f1409;2e0e639e-c651-4db9-a718-92cc5e275173;afec903f-8aad-433c-890b-8574a19ca220;0101b79d-faea-4da2-84d4-9540a077beb2;111ed1ea-7b36-4260-9a21-2fec562a49e0;fe3f85e6-b803-40bc-ba72-2c92694b15a5;429d50b2-63bf-4840-aa07-7f1fe1814ae2;41921bdf-bc1c-47c7-b3ca-ee89c9ca9631;3d3b8622-b228-4555-a158-49d5fed54b6a","pageName":"题库管理","num":20,"parametersType":0,"pid":0,"_level":0},' +
+        '{"id":"5f289fd9-762a-4828-8671-a1e35ac08323","link":"question/index.html","icon":null,"children":null,"pageName":"题库管理","num":21,"parametersType":0,"pid":"4ffaad3a-afb3-4194-9447-1312145078b3","_level":1},' +
+        '{"id":"540759de-271d-4890-9a0c-d55ccc59a159","link":"/QuestionPager/index","icon":null,"children":null,"pageName":"组卷管理","num":22,"parametersType":0,"pid":"4ffaad3a-afb3-4194-9447-1312145078b3","_level":1},' +
+        '{"id":"b5dd21bb-5b49-4568-ab1b-a5659ffc48eb","link":"/Exam/StuExamResult","icon":null,"children":null,"pageName":"考试成绩","num":25,"parametersType":0,"pid":"4ffaad3a-afb3-4194-9447-1312145078b3","_level":1},' +
+        '{"id":"2e0e639e-c651-4db9-a718-92cc5e275173","link":"/examination/quxian.html","icon":null,"children":null,"pageName":"学生成长曲线","num":30,"parametersType":0,"pid":"4ffaad3a-afb3-4194-9447-1312145078b3","_level":1},' +
+        '{"id":"0101b79d-faea-4da2-84d4-9540a077beb2","link":"examination/fabu.html","icon":null,"children":null,"pageName":"考试管理","num":32,"parametersType":0,"pid":"4ffaad3a-afb3-4194-9447-1312145078b3","_level":1},' +
+        '{"id":"fe3f85e6-b803-40bc-ba72-2c92694b15a5","link":"/Exam/ExamResult","icon":null,"children":null,"pageName":"考试成绩2","num":34,"parametersType":0,"pid":"4ffaad3a-afb3-4194-9447-1312145078b3","_level":1},' +
+        '{"id":"429d50b2-63bf-4840-aa07-7f1fe1814ae2","link":"/examination/examadd.php","icon":null,"children":null,"pageName":"题库管理（新）","num":35,"parametersType":0,"pid":"4ffaad3a-afb3-4194-9447-1312145078b3","_level":1},' +
+        '{"id":"41921bdf-bc1c-47c7-b3ca-ee89c9ca9631","link":"examination/zujuan.html","icon":null,"children":null,"pageName":"组卷管理（新）","num":36,"parametersType":0,"pid":"4ffaad3a-afb3-4194-9447-1312145078b3","_level":1},' +
+        '{"id":"3d3b8622-b228-4555-a158-49d5fed54b6a","link":"examine/index.html","icon":null,"children":null,"pageName":"考试成绩（新）","num":37,"parametersType":0,"pid":"4ffaad3a-afb3-4194-9447-1312145078b3","_level":1},' +
+        '{"id":"730129fc-3240-4695-ac10-5c33842e406e","link":null,"icon":null,"children":"2d2b452d-fedc-4391-988e-abed53d42cda;46430c0d-970b-4a2b-a2dc-9a918939bffb;9f92745d-3eff-45bf-b0d2-4bdaceda41cf;f364e5f9-b1fb-41d5-a6b6-98c1c3b47ede;905cf2b2-5d92-425a-ba6d-880c0665ebf6;2f419d87-1d8d-47da-8737-5eea4d66ab87;d6b360ba-d91f-46a0-8da2-9466f11b4382;c2d62dd6-cabb-4605-b448-6ce8b05c6c49","pageName":"资源管理","num":38,"parametersType":0,"pid":0,"_level":0},' +
+        '{"id":"2d2b452d-fedc-4391-988e-abed53d42cda","link":"subjectTree/index.html","icon":null,"children":null,"pageName":"科目树管理","num":39,"parametersType":0,"pid":"730129fc-3240-4695-ac10-5c33842e406e","_level":1},' +
+        '{"id":"46430c0d-970b-4a2b-a2dc-9a918939bffb","link":"subjectTree/treeIndex.html","icon":null,"children":null,"pageName":"资源树管理","num":40,"parametersType":0,"pid":"730129fc-3240-4695-ac10-5c33842e406e","_level":1},' +
+        '{"id":"c2d62dd6-cabb-4605-b448-6ce8b05c6c49","link":"system/navigationBar.html","icon":null,"children":null,"pageName":"导航栏管理","num":46,"parametersType":0,"pid":"730129fc-3240-4695-ac10-5c33842e406e","_level":1},' +
+        '{"id":"568905bc-9c65-4716-8d3f-f37275bfc101","link":null,"icon":null,"children":"377dc548-6523-4bcf-9ae0-37ce4f5bf518;fbcaf119-8eac-45c8-a3c6-ff9f518f4f0e;d8792101-3400-4678-9301-28d04548046f;68d48205-26a0-4986-ae7b-c55c683572e0","pageName":"系统设置","num":60,"parametersType":0,"pid":0,"_level":0}]'
+*/
+    var data;
+    //var data = JSON.parse(str);
+
+    $(function() {
+
+        var fatuerAuth = [];
+        var childAuth= new Array(); //定义一数组
+        var authList = [];
+        $.ajax({
+            type : "POST",
+            url : houtaiurl+"UsersController/GetSysAdministrateTree_develop.action",
+            async: false,
+            success : function(str) {
+                console.log(str);
+                for(var i=0;i<str.length;i++){
+                    //console.log(data[i]);
+                    if(str[i].children!=null){
+                        fatuerAuth.push(str[i]);
+                    }
+                }
+                console.log(fatuerAuth);
+                for (var i=0;i<fatuerAuth.length;i++){
+                    fatuerAuth[i]['pid']=0;
+                    fatuerAuth[i]['_level']=0;
+                    authList.push(fatuerAuth[i])
+                    childAuth = fatuerAuth[i].children.split(";");
+                    //console.log(childAuth);
+                    for (var k =0;k<childAuth.length;k++){
+                        for (var j=0;j<str.length;j++){
+                            if(childAuth[k]==str[j].id){
+                                str[j]['pid']=fatuerAuth[i].id;
+                                str[j]['_level']=1;
+                                authList.push(str[j]);
+                            }
+                        }
+                    }
+                }
+                //控制台输出一下数据
+                data=authList;
+                //data=JSON.stringify(data);
+                for (var i;i<data.length;i++){
+                    data[i]._level=parseInt(data[i]._level)
+                }
+                //控制台输出一下数据
+                initTable(data)
+            }
+        })
+
+
+
+
+
+    });
+
+    function initTable(data) {
+        console.log(data);
+        $table.bootstrapTable({
+            data:data,
+            idField: 'id',
+            dataType:'jsonp',
+            columns: [
+                { field: 'check',  checkbox: true, formatter: function (value, row, index) {
+                    if (row.check == true) {
+                        // console.log(row.serverName);
+                        //设置选中
+                        return {  checked: true };
+                    }
+                }
+                },
+                { field: 'pageName',  title: '节点名称' },
+                /*{field: 'id', title: '编号', sortable: true, align: 'center'},
+                 {field: 'pid', title: '所属上级'},*/
+                /*{ field: 'status',  title: '状态', sortable: true,  align: 'center', formatter: 'statusFormatter'  },*/
+                { field: 'link', title: '链接地址'  },
+                {field: 'parametersType', title: '参数'},
+                { field: 'operate', width:'379px',title: '操作', align: 'center', events : operateEvents, formatter: 'operateFormatter' },
+            ],
+
+            // bootstrap-table-treegrid.js 插件配置 -- start
+
+            //在哪一列展开树形
+            treeShowField: 'pageName',
+            //指定父id列
+            parentIdField: 'pid',
+
+            onResetView: function(data) {
+                //console.log('load');
+                $table.treegrid({
+                    initialState: 'collapsed',// 所有节点都折叠
+                    // initialState: 'expanded',// 所有节点都展开，默认展开
+                    treeColumn: 1,
+                    // expanderExpandedClass: 'glyphicon glyphicon-minus',  //图标样式
+                    // expanderCollapsedClass: 'glyphicon glyphicon-plus',
+                    onChange: function() {
+                        $table.bootstrapTable('resetWidth');
+                    }
+                });
+
+                //只展开树形的第一级节点
+                $table.treegrid('getRootNodes').treegrid('expand');
+
+            },
+            onCheck:function(row){
+                var datas = $table.bootstrapTable('getData');
+                // 勾选子类
+                selectChilds(datas,row,"id","pid",true);
+
+                // 勾选父类
+                selectParentChecked(datas,row,"id","pid")
+
+                // 刷新数据
+                $table.bootstrapTable('load', datas);
+            },
+
+            onUncheck:function(row){
+                var datas = $table.bootstrapTable('getData');
+                selectChilds(datas,row,"id","pid",false);
+                $table.bootstrapTable('load', datas);
+            },
+            // bootstrap-table-treetreegrid.js 插件配置 -- end
+        });
+    }
+
+    // 格式化按钮
+    function operateFormatter(value, row, index) {
+        if(row.children!=null){
+            return [
+                '<button type="button" class="RoleOfadd layui-btn" style="height: 38px;width: 80px">新增</button>',
+                '<button type="button" class="RoleOfedit layui-btn" style="height: 38px;width: 80px">修改</button>',
+            ].join('');
+        }else{
+            return [
+                '<button type="button" class="RoleOfedit layui-btn" style="height: 38px;width: 80px">修改</button>',
+                '<button type="button" class="RoleOfdelete layui-btn" style="height: 38px;width: 80px">删除</button>'
+            ].join('');
+        }
+    }
+    // 格式化类型
+    function typeFormatter(value, row, index) {
+        if (value === 'menu') {  return '菜单';  }
+        if (value === 'button') {  return '按钮'; }
+        if (value === 'api') {  return '接口'; }
+        return '-';
+    }
+    // 格式化状态
+    function statusFormatter(value, row, index) {
+        if (value === 1) {
+            return '<span class="label label-success">正常</span>';
+        } else {
+            return '<span class="label label-default">锁定</span>';
+        }
+    }
+
+    //初始化操作按钮的方法
+    window.operateEvents = {
+        'click .RoleOfadd': function (e, value, row, index) {
+            add(row.id);
+        },
+        'click .RoleOfdelete': function (e, value, row, index) {
+            del(row);
+        },
+        'click .RoleOfedit': function (e, value, row, index) {
+            update(row);
+        }
+    };
+</script>
+<script>
+    /**
+     * 选中父项时，同时选中子项
+     * @param datas 所有的数据
+     * @param row 当前数据
+     * @param id id 字段名
+     * @param pid 父id字段名
+     */
+    function selectChilds(datas,row,id,pid,checked) {
+        for(var i in datas){
+            if(datas[i][pid] == row[id]){
+                datas[i].check=checked;
+                selectChilds(datas,datas[i],id,pid,checked);
+            };
+        }
+    }
+
+    function selectParentChecked(datas,row,id,pid){
+        for(var i in datas){
+            if(datas[i][id] == row[pid]){
+                datas[i].check=true;
+                selectParentChecked(datas,datas[i],id,pid);
+            };
+        }
+    }
+
+    function test() {
+        var selRows = $table.bootstrapTable("getSelections");
+        if(selRows.length == 0){
+            alert("请至少选择一行");
+            return;
+        }
+
+        var postData = "";
+        $.each(selRows,function(i) {
+            postData +=  this.id;
+            if (i < selRows.length - 1) {
+                postData += "， ";
+            }
+        });
+        alert("你选中行的 id 为："+postData);
+
+    }
+
+    function add(id) {
+        var content="authPage.html";
+        //alert("add 方法 , id = " + id);
+        var index = layer.open({
+            type: 2,
+            title: false,
+            shadeClose: true,
+            shade: 0.8,
+            area: ['35%', '40%'],
+            content: content+'?parentId='+id, //iframe的url
+            cancel: function(){
+                //右上角关闭回调
+                flag=1
+                console.log("1111")
+                //return false 开启该代码可禁止点击该按钮关闭
+            },
+            end: function () {
+                if(flag==0){
+                    addreturn();
+                }
+            }
+        });
+    }
+    var fatuer = [];
+
+    function del(row) {
+        console.log(data)
+        //alert("del 方法 , id = " + row.id);
+
+       for(var i=0;i<data.length;i++){
+            //console.log(data[i]);
+            if(data[i].link==null&data[i].children!=null){
+                if(data[i].id==row.pid){
+                    var childAuth = data[i].children.split(";");
+                    var child="";
+                    for(var j=0;j<childAuth.length;j++){
+
+                        if(childAuth[j]!=row.id){
+                            console.log(j)
+                            if(j==childAuth.length-2){
+                                child=child+childAuth[j]
+                            }else{
+                                child=child+childAuth[j]+";"
+                            }
+
+                        }
+                    }
+                    data[i].children=child;
+                    fatuer.push(data[i]);
+                }else{
+                    fatuer.push(data[i]);
+                }
+            }
+            console.log(fatuer)
+        }
+        for(var i=0;i<fatuer.length;i++){
+            var node = fatuer[i].children.split(";");
+            var childNode=[];
+            for(var k=0;k<node.length;k++){
+                for(var j=0;j<data.length;j++){
+                    if(data[j].id==node[k]){
+                        data[j]._parentId=fatuer[i].id;
+                        childNode.push(data[j]);
+                    }
+                }
+
+            }
+            fatuer[i].children=childNode;
+        }
+
+        console.log(fatuer)
+
+        var temp = haddledatas(fatuer);
+        console.log(temp);
+        layer.msg("正在删除！");
+        $.post(houtaiurl + "AuthController/SubmitDatas.action", data = { xml: temp, deleteddata: ""+row.id+"" }, function (data) {
+            deletedataids = "";
+            location.reload();
+        });
+    }
+
+    //-----获取查询条件的方法------
+    function getCondition() {
+        return updateAuth;//slimitDet是父页面定义的全局变量object
+    }
+var updateAuth;
+
+        function update(row) {
+            updateAuth=row;
+        var content="editAuth.html";
+        //alert("update 方法 , id = " + row.id);
+
+        var index = layer.open({
+            type: 2,
+            title: false,
+            shadeClose: true,
+            shade: 0.8,
+            area: ['35%', '40%'],
+            content: content+'?auth='+row, //iframe的url
+            cancel: function(){
+                //右上角关闭回调
+                flag=1
+                console.log("1111")
+                //return false 开启该代码可禁止点击该按钮关闭
+            },
+            end: function () {
+                if(flag==0){
+                    addreturn();
+                }
+            }
+        });
+    }
+
+    function haddledatas(datas) {
+        var nodexml = "<节点列表>", temp;
+        var j = 0;
+        for (var item in datas) {
+
+            if (datas[item].children.length > 0) {
+                nodexml += "<节点" + j + "><id>" + datas[item].id + "</id><pagename>" + datas[item].pageName + "</pagename><link>" + datas[item].link + "</link><ParametersType>" + datas[item].parametersType + "</ParametersType><children>"+ (datas[item].children == undefined ? "" : datas[item].children.length > 0 ? getchildrenids(datas[item].children) : "isParent") +"</children></节点" + j + ">";
+                for (var i = 0; i < datas[item].children.length; i++) {
+                    j++;
+                    nodexml += "<节点" + j + "><id>" + datas[item].children[i].id + "</id><pagename>" + datas[item].children[i].pageName + "</pagename><link>" + datas[item].children[i].link + "</link><ParametersType>" + datas[item].children[i].parametersType + "</ParametersType><children></children></节点" + j + ">";
+                }
+                j++;
+            }
+            else {
+
+                nodexml += "<节点" + j + "><id>" + datas[item].id + "</id><pagename>" + datas[item].pageName + "</pagename><link>" + datas[item].link + "</link><ParametersType>" + datas[item].parametersType + "</ParametersType><children></children></节点" + j + ">";
+
+            }
+        }
+        nodexml += "</节点列表>"
+        return nodexml;
+    }
+    function getchildrenids(obj) {
+        var tempstr = "";
+        var num = 0;
+        var deletenum = 0;
+        for (var item in obj) {
+            // console.log(obj[item]);
+            if (obj[item].__status == "delete") {
+                if (deletenum == 0) {
+                    deletedataids += obj[item].id;
+                }
+                else {
+                    deletedataids += ";" + obj[item].id;
+                }
+                deletenum++;
+            }
+            else {
+                if (num == 0) {
+                    tempstr += obj[item].id;
+                }
+                else {
+                    tempstr += ";" + obj[item].id;
+                }
+                num++;
+            }
+        }
+        return tempstr
+    }
+</script>
+</html>

@@ -1,0 +1,85 @@
+﻿@charset "utf-8";
+/* 描述:轮机工程专业适任考试与仿真系统-详细页
+ * 时间:2014-5-3
+ */
+ 
+/*.page-con{height:92%;margin:0 1%;padding:1%;background:rgb(255,255,255);background:rgba(255,255,255,.2);*background:none;filter:progid:DXImageTransform.Microsoft.gradient(enabled='white',startColorstr='#99255255255',endColorstr='#99255255255');color:#fff;}*/
+.page-con{margin:0 1%;padding:1%;color:#fff;}
+ 
+.gray-bg{background-color:#f2f2f2;}
+.opt3d{overflow:hidden;}
+/*.pageheader-bar{position:absolute;top:0;left:0;width:100%;height:40px;background:#0c99f2;background-image:-webkit-linear-gradient(top,#0081cc,#00aaff);background-image:-moz-linear-gradient(top,#0081cc,#00aaff);background-image:-ms-linear-gradient(top,#0081cc,#00aaff);background-image:-o-linear-gradient(top,#0081cc,#00aaff);background-image:linear-gradient(top,#0081cc,#00aaff);}*/
+.pageheader-bar h1.page-tt{padding:8px 0 0 10px;font-size:16px;color:#fff;}
+ a.sty-lk{display:inline-block;margin-right:8px;color:#0c99f2;}
+.page-wrap{_width:960px;max-width:960px;margin:0 auto;}
+.inquire-btn{display:inline-block;margin-left:10px;padding:5px 20px;background-color:#0c99f2;font-size:1.4em;color:#fff;}
+.add-btn{display:inline-block;padding:4px 12px;background-color:#0c99f2;font-size:1.8em;color:#fff;margin-top:4px;margin-left:75px;}
+.inquire-btn:hover,
+.add-btn:hover{background-color:#00a9ec;text-decoration:none;}
+table.collegelist{width:100%;border-left:#ddd 1px solid;border-top:#ddd 1px solid;}
+table.collegelist th,
+table.collegelist td{padding:5px;border-right:#ddd 1px solid;border-bottom:#ddd 1px solid;font-size:1.2em;}
+table.collegelist thead th{background-color:#fafafa;text-align:left;}
+table.college_tb{width:100%;}
+table.college_tb th{width:20px;padding-top:8px;white-space:nowrap;vertical-align:top;text-align:right;}
+.account-panel{padding:20px;background-color:#fafafa;border:#ddd 1px solid;}
+ul.account-list{}
+ul.account-list li{float:left;width:160px;padding-right:20px;}
+ul.account-list li span.fn-nowrap{display:block;width:80px;font-size:1.2em;}
+ul.account-list li span.account-opt{display:none;}
+ul.catalog-nav{}
+ul.catalog-nav li{float:left;padding-right:15px;}
+ul.catalog-nav li a{display:block;padding:12px 25px;background-color:#fafafa;border:#eee 1px solid;font-size:1.6em;}
+ul.catalog-nav li a:hover{text-decoration:none;}
+ul.catalog-nav li a.active{background-color:#0c99f2;border:#0c99f2 1px solid;color:#fff;}
+table.opt3d-tb{width:100%;height:100%;}
+table.opt3d-tb td.opt3d-side{width:180px;padding-top:40px;border-left:#c7e3ff 1px solid;background-color:#f2f8ff;}
+h3.opt3d-side-tt{position:relative;background:#0099e7;margin-left:-1px;line-height:40px;font-size:1.2em;text-align:center;color:#fff;}
+.element-panel{overflow:hidden;}
+ul.elementlist{padding-top:20px;}
+ul.elementlist li{height:140px;padding-top:10px;text-align:center;}
+ul.elementlist li a:hover{text-decoration:none;color:#0c99f2;}
+
+.top-bar{position:relative;padding:10px 0;border-bottom:1px solid #d4d4d4;background-image:-webkit-linear-gradient(top,#fff,#f2f2f2);background-image: -moz-linear-gradient(top,#fff,#f2f2f2);background-image:-ms-linear-gradient(top,#fff,#f2f2f2);box-shadow:0 1px 1px 0px #e3e3e3;z-index:10;}
+.td-u-1-4,
+.td-u-3-4{display:inline-block;zoom:1;letter-spacing:normal;word-spacing:normal;vertical-align:top;text-rendering:auto;}
+.td-u-1-4{width:24.5%;}
+.td-u-3-4{width:74.5%;}
+.tree-panel{position:relative;top:0;min-height:400px;padding-bottom:100px;border:1px solid #ddd;border-top:none;background:#f6f6f6;z-index:1;}
+.tree-list{padding:15px;}
+.tree-ft{/*position:absolute;left:10px;bottom:10px;*/ text-align:center;}
+.td-button{display:inline-block;padding:0.72em 1.6em;border:1px solid #ccc;border:0 none;border-radius:2px;background-color:#f53;color:#fff;font-size:1.2em;line-height:normal;text-align:center;text-decoration:none;white-space:nowrap;vertical-align:middle;-webkit-user-drag:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-font-smoothing:antialiased;-webkit-transition:0.1s linear -webkit-box-shadow;-moz-transition:0.1s linear -moz-box-shadow;-ms-transition:0.1s linear box-shadow;-o-transition:0.1s linear box-shadow;transition:0.1s linear box-shadow;zoom:1;}
+.td-button:hover{background-color:#f5320c;text-decoration:none;}
+.my-button {margin-left: 5%; padding: 0.58em 1.0em;vertical-align:text-bottom;font-size:1.0em }
+table.homework-list{width:100%;margin-top:15px;font-size:1.2em;border-top:#cbcbcb 1px solid;border-left:#cbcbcb 1px solid;border-right:#cbcbcb 1px solid;}
+table.homework-list thead th{background-color:#f9f9f9;}
+table.homework-list th,
+table.homework-list td{padding: 6px 12px;border-bottom:#cbcbcb 1px solid;} 
+table.homework-list .tno{width:10px;text-align:center;white-space:nowrap;}
+table.homework-list .advanced{width:40px;text-align:center;white-space:nowrap;}
+table.homework-list .type{width:20px;text-align:center;white-space:nowrap;}
+
+.ptwindow_bg{display:none;position:fixed;_position:absolute;top:0;_top:expression(offsetParent.scrollTop+document.documentElement.clientHeight-this.offsetHeight);left:0;width:100%;height:2000px;_height:expression(document.documentElement.clientHeight);background-color:rgb(0,0,0);filter:Alpha(opacity=40);-moz-opacity:.4;opacity:0.4;z-index:99;}
+.ptwindow_shadow{display:none;position:absolute;top:15%;left:0;width:100%;z-index:100;}
+.win_con{position:relative;width:500px;margin:0 auto;padding:7px;background-color:rgb(200,200,200);background-color:rgba(0,0,0,0.4);}
+.win_bg{background-color:#fff;}
+.massege-tt{height:38px;padding-left:12px;background-color:#39f;background-image:-webkit-linear-gradient(top,#1d85ed,#3399ff);background-image:-moz-linear-gradient(top,#1d85ed,#3399ff);background-image:-ms-linear-gradient(top,#1d85ed,#3399ff);background-image:-o-linear-gradient(top,#1d85ed,#3399ff);background-image:linear-gradient(top,#1d85ed,#3399ff);font-size:16px;line-height:38px;color:#fff;}
+.massege-tx{padding:15px;}
+.btn-close{position:absolute;display:block;top:15px;right:15px;width:19px;height:19px;background-color:#39f;border:#147be2 1px solid;text-align:center;line-height:16px;font-size:14px;color:#fff;}
+.btn-close:hover{background-color:#58abfd;border:#147be2 1px solid;text-decoration:none;}
+
+.add-opt{display:inline-block;padding:3px 10px;background-color:#39f;color:#fff;}
+.add-opt:hover{text-decoration:none;}
+
+/*分页*/
+.pagination{padding-top:25px;text-align:center;}
+.pagination ul,.pagination li,.pagination a{display:inline-block;}
+.pagination ul,.pagination li,.pagination a{*display:inline;}
+.pagination ul{height:36px;border:1px solid #ddd;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;-ms-border-radius:4px;background:#fff;}
+.pagination li{float:left;_margin-left:-1px;}
+.pagination li a{height:36px;padding:0 15px;border-left:1px solid #ddd;color:#333;font-size:1.3em;line-height:36px;cursor:pointer;}
+.pagination li:first-child a{border-left:none;}
+.pagination li a:hover{background:#f50;color:#fff;text-decoration:none;}
+.pagination li.disabled a{color:#d1d1d1;cursor:default;}
+.pagination li.active a{background:#f50;color:#fff;cursor:default;}
+.pagination li.disabled a:hover{background:none;}

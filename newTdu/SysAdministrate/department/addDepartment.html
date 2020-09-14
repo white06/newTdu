@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/layui/layui.js"></script>
+    <script type="text/javascript" language="javascript" src="../js/jquery-1.8.3.min.js"></script>
+
+
+    <style>
+
+        #contentDiv {
+            position: fixed;
+            top: 10%;
+            /*background:url(img/背景.jpg) no-repeat;*/
+            background: rgba(60, 65, 84, 1);
+            margin-top: 0;
+            width: 87.5%;
+            height: 90%;
+            min-width: 770px;
+            overflow: auto;
+            margin-left: auto;
+            margin-right: auto;
+            /*z-index: 2;*/
+        }
+        .layui-nav .layui-nav-child dd:hover ul {
+            display: block;
+            position: absolute;
+            top: 0px;
+            left: 100%;
+            background: #2E3546;
+            box-shadow: 0 2px rgba(0, 0, 0, .5);
+            /*border: 1px solid #d2d2d2;*/
+            border-radius: 2px;
+        }
+
+        .layui-nav .layui-nav-child dd ul {
+            display: none;
+        }
+
+        .layui-nav .layui-nav-child dd ul a:HOVER {
+            background-color: #5FB878;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="" id="contentDiv" >
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;display: block">
+    <form class="layui-form" action="">
+        <div class="layui-form-item" style="padding-top: 30px">
+            <label class="layui-form-label" style="">名称 : </label>
+            <div class="layui-input-block" style=" ">
+                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">住址 : </label>
+            <div class="layui-input-block">
+                <input type="text" name="address" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话 : </label>
+            <div class="layui-input-block">
+                <input type="text" name="username" lay-verify="required" lay-reqtext="用户名是必填项，岂能为空？" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+
+            <label class="layui-form-label">邮箱 : </label>
+            <div class="layui-input-block"  >
+                <input type="text" placeholder="请输入标题"  name="email" lay-verify="email" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">概图 : </label>
+            <div class="layui-upload-drag" id="test10">
+                <i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text" style="">
+            <label class="layui-form-label">简介 : </label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <!--<div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">编辑器</label>
+          <div class="layui-input-block">
+            <textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+          </div>
+        </div>-->
+        <div class="layui-form-item" style="padding-bottom: 20px;">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">保存</button>
+                <button type="submit" class="layui-btn">返回</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+</div>
+</body>
+</html>

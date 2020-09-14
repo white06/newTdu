@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="gbk">
+<title> </title>
+    <meta name="description" content=" ">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="../skin/css/base.css" />
+<link rel="stylesheet" href="../skin/css/page.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+</head>
+<body class="pt40 yahei">
+	<!--弹出框-->
+    <div class="ptwindow_bg"></div>
+    <div class="ptwindow_shadow">
+        <div class="win_con ulib-r3">
+        <div class="win_bg ulib-r3">
+            <a href="javascript:;" onclick="$('.ptwindow_shadow').hide();$('.ptwindow_bg').hide();" class="btn-close">x</a>
+            <div class="massege-tt ulib-r3">添加试题</div>
+            <div class="massege-tx">
+                <table class="college_tb">
+                    <tbody>
+                    	<tr>
+                            <th>类型：</th>
+                            <td style="padding-bottom:15px;">
+                                <div class="select-sty">
+                                <select class="ulib-r3">
+                                    <option>选择类型</option>
+                                    <option>单选题</option>
+                                    <option>多选题</option>
+                                    <option>填空题</option>
+                                    <option>问答题</option>
+                                </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>标题：</th>
+                            <td><input class="ulib-r3" type="text" /></td>
+                        </tr>
+					</tbody>
+                    <tbody>
+                        <tr>
+                            <th>选项A：</th>
+                            <td><input class="ulib-r3" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <th>选项B：</th>
+                            <td><input class="ulib-r3" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <th>选项C：</th>
+                            <td><input class="ulib-r3" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <th>选项D：</th>
+                            <td><input class="ulib-r3" type="text" /></td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <td style="padding-bottom:15px;"><a class="add-opt ulib-r3" href="javascript:">+添加选项</a></td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <th>正确答案：</th>
+                            <td><input class="ulib-r3" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <th>正确答案：</th>
+                            <td><textarea class="ulib-r3" style="height:100px;"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    </div>
+	<!--弹出框结束-->
+    <div class="pageheader-bar">
+        <div class="page-wrap">
+            <h1 class="page-tt"> </h1>
+        </div>
+    </div>
+    <div class="top-bar">
+    	<div class="page-wrap clear">
+        	<div class="fl select-sty" style="width:48%;">
+                <select class="ulib-r3">
+                    <option>选择专业</option>
+                </select>
+            </div>
+            <div class="fr select-sty" style="width:48%;">
+                <select class="ulib-r3">
+                    <option>选择课程</option>
+                </select>
+            </div>
+        </div>
+    </div>
+	<div class="page-wrap">
+    	<div class="td-u-1-4">
+        	<div class="tree-panel">
+                <div class="tree-list">
+                	树的位置
+                	<ul>
+                    	<li>目录</li>
+                        <li>目录</li>
+                        <li>目录</li>
+                        <li>目录</li>
+                        <li>目录</li>
+                        <li>目录</li>
+                        <li>目录</li>
+                        <li>目录</li>
+                        <li>目录</li>
+                        <li>目录</li>
+                        <li>目录</li>
+                        <li>目录</li>
+                    </ul>
+                </div>
+                <div class="tree-ft">
+                	<a href="javascript:" onclick="$('.ptwindow_shadow').show();$('.ptwindow_bg').show();" class="td-button">添加试题</a>
+                </div>
+            </div>
+        </div>
+        <div class="td-u-3-4">
+        	<div class="ml10">
+                <table class="homework-list">
+                    <thead>
+                        <tr>
+                            <th class="tno">系号</th>
+                            <th>标题</th>
+                            <th class="type">类型</th>
+                            <th class="advanced">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tno">1</td>
+                            <td>题目标题题目标题题目标题题目标题题目标题题目标题</td>
+                            <td class="type">选择题</td>
+                            <td class="advanced"><a class="sty-lk" onclick="$('.ptwindow_shadow').show();$('.ptwindow_bg').show();" href="javascript:">修改</a><a  class="sty-lk" href="javascript:">删除</a></td>
+                        </tr>
+                        <tr>
+                            <td class="tno">2</td>
+                            <td>题目标题题目标题题目标题题目标题题目标题题目标题</td>
+                            <td class="type">选择题</td>
+                            <td class="advanced"><a class="sty-lk" onclick="$('.ptwindow_shadow').show();$('.ptwindow_bg').show();" href="javascript:">修改</a><a  class="sty-lk" href="javascript:">删除</a></td>
+                        </tr>
+                        <tr>
+                            <td class="tno">3</td>
+                            <td>题目标题题目标题题目标题题目标题题目标题题目标题</td>
+                            <td class="type">选择题</td>
+                            <td class="advanced"><a class="sty-lk" onclick="$('.ptwindow_shadow').show();$('.ptwindow_bg').show();" href="javascript:">修改</a><a  class="sty-lk" href="javascript:">删除</a></td>
+                        </tr>
+                        <tr>
+                            <td class="tno">4</td>
+                            <td>题目标题题目标题题题题目标题题目题题目标题题目标题题目标题题目标题题目标题</td>
+                            <td class="type">选择题</td>
+                            <td class="advanced"><a class="sty-lk" onclick="$('.ptwindow_shadow').show();$('.ptwindow_bg').show();" href="javascript:">修改</a><a  class="sty-lk" href="javascript:">删除</a></td>
+                        </tr>
+                        <tr>
+                            <td class="tno">5</td>
+                            <td>题目标题题目标题题目标题题目标题题目标题题目标题</td>
+                            <td class="type">选择题</td>
+                            <td class="advanced"><a class="sty-lk" onclick="$('.ptwindow_shadow').show();$('.ptwindow_bg').show();" href="javascript:">修改</a><a  class="sty-lk" href="javascript:">删除</a></td>
+                        </tr>
+                        <tr>
+                            <td class="tno">6</td>
+                            <td>题目标题题目标题题目标题题目标题题目标题题目标题</td>
+                            <td class="type">选择题</td>
+                            <td class="advanced"><a class="sty-lk" onclick="$('.ptwindow_shadow').show();$('.ptwindow_bg').show();" href="javascript:">修改</a><a  class="sty-lk" href="javascript:">删除</a></td>
+                        </tr>
+                        <tr>
+                            <td class="tno">7</td>
+                            <td>题目标题题目标题题目标题题目标题题目标题题目标题</td>
+                            <td class="type">选择题</td>
+                            <td class="advanced"><a class="sty-lk" onclick="$('.ptwindow_shadow').show();$('.ptwindow_bg').show();" href="javascript:">修改</a><a  class="sty-lk" href="javascript:">删除</a></td>
+                        </tr>
+                        <tr>
+                            <td class="tno">8</td>
+                            <td>题目标题题目标题题目标题题目标题题目标题题目标题</td>
+                            <td class="type">选择题</td>
+                            <td class="advanced"><a class="sty-lk" onclick="$('.ptwindow_shadow').show();$('.ptwindow_bg').show();" href="javascript:">修改</a><a  class="sty-lk" href="javascript:">删除</a></td>
+                        </tr>
+                        <tr>
+                            <td class="tno">9</td>
+                            <td>题目标题题目标题题目标题题目标题题目标题题目标题</td>
+                            <td class="type">选择题</td>
+                            <td class="advanced"><a class="sty-lk" onclick="$('.ptwindow_shadow').show();$('.ptwindow_bg').show();" href="javascript:">修改</a><a  class="sty-lk" href="javascript:">删除</a></td>
+                        </tr>
+                        <tr>
+                            <td class="tno">10</td>
+                            <td>题目标题题目标题题目标题题目标题题目标题题目标题</td>
+                            <td class="type">选择题</td>
+                            <td class="advanced"><a class="sty-lk" onclick="$('.ptwindow_shadow').show();$('.ptwindow_bg').show();" href="javascript:">修改</a><a  class="sty-lk" href="javascript:">删除</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <ul>
+                        <li class="disabled"><a href="javascript:">«</a></li>
+                        <li class="active"><a href="javascript:">1</a></li>
+                        <li><a href="javascript:">2</a></li>
+                        <li><a href="javascript:">3</a></li>
+                        <li><a href="javascript:">4</a></li>
+                        <li><a href="javascript:">5</a></li>
+                        <li><a href="javascript:">6</a></li>
+                        <li><a href="javascript:">»</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

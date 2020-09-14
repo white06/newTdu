@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<Sence time="0" m_nLimitErrorCount="0" scores="0" resetLoop="false" navgation="" bgSound="" fps="0">
+	<SubTitles />
+	<Audios />
+	<OperStep width="4" />
+	<Propertys>
+		<Navgation speed="20">Trackball</Navgation>
+		<AnimationState>false</AnimationState>
+		<AnimationSpeed>1</AnimationSpeed>
+		<MultViews>false</MultViews>
+		<OperObj>false</OperObj>
+		<SenceType>Show</SenceType>
+		<BackGround r="0.2" g="0.2" b="0.2" a="0.2" />
+		<ActObjRGBA></ActObjRGBA>
+		<Tools caption="true" sound="true" bgColor="false" showVP="false" findview="false" />
+		<InfoWin></InfoWin>
+		<AssistPic></AssistPic>
+		<ToolAutoBack>false</ToolAutoBack>
+		<HaveRota>false</HaveRota>
+		<HintPos>0</HintPos>
+		<BigPos>0</BigPos>
+		<SmallPos>0</SmallPos>
+		<Goods num="0"></Goods>
+		<BackGndImage></BackGndImage>
+		<CursorImage></CursorImage>
+		<ToUseToolAndAssemb>false</ToUseToolAndAssemb>
+		<ToUseErrorSound>false</ToUseErrorSound>
+	</Propertys>
+	<Billboards />
+	<ViewPorts />
+	<UISettings />
+	<Nodes>
+		<Node>
+			<Name>template</Name>
+			<File dynamic="false" level="0" UserID="4d272f66-9dac-4b87-a2a1-22b6e5910779" ModelID="493c98bf-dd3a-92ae-a514-6430d428e2de">tdu.tdb</File>
+			<Pos x="0" y="0" z="0" />
+			<Rot x="0" y="0" z="0" />
+			<Scale x="1" y="1" z="1" />
+			<Shadow using="false" />
+		</Node>
+		<Switch>
+			<Choice>0</Choice>
+		</Switch>
+	</Nodes>
+	<SchematicView />
+	<ExplosiveView />
+	<ShadowParam>
+		<Ambient x="0.5" y="0.5" />
+		<LightPos x="0.2" y="-0.2" z="0.9" />
+		<SeperateShadowedScene>true</SeperateShadowedScene>
+		<ShadowQuality>10</ShadowQuality>
+		<SoftnessWidth>0.001</SoftnessWidth>
+		<SoftShadowJitteringScale>2</SoftShadowJitteringScale>
+	</ShadowParam>
+	<VariableNodes />
+	<Measures />
+	<InitStates disp="" subject="" />
+	<VariableStates />
+	<Routes />
+</Sence>

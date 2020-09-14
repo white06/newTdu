@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TDu VR教育云平台</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link href="favicon.ico" rel="shortcut icon">
+    <script type="text/javascript" language="javascript" src="js/custom/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/layer/layer.js"></script>
+    <link rel="stylesheet" href="js/layer/theme/default/layer.css?v=3.1.1" id="layuicss-layer">
+    <script type="text/javascript" language="javascript" src="js/api.js"></script>
+    <script type="text/javascript" language="javascript" src="js/custom/login.js"></script>
+    <script src="js/baidu_tts_cors.js"></script>
+    <link rel="stylesheet" href="css/buttons.css">
+
+    <style type="text/css">
+        ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+            color:rgba(139,225,221,1);
+        }
+        ::-moz-placeholder { /* Firefox 19+ */
+            color:rgba(139,225,221,1);
+        }
+        :-ms-input-placeholder { /* IE 10+ */
+            color:rgba(139,225,221,1);
+        }
+        :-moz-placeholder { /* Firefox 18- */
+            color:rgba(139,225,221,1);
+        }
+
+        .button {
+            padding: 0 5px;
+            font-size: 13.3333px;
+            line-height: 0px;
+            }
+        input{
+            text-indent: 0px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="bg" id="particles-js" style="background-size:100% 100%;">
+    <div id="loginTel" class="login" style="background-size:100% 100%;">
+        <!--<div style="font-size:28px;font-weight:600;width:100%;height:80px;color:white">开发者平台</div>-->
+        <div class="LoginPanel">
+            <div id="title2" style="font-size:25px;font-weight:600;width:100%;height:120px;line-height: 120px;color:rgba(255,255,255,1);text-align: center" onclick="tts(this)">用户登录</div>
+            <div style="background-image:url(img/sec_login_si.png);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	-moz-background-size:100%;width:80%;height:50px;color:#222222;font-size:22px;margin-left:auto;margin-right:auto;">
+                <div style="background:rgba(152, 210, 232, 0.15);width:20%;height:48px;float:left;"><img style="height: 50%;width: auto;margin-bottom: auto;margin-top:12px;margin-left:auto;margin-right:auto;display:block" src="img/tel.png" /></div>
+                <div style="width:80%;height:48px;;float:left;border-top-right-radius:5px;border-bottom-right-radius:5px">
+                    <input onblur="getTelphone2()" autocomplete="off" name="telphone2" id="telphone2" style="color: #8BE1DD;background:rgba(152, 210, 232, 0.15);;border:0;text-indent:15px;height:100%;width:100%;float:left;" type="text" placeholder="请输入手机号码"/>
+                    <!--<div style="width:15%;height:100%;float:left"><img class="PasswordButton" src="img/visible.png" style="margin-top:17px;"  /></div>-->
+                </div>
+            </div>
+            <div style="background-image:url(img/sec_login_si.png);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	-moz-background-size:100%;width:80%;height:50px;color:#222222;font-size:22px;margin-left:auto;margin-right:auto;margin-top:30px;">
+                <div style="width:70%;height:48px;;float:left;border-top-right-radius:5px;border-bottom-right-radius:5px">
+                    <input autocomplete="off" name="telphoneNumber2" id="telphoneNumber2" style="color: #8BE1DD;background:rgba(152, 210, 232, 0.15);;border:0;text-indent:15px;height:100%;width:100%;float:left;" type="text" placeholder="请输入验证码"/>
+                    <!--<div style="width:15%;height:100%;float:left"><img class="PasswordButton" src="img/visible.png" style="margin-top:17px;"  /></div>-->
+                </div>
+                <div style="width:30%;height:48px;;float:left;border-top-right-radius:5px;border-bottom-right-radius:5px">
+                    <input id="btn2" onclick="sendemail2()" type="button" value="获取验证码" style="text-indent:0px;color: #8BE1DD;border:0;text-indent:15px;height:100%;width:100%;float:left;background: rgba(255, 255, 255, 0.3);" class="button button-royal" />
+                </div>
+            </div>
+            <div style="display: block;font-size: 15px;position: relative;width:80%;display: inline-block;margin-top: 20px;margin-bottom: 15px;text-align: right;">
+                <span  id="tai2" onclick="changeTai()" value="1" style="color:rgba(139,225,221,1);width: auto;position: absolute;left: 0px;cursor:pointer;">开发者平台登录</span>
+                <span style="left: 0%;color:rgba(139,225,221,1);cursor:pointer;" ><div onclick="nameLogin()">账号登录</div></span>
+            </div>
+            <div style="width:80%;display: inline-block;margin-top: 0px;">
+                <div id="loginbutton2" onclick="loginByTel()" style="background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);color:rgba(255,255,255,1);width:100%;height:40px;font-size:18px;margin-left:0px;margin-right:0px;margin-top:7.5px;margin-bottom: 7.5px;text-align:center;line-height:50px;border-radius:5px;">
+                    <span style="display:block;position: relative;top:50%;transform:translateY(-50%);">登录</span>
+                </div>
+            </div>
+            <!--<div style="width:45%;display: inline-block;">
+                <div id="zhuce" onclick="zhuce()" style="color:rgba(255,255,255,1);width:67%;height:40px;font-size:22px;margin-left:20px;margin-right:45px;margin-top:7.5px;text-align:center;line-height:50px;background:#6d7984;border-radius:5px;" >
+                    <span style="display:block;position: relative;top:50%;transform:translateY(-50%);">注册</span>
+                </div>
+            </div>-->
+            <div id="xiazai2"  style=";position:relative;color:rgba(255,255,255,1);width:80%;height:40px;font-size:22px;margin-left:auto;margin-right:auto;margin-top:15px;line-height:40px;border-radius:5px;text-align: right;" >
+                <div style="vertical-align: middle;height: 40px;line-height: 40px;display: inline-block;position: absolute;left: 0%">
+                    <span style="color:rgba(139,225,221,1);font-size:18px;vertical-align:middle;">相关下载:</span>
+                    <a style="cursor:pointer;vertical-align:middle;" onclick="bianjiqi()"  title="TDuVR浏览插件" ><img style="height:25px;width:25px;vertical-align:middle;padding-left: 10px;padding-right: 10px;" src="img/icon_vr.png" /></a>
+                </div>
+                <div style="vertical-align: middle;height: 40px;line-height: 40px;display: inline-block;height: 40px;left: 0%;cursor:pointer;">
+                    <span style="color:rgba(139,225,221,1);font-size:18px;" onclick="zhuceTel()" >注册</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="login" class="login" style="background-size:100% 100%;">
+        <!--<div style="font-size:28px;font-weight:600;width:100%;height:80px;color:white">开发者平台</div>-->
+        <div class="LoginPanel">
+            <div id="title" style="font-size:25px;font-weight:600;width:100%;height:120px;line-height: 120px;color:rgba(255,255,255,1);text-align: center" onclick="tts(this)">用户登录</div>
+            <div style="background-image:url(img/sec_login_si.png);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	-moz-background-size:100% 100%;width:80%;height:50px;color:#222222;font-size:22px;margin-left:auto;margin-right:auto;margin-top: 0px;">
+                <div style="background:rgba(152, 210, 232, 0.15);width:20%;height:100%;float:left;"><img style="height: 50%;width: auto;margin-bottom: auto;margin-top:12px;margin-left:auto;margin-right:auto;display:block" src="img/icon_mine.png" /></div>
+                <input autocomplete="off" id="UserName" name="UserName" style="color: #8BE1DD;background:rgba(152, 210, 232, 0.15);width:80%;height:100%;float:left;text-indent:15px;" type="text" placeholder="账号"/>
+            </div>
+            <div style="background-image:url(img/sec_login_si.png);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	-moz-background-size:100%;width:80%;height:50px;color:#222222;font-size:22px;margin-left:auto;margin-right:auto;margin-top:30px;">
+                <div style="background:rgba(152, 210, 232, 0.15);width:20%;height:48px;float:left;"><img style="height: 50%;width: auto;margin-bottom: auto;margin-top:12px;margin-left:auto;margin-right:auto;display:block" src="img/icon_password.png" /></div>
+                <div style="width:80%;height:48px;;float:left;border-top-right-radius:5px;border-bottom-right-radius:5px">
+                    <input autocomplete="off" name="PassWord" id="PassWord" style="color: #8BE1DD;background:rgba(152, 210, 232, 0.15);;border:0;text-indent:15px;height:100%;width:100%;float:left;" type="password" placeholder="密码"/>
+                    <!--<div style="width:15%;height:100%;float:left"><img class="PasswordButton" src="img/visible.png" style="margin-top:17px;"  /></div>-->
+                </div>
+
+            </div>
+            <div style="display: block;font-size: 15px;position: relative;width:80%;display: inline-block;margin-top: 20px;margin-bottom: 15px;text-align: right;">
+                <span  id="tai" onclick="changeTai()" value="1" style="color:rgba(139,225,221,1);width: auto;position: absolute;left: 0px;cursor:pointer;">开发者平台登录</span>
+                <span style="left: 0%;color:rgba(139,225,221,1);cursor:pointer;" ><div onclick="telLogin()">手机号登录</div></span>
+            </div>
+            <div style="width:80%;display: inline-block;margin-top: 0px;">
+                <div id="loginbutton" onclick="login()" style="background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);color:rgba(255,255,255,1);width:100%;height:40px;font-size:18px;margin-left:0px;margin-right:0px;margin-top:7.5px;margin-bottom: 7.5px;text-align:center;line-height:50px;border-radius:5px;">
+                    <span style="display:block;position: relative;top:50%;transform:translateY(-50%);">登录</span>
+                </div>
+            </div>
+            <!--<div style="width:45%;display: inline-block;">
+                <div id="zhuce" onclick="zhuce()" style="color:rgba(255,255,255,1);width:67%;height:40px;font-size:22px;margin-left:20px;margin-right:45px;margin-top:7.5px;text-align:center;line-height:50px;background:#6d7984;border-radius:5px;" >
+                    <span style="display:block;position: relative;top:50%;transform:translateY(-50%);">注册</span>
+                </div>
+            </div>-->
+            <div id="xiazai"  style=";position:relative;color:rgba(255,255,255,1);width:80%;height:40px;font-size:22px;margin-left:auto;margin-right:auto;margin-top:15px;line-height:40px;border-radius:5px;text-align: right;" >
+                <div style="vertical-align: middle;height: 40px;line-height: 40px;display: inline-block;position: absolute;left: 0%">
+                <span style="color:rgba(139,225,221,1);font-size:18px;vertical-align:middle;">相关下载:</span>
+                <a style="cursor:pointer;vertical-align:middle;" onclick="bianjiqi()"  title="TDuVR浏览插件" ><img style="height:25px;width:25px;vertical-align:middle;padding-left: 10px;padding-right: 10px;" src="img/icon_vr.png" /></a>
+                </div>
+                <div style="vertical-align: middle;height: 40px;line-height: 40px;display: inline-block;height: 40px;left: 0%;cursor:pointer;">
+                    <span style="color:rgba(139,225,221,1);font-size:18px;" onclick="zhuce()" >注册</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 36.4%;height: 64%;position: absolute;top: 16%;left:13.5%;">
+        <img src="img/bg_photo_1.png" style="width: 100%;height: auto"/>
+    </div>
+
+    <!--<div style="width: 13.3%;height: 10%;position: absolute;bottom: 3.7%;left: 2.1%">
+        <img src="img/5G·AI.png" style="width: 100%;height: auto"/>
+    </div>-->
+    <div id="zhuce" class="login" style="height: 600px;background-size:100% 100%;display:none">
+        <!--<div style="font-size:28px;font-weight:600;width:100%;height:80px;color:white">开发者平台</div>-->
+        <div class="LoginPanel" style="height: 600px;">
+            <div style="font-size:25px;font-weight:600;width:100%;height:60px;line-height: 60px;color:rgba(255,255,255,1);text-align: center">用户注册</div>
+            <div style="background-image:url(img/sec_login_si.png);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	-moz-background-size:100% 100%;width:80%;height:50px;color:#222222;font-size:22px;margin-left:auto;margin-right:auto;margin-top: 0px;">
+                <div style="background:rgba(152, 210, 232, 0.15);width:20%;height:100%;float:left;"><img style="height: 50%;width: auto;margin-bottom: auto;margin-top:12px;margin-left:auto;margin-right:auto;display:block" src="img/icon_mine.png" /></div>
+                <input autocomplete="off" id="zhuceName" name="UserName" style="    color: #8BE1DD;background: rgba(152, 210, 232, 0.15);border: 0;text-indent: 15px;height: 100%;width: 80%;float: left;" type="text" placeholder="账号"/>
+            </div>
+            <div style="background-image:url(img/sec_login_si.png);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	-moz-background-size:100%;width:80%;height:50px;color:#222222;font-size:22px;margin-left:auto;margin-right:auto;margin-top:20px;">
+                <div style="background:rgba(152, 210, 232, 0.15);width:20%;height:48px;float:left;"><img style="height: 50%;width: auto;margin-bottom: auto;margin-top:12px;margin-left:auto;margin-right:auto;display:block" src="img/icon_password.png" /></div>
+                <div style="width:80%;height:48px;;float:left;border-top-right-radius:5px;border-bottom-right-radius:5px">
+                    <input autocomplete="off" name="PassWord" id="zhucePassword" style="color: #8BE1DD;background:rgba(152, 210, 232, 0.15);;border:0;text-indent:15px;height:100%;width:100%;float:left;" type="password" placeholder="密码"/>
+                    <!--<div style="width:15%;height:100%;float:left"><img class="PasswordButton" src="img/visible.png" style="margin-top:17px;"  /></div>-->
+                </div>
+
+            </div>
+
+            <div style="background-image:url(img/sec_login_si.png);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	-moz-background-size:100%;width:80%;height:50px;color:#222222;font-size:22px;margin-left:auto;margin-right:auto;margin-top:20px;">
+                <div style="background:rgba(152, 210, 232, 0.15);width:20%;height:48px;float:left;"><img style="height: 50%;width: auto;margin-bottom: auto;margin-top:12px;margin-left:auto;margin-right:auto;display:block" src="img/icon_password.png" /></div>
+                <div style="width:80%;height:48px;;float:left;border-top-right-radius:5px;border-bottom-right-radius:5px">
+                    <input autocomplete="off" name="querenPassword" id="querenPassword" style="color: #8BE1DD;background:rgba(152, 210, 232, 0.15);;border:0;text-indent:15px;height:100%;width:100%;float:left;" type="password" placeholder="密码"/>
+                    <!--<div style="width:15%;height:100%;float:left"><img class="PasswordButton" src="img/visible.png" style="margin-top:17px;"  /></div>-->
+                </div>
+
+            </div>
+            <div style="background-image:url(img/sec_login_si.png);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	-moz-background-size:100%;width:80%;height:50px;color:#222222;font-size:22px;margin-left:auto;margin-right:auto;margin-top:20px;">
+                <div style="background:rgba(152, 210, 232, 0.15);width:20%;height:48px;float:left;"><img style="height: 50%;width: auto;margin-bottom: auto;margin-top:12px;margin-left:auto;margin-right:auto;display:block" src="img/tel.png" /></div>
+                <div style="width:80%;height:48px;;float:left;border-top-right-radius:5px;border-bottom-right-radius:5px">
+                    <input autocomplete="off" onblur="getTelphone()" name="telphone" id="telphone" style="color: #8BE1DD;background:rgba(152, 210, 232, 0.15);;border:0;text-indent:15px;height:100%;width:100%;float:left;" type="text" placeholder="请输入手机号码"/>
+                    <!--<div style="width:15%;height:100%;float:left"><img class="PasswordButton" src="img/visible.png" style="margin-top:17px;"  /></div>-->
+                </div>
+            </div>
+            <div style="background-image:url(img/sec_login_si.png);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	-moz-background-size:100%;width:80%;height:50px;color:#222222;font-size:22px;margin-left:auto;margin-right:auto;margin-top:20px;">
+                <div style="width:70%;height:48px;;float:left;border-top-right-radius:5px;border-bottom-right-radius:5px">
+                    <input autocomplete="off" name="telphoneNumber" id="telphoneNumber" style="color: #8BE1DD;background:rgba(152, 210, 232, 0.15);;border:0;text-indent:15px;height:100%;width:100%;float:left;" type="text" placeholder="请输入验证码"/>
+                    <!--<div style="width:15%;height:100%;float:left"><img class="PasswordButton" src="img/visible.png" style="margin-top:17px;"  /></div>-->
+                </div>
+                <div style="width:30%;height:48px;;float:left;border-top-right-radius:5px;border-bottom-right-radius:5px">
+                    <input id="btn" onclick="sendemail()" type="button" value="获取验证码" style="text-indent:0px;color: #8BE1DD;border:0;text-indent:15px;height:100%;width:100%;float:left;background: rgba(255, 255, 255, 0.3);" class="button button-royal" />
+                </div>
+            </div>
+
+            <div style="background-image:url(img/sec_login_si.png);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	-moz-background-size:100%;width:80%;height:50px;color:#222222;font-size:22px;margin-left:auto;margin-right:auto;margin-top:20px;">
+                <div style="background:rgba(152, 210, 232, 0.15);width:20%;height:48px;float:left;"><img style="height: 50%;width: auto;margin-bottom: auto;margin-top:12px;margin-left:auto;margin-right:auto;display:block" src="img/icon_password.png" /></div>
+                <div style="width:80%;height:48px;;float:left;border-top-right-radius:5px;border-bottom-right-radius:5px">
+                    <input autocomplete="off" name="PassWord" id="email" style="color: #8BE1DD;background:rgba(152, 210, 232, 0.15);;border:0;text-indent:15px;height:100%;width:100%;float:left;" type="email" placeholder="邮箱"/>
+                    <!--<div style="width:15%;height:100%;float:left"><img class="PasswordButton" src="img/visible.png" style="margin-top:17px;"  /></div>-->
+                </div>
+
+            </div>
+
+            <div style="display: block;font-size: 15px;position: relative;left: 0%;text-align: right;width:80%;display: inline-block;margin-top: 20px;margin-bottom: 15px;color:rgba(139,225,221,1);" >
+
+                <div>
+                    <label><input type="checkbox" name="ziyuan" id="ziyuan" value="资源学习课程">资源学习课程</label>
+                </div>
+
+            </div>
+
+
+            <div style="width:80%;display: inline-block;margin-top: 0px;">
+                <div id="zhucebutton" onclick="zhuceUser()" style="background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);color:rgba(255,255,255,1);width:100%;height:50px;font-size:18px;margin-left:0px;margin-right:0px;margin-top:7.5px;margin-bottom: 7.5px;text-align:center;line-height:50px;border-radius:5px;">
+                    <span style="display:block;position: relative;top:50%;transform:translateY(-50%);">注册</span>
+                </div>
+            </div>
+            <!--<div style="width:45%;display: inline-block;">
+                <div id="zhuce" onclick="zhuce()" style="color:rgba(255,255,255,1);width:67%;height:40px;font-size:22px;margin-left:20px;margin-right:45px;margin-top:7.5px;text-align:center;line-height:50px;background:#6d7984;border-radius:5px;" >
+                    <span style="display:block;position: relative;top:50%;transform:translateY(-50%);">注册</span>
+                </div>
+            </div>-->
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+<script type="text/javascript" language="javascript" src="js/custom/particles.js"></script>
+<script type="text/javascript" language="javascript" src="js/custom/app.js"></script>
+
+<script>
+
+    // 初始化变量
+    var audio = null;
+    // 合成按钮
+    function tts(obj) {
+        var text = $(obj).text()
+        // 调用语音合成接口
+        // 参数含义请参考 https://ai.baidu.com/docs#/TTS-API/41ac79a6
+        //  https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=b2r8vqjcKGGZ59G07C2eFGzH&client_secret=iBD0YvTlokK1BeGNHSni2XGygA3Xohte
+        //    返回值 access_token 为所需
+        audio = btts({
+            tex: text,
+            tok: '24.819cc0f21c7e79bd0a676d4ba372da44.2592000.1590817509.282335-19184459',
+            spd: 5,
+            pit: 5,
+            vol: 15,
+            per: 4
+        }, {
+            volume: 0.3,
+            autoDestory: true,
+            timeout: 10000,
+            hidden: true,
+            onInit: function (htmlAudioElement) {
+
+            },
+            onSuccess: function(htmlAudioElement) {
+                audio = htmlAudioElement;
+                play();
+            },
+            onError: function(text) {
+                alert(text)
+            },
+            onTimeout: function () {
+                alert('timeout')
+            }
+        });
+        //audio.play();
+    }
+    // 播放按钮
+    function play() {
+        if (audio === null) {
+            alert('请先点击合成')
+        } else {
+            audio.play();
+        }
+    }
+
+    var countdown=60;
+    function sendemail(){
+        var tel = $("#telphone").val()
+        console.log(tel)
+        if(tel==""){
+            layer.alert("请先填写电话号码！");
+            return;
+        }
+        layer.msg("验证码发送中");
+        getNumber(tel)
+        var obj = $("#btn");
+        settime(obj);
+
+    }
+    var validation=0;
+    function getNumber(tel) {
+        $.ajax({
+            type: "POST",
+            url: preurl + "UsersController/validation.action?phone=" + tel,
+            async: false,
+            success: function (res) {
+                var data = eval("(" + (res) + ")");
+                if(data.code=="0000"){
+                    validation=data.data;
+                }
+                console.log(validation);
+            },
+            error: function (data) {
+                layer.alert("系统异常");
+                return;
+            },
+        });
+    }
+    function settime(obj) { //发送验证码倒计时
+        if (countdown == 0) {
+            obj.attr('disabled',false);
+            //obj.removeattr("disabled");
+            countdown = 60;
+            return;
+        } else {
+            obj.attr('disabled',true);
+            obj.attr('text-indent',"0px");
+            console.log(obj)
+            obj.val("重新发送(" + countdown + ")");
+            countdown--;
+        }
+        setTimeout(function() {
+                settime(obj) }
+            ,1000)
+    }
+
+
+    var countdown2=60;
+    function sendemail2(){
+        var tel = $("#telphone2").val()
+        console.log(tel)
+        if(tel==""){
+            layer.alert("请先填写电话号码！");
+            return;
+        }
+        layer.msg("验证码发送中");
+        getNumber2(tel)
+        var obj = $("#btn2");
+        settime2(obj);
+
+    }
+    var validation2=0;
+    function getNumber2(tel) {
+        $.ajax({
+            type: "POST",
+            url: preurl + "UsersController/validation.action?phone=" + tel,
+            async: false,
+            success: function (res) {
+                var data = eval("(" + (res) + ")");
+                if(data.code=="0000"){
+                    validation2=data.data;
+                }
+                console.log(validation2);
+            },
+            error: function (data) {
+                layer.alert("系统异常");
+                return;
+            },
+        });
+    }
+    function settime2(obj) { //发送验证码倒计时
+        if (countdown == 0) {
+            obj.attr('disabled',false);
+            //obj.removeattr("disabled");
+            countdown = 60;
+            return;
+        } else {
+            obj.attr('disabled',true);
+            obj.attr('text-indent',"0px");
+            console.log(obj)
+            obj.val("重新发送(" + countdown2 + ")");
+            countdown--;
+        }
+        setTimeout(function() {
+                settime(obj) }
+            ,1000)
+    }
+
+</script>
+</html>

@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Developers</title>
+	<link rel="stylesheet" type="text/css" href="../js/layui/css/layui.css"/>
+<link href="Css.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="MyCss.css" />
+<link rel="stylesheet" href="page.css" />
+
+	<script src="../js/layui/layui.js"></script>
+<script src="jquery-1.8.0.min.js"></script>
+<script src="jquery.kkPages.js"></script>
+<style>
+.item {
+	margin: 40px 20px;
+}
+
+hr {
+	margin-bottom: 0px;
+}
+
+.itemP {
+	margin-top: 10px;
+}
+
+.item P {
+	padding-left: 10px;
+}
+
+.layui-nav .layui-nav-child dd:hover ul {
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: 76px;
+	background: #dddddd;
+	box-shadow: 0 2px rgba(0, 0, 0, .12);
+	border: 1px solid #d2d2d2;
+	border-radius: 2px;
+}
+
+.layui-nav .layui-nav-child dd ul {
+	display: none;
+}
+
+.layui-nav .layui-nav-child dd ul a:HOVER {
+	background: #F0F0F0
+}
+.layui-nav .layui-nav-child dd:hover ul {
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: 100%;
+	background: #2E3546;
+	box-shadow: 0 2px rgba(0, 0, 0, .5);
+	/*border: 1px solid #d2d2d2;*/
+	border-radius: 2px;
+}
+
+.layui-nav-child dd {
+	position: relative;
+	width: 200px;
+	background:rgba(46,53,70,1);
+}
+
+.layui-nav-child {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 65px;
+	min-width: 100%;
+	white-space: nowrap;
+
+	width: 600px;
+	height: 500px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+.layui-nav .layui-nav-child dd ul dd {
+	width: 100%;
+
+	/*overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;*/
+
+}
+.layui-nav .layui-nav-child dd ul {
+	width: 100%;
+	display: none;
+}
+
+.layui-nav .layui-nav-child dd ul a:HOVER {
+	background-color: #5FB878;
+	color: white;
+}
+::-webkit-scrollbar-thumb{background-color:#2E3546;height:50px;outline-offset:-2px;outline:2px solid #333;-webkit-border-radius:4px;border:2px solid #333;}
+/*---�������������ʾ��ʽ--*/
+::-webkit-scrollbar-thumb:hover{background-color:#E9F0FA;height:50px;-webkit-border-radius:4px;}
+/*---��������С--*/
+::-webkit-scrollbar{width:0px;height:6px;}
+/*---�����򱳾���ʽ--*/
+::-webkit-scrollbar-track-piece{background-color:#E9F0FA;-webkit-border-radius:0;}
+</style>
+<script type="text/javascript">
+	var g_obj_CPP;
+	function SaveCppObject(obj) {
+		////console.log("新增"+obj)
+		//alert("调用SaveCppObject");
+		//obj["FUNCTION_A"](1234);
+		g_obj_CPP = obj;
+	}
+	/* function SaveCppObject2(obj2) {
+		//alert("model ID" + obj2)
+		g_obj_CPP["FUNCTION_SetModelID"](obj2);
+	} */
+
+</script>
+<script type="text/javascript">
+
+	//图片路径文件（绝对路径时使用）
+
+	var imgurl = "http://tdu.tduvr.club/Data/3D/Model/";
+
+
+	/* var console={log:function(){}} */
+	var userId;
+	$(function() {
+		$(".item").click(function() {
+			$(this).siblings().css("border", "").end()
+				.css("border", "'border:3px solid #099CA8'");
+		});
+		$(".item").css("border", "1px solid #DCDCDC");
+
+
+		var str = GetRequest();
+		eval(str)
+		userId = str.userID
+		showModelNav();
+		//showViewNav();
+		//showModel("fc2b74a1-e131-41b7-9787-c950f72e8626", userId)
+		$("input[name=userId]").val(userId);
+
+
+		$(".item").click(function() {
+			var css = $(".item").attr("style");
+			$(".item").css("border", "1px solid #DCDCDC");
+			if (css.indexOf("border: 1px solid #DCDCDC") >= 0)
+				$(this).css("border", "3px solid #099CA8");
+			else
+				$(this).css("border", "3px solid #099CA8");
+		});
+		getModelFirst("")
+		//showModelContent("b44969f5-08c2-4040-9a27-112bd4bc46f4",userId)
+		showModelContent("2dbdab7d-a342-43eb-b4ad-a5bd1619497b", userId)
+	})
+	var subtreeId = "";
+	function getRootId(subId) {
+		$.ajax({
+			type : "POST",
+			url : "../../tdu-base/DevelopModelController/getSubjectModelsRootId.action",
+			data : {
+				"subId" : subId
+			},
+			success : function(res) {
+				console.log(res)
+				console.log(res.id)
+				subtreeId = res.id;
+				$("#subjectTreeId").val(res.id)
+				gettModelsRootId(res.id)
+			}
+		});
+	}
+	function gettModelsRootId(rootId) {
+		$.ajax({
+			type : "POST",
+			url : "../../tdu-base/DevelopModelController/gettModelsRootId.action",
+			data : {
+				"subId" : rootId
+			},
+			success : function(res) {
+				console.log(res)
+				console.log(res.id)
+				getModelFirst(res.id);
+
+			}
+		});
+	}
+
+	function getModelFirst(str) {
+		console.log("userId  :" + userId);
+		$("#showModel").html("")
+		var count = "59d74fb8-6571-4668-95f9-a7e856d03736";
+
+		if (str == null || str == "") {
+			str = count;
+			/*默认为开发者平台的subtreeId*/
+			$("#subjectTreeId").val("36c8c7c2-8aaf-44c9-b6c8-53e0e3fa3a68")
+		}
+		console.log("subtreeId  :" + $("#subjectTreeId").val())
+		var mId = "";
+		//递归方式查询
+		$.ajax({
+			type : "POST",
+			url : "../../tdu-base/DevelopModelController/getModelsSecond.action",
+			data : {
+				KnowledgesFisId : str,
+				userId : userId
+			},
+			success : function(result) {
+
+				$("#leftnav").html("")
+				if (result.length > 0) {
+					var divShow = $("#leftnav");
+					var obj;
+					for (var i = 0; i < result.length; i++) {
+						obj = result[i];
+						if (i == 0) {
+							mId = result[i].id ;
+						}
+						if (obj.modelContentId == "00000000-0000-0000-0000-000000000000") {
+							var HtmlShow = "<li id='" + result[i].id + "' class='layui-nav-item layui-nav-itemed'><a href=\"javascript:void(0);\"   onclick=\"showModelContent('" + result[i].id + "'" + ',' + "'" + userId + "')\">" + result[i].content + "</a></li>"
+
+							divShow.append(HtmlShow);
+						}
+						let function1 = function(objX) {
+							let objY = objX;
+							return function(data) {
+
+								 var tt = remakeData(data);
+								console.log("  tt :" + tt)
+
+								var tt2 = new Array();
+
+								for (var k = 0; k < tt.length; k++) {
+									if (tt[k].checkDel == 0) {
+										tt2.push(tt[k]);
+									}
+								}
+								data = tt2; 
+
+								var str2 = objY.id;
+								console.log(str2)
+								var divAppend = $("#" + str2 + "");
+								if (data.length > 0) {
+									var HtmlShow = "<dl class='layui-nav-child'>";
+									for (var k = 0; k < data.length; k++) {
+										if (data[k].modelContentId == "00000000-0000-0000-0000-000000000000") {
+											HtmlShow += "<dd><a href='javascript:void(0);' onclick=\"showModelContent('" + data[k].id + "'" + ',' + "'" + userId + "')\">" + data[k].content + "</a></dd>";
+
+										}
+									}
+									HtmlShow += "</dl>";
+									divAppend.append(HtmlShow);
+
+								}
+
+
+							/* if (data.length = 1 && data.modelContentId == "00000000-0000-0000-0000-000000000000") {
+								var HtmlShow = "<dl class='layui-nav-child'><dd><a href='javascript:(0);>" + data[0].content + "</a></dd></dl>"
+								divAppend.append(HtmlShow);
+							}
+							if (data.length > 1 && data.modelContentId == "00000000-0000-0000-0000-000000000000") {
+								var HtmlShow = "<dl class='layui-nav-child'>";
+								for (var k = 0; k < data.length; k++) {
+									HtmlShow += "<dd><a href='javascript:(0);'>" + data[k].content + "</a></dd>";
+								}
+								HtmlShow += "</dl>"
+								divAppend.append(HtmlShow);
+							} */
+							}
+						}(obj)
+
+						$.post("../../tdu-base/DevelopModelController/getParentModels.action", {
+							"id" : result[i].id
+						}, function1);
+
+						if (i == result.length - 1) {
+							showModelContent(mId, userId);
+						}
+
+					}
+
+				}
+			}
+		});
+
+
+
+	}
+
+
+	function GetRequest() {
+		var url = location.search; //获取url中"?"符后的字串  
+		var theRequest = new Object();
+		if (url.indexOf("?") != -1) {
+			var str = url.substr(1);
+			strs = str.split("&");
+			for (var i = 0; i < strs.length; i++) {
+				theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+			}
+		}
+		return theRequest;
+	}
+
+	function updateModelName(str) {
+		$.ajax({
+			url : "../../tdu-base/DevelopModelController/updateModelName.action",
+			data : {
+				Id : str
+			},
+			type : "post",
+			async : false,
+			success : function(data) {
+				console.log(data);
+			}
+		});
+	}
+	function showModelNav() {
+		$.ajax({
+			url : "../../tdu-base/ShouyeController/getSubjects2.action",
+			data : {
+				userId : userId
+			},
+			type : "post",
+			async : false,
+			success : function(data) {
+				console.log(data)
+				var keyList = Object.keys(data);
+				console.log(keyList)
+				var length = Object.keys(data).length;
+				console.log(length)
+				console.log(data[0])
+
+				if (length > 0) {
+					//for (var i = 0; i < keyList.length; i++) {
+					var subhtml = '';
+					for (var j = 0; j < Object.keys(data[keyList[0]]).length; j++) {
+						var major = Object.keys(data[keyList[0]])[j];
+						var arr = major.split(",");
+						subhtml += '<dd><a href="javascript:void(0);" >' + arr[0] + '</a><ul>';
+						for (var m = 0; m < data[keyList[0]][Object.keys(data[keyList[0]])[j]].length; m++) {
+							//subhtml+='<option value="'+data[keyList[i]][Object.keys(data[keyList[i]])[j]][m].id+'">'+data[keyList[i]][Object.keys(data[keyList[i]])[j]][m].subjectName+'</option>';
+							if ((j + 1) == Object.keys(data[keyList[0]]).length && (m + 1) == data[keyList[0]][Object.keys(data[keyList[0]])[j]].length) {
+								subhtml += '<li><a class="layui-this" value="' + data[keyList[0]][Object.keys(data[keyList[0]])[j]][m].id + '" href="javascript:void(0);" onclick="getRootId(' + "'" + data[keyList[0]][Object.keys(data[keyList[0]])[j]][m].id + "'" + ')">' + data[keyList[0]][Object.keys(data[keyList[0]])[j]][m].subjectName + '</a></li>';
+							} else {
+								subhtml += '<li><a  value="' + data[keyList[0]][Object.keys(data[keyList[0]])[j]][m].id + '" href="javascript:void(0);" onclick="getRootId(' + "'" + data[keyList[0]][Object.keys(data[keyList[0]])[j]][m].id + "'" + ')">' + data[keyList[0]][Object.keys(data[keyList[0]])[j]][m].subjectName + '</a></li>';
+							}
+						}
+						subhtml += "</ul></dd>";
+					}
+
+					// }
+
+				}
+
+				$("#model").html("");
+				//console.log(subhtml);
+				$("#model").html(subhtml);
+
+			}
+		});
+	}
+
+	function showViewNav() {
+		$.ajax({
+			url : "../../tdu-base/DevelopModelController/getModelContacts2.action",
+			data : {},
+			type : "post",
+			async : false,
+			success : function(data) {
+				//console.log(data)      
+				if (data.length > 0) {
+					var subhtml = '';
+					for (var i = 0; i < data.length; i++) {
+
+						subhtml += '<dd><a href="javascript:void(0);" onclick="showView(' + "'" + data[i].id + "'" + ',' + "'" + userId + "'" + ')">' + data[i].name + '</a>';
+
+						subhtml += "</dd>";
+
+					}
+					$("#model").html("");
+					//console.log(subhtml);
+					$("#model").html(subhtml);
+				} else {
+					//$("#fatherView").remove("#view");
+					$("#view").remove();
+					$(document).on("click", "#addOnclick", function() {
+						document.getElementById("addNew").style.display = "none";
+						document.getElementById("showContent").style.display = "block";
+						document.getElementById("updateContent").style.display = "none";
+						var viewId = '7fb53e8f-baf1-4c1e-8868-bad634e81461'
+						$("#modelOrViewId").val(viewId)
+						$("#type").val("场景")
+						$("input[name=modelOrView]").val($("#modelOrViewId").val());
+						$("input[name=type]").val($("#type").val())
+
+						$.ajax({
+							url : "../../tdu-base/DevelopModelController/getModelListMapper2.action",
+							data : {
+								Id : viewId,
+								userId : userId
+							},
+							type : "post",
+							async : false,
+							success : function(data) {
+								//console.log(data) 
+								var userName = ""
+								if (data.length != 0) {
+									$.ajax({
+										url : "../../tdu-base/UsersController/getUserName.action",
+										data : {
+											Id : data[0].userKey
+										},
+										type : "post",
+										async : false,
+										success : function(data) {
+											//console.log(data)
+											//console.log(data.name)
+											userName = data.name
+										}
+									});
+								}
+								if (data.length == 0) {
+									//alert("无内容")
+									$("#showModel").html("");
+									var subhtml = '<div class="item" style="display: inline-block;width: auto;height: auto;position: relative;top: 0rem">'
+
+										+ '<img  onclick="xinzeng()" src="image/000.png" height="203" width="284"/></div>';
+								}
+
+
+								if (data.length > 0) {
+									var subhtml = '<div class="item" style="display: inline-block;width: auto;height: auto;position: relative;top: -5.5rem">'
+
+										+ '<img  onclick="xinzeng()" src="image/000.png" height="203" width="284"/></div>';
+									for (var i = 0; i < data.length; i++) {
+
+										if (data[i].photoName == null) {
+											subhtml += '<div class="item"  style="display: inline-block;width: auto;height: auto;"><div>'
+												+ '<img src="http://192.168.0.50:8080/file/test.png" height="131" width="289"/></div>'
+												+ '<p class="itemP" style="color: #868A85">' + data[i].name + '</p>'
+												+ '<div style="position: relative">'
+												+ ' <span style="position: absolute;top: 10%;left: 74%" onclick="window.parent.SaveCppObject3(' + "'" + data[i].id + "'" + ',' + "'" + data[i].name + "'" + ',' + "'" + data[i].userKey + "'" + ',' + "'" + data[i].contactKey + "'" + ',' + "'" + data[i].type + "'" + ')"><button class="layui-btn layui-btn-xs">提交</button></span>'
+												+ '<span style="position: absolute;top: 5%;left: 88%" onclick="deleteContent(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-delete" style="font-size: 22px"></i></span><p style="line-height: 30px;height: 30px;color: #868A85;">' + userName + '</p></div></div>';
+										} else {
+											subhtml += '<div class="item"  style="display: inline-block;width: auto;height: auto;"><div>'
+												+ '<img src="http://192.168.0.50:8080/file/Scene/' + data[i].userKey + '/' + data[i].id + '/' + data[i].photoName + '" height="131" width="289"/></div>'
+												+ '<p class="itemP" style="color: #868A85">' + data[i].name + '</p>'
+												+ '<div style="position: relative">'
+												+ ' <span style="position: absolute;top: 10%;left: 74%" onclick="window.parent.SaveCppObject3(' + "'" + data[i].id + "'" + ',' + "'" + data[i].name + "'" + ',' + "'" + data[i].userKey + "'" + ',' + "'" + data[i].contactKey + "'" + ',' + "'" + data[i].type + "'" + ')"><button class="layui-btn layui-btn-xs">提交</button></span>'
+												+ '<span style="position: absolute;top: 5%;left: 88%" onclick="deleteContent(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-delete" style="font-size: 22px"></i></span><p style="line-height: 30px;height: 30px;color: #868A85;">' + userName + '</p></div></div>';
+										}
+									/* subhtml += '<div class="item" style="display: inline-block;width: auto;height: auto;border: 1px solid #DCDCDC"><div>'
+										+ '<img src="http://192.168.0.50:8080/file/Scene/' + data[i].userKey + '/' + data[i].id + '/' + data[i].photoName + '" height="131" width="289"/></div>'
+										+ '<p class="itemP" style="color: #868A85">' + data[i].name + '</p>'
+										+ '<div style="position: relative">'
+										+ ' <span style="position: absolute;top: 0%;left: 78%" onclick="updateModelOrView(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-list" style="font-size: 22px"></i>  </span>'
+										+ '<span style="position: absolute;top: 0%;left: 87%" onclick="deleteContent(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-delete" style="font-size: 22px"></i></span><p style="line-height: 30px;height: 30px;color: #868A85;">' + userName + '</p></div></div>';
+ */
+									}
+									subhtml += '<div class="clear"></div></div>';
+								}
+								$("#showModel").html("");
+								//console.log(subhtml);
+								$("#showModel").html(subhtml);
+
+								$(".item").css("border", "1px solid #DCDCDC");
+
+								$('.pagelist').kkPages({
+									PagesClass : '.item', //需要分页的元素
+									PagesMth : 8, //每页显示个数
+									PagesNavMth : 3 //显示导航个数
+
+								});
+							}
+						});
+
+					})
+
+				}
+			}
+		});
+	}
+
+	function remakeData(items) {
+		let newDataItems = [] //存放结果数据
+		let pidItemsDic = {} //结构 pid:子集的数组  字典查询速度快
+
+		//将数据筛选 装入字典
+		for (let i = 0; i < items.length; i++) {
+			let item = items[i]
+			if (!pidItemsDic[item.preModel])
+				pidItemsDic[item.preModel] = [ item ]
+			else
+				pidItemsDic[item.preModel].push(item)
+		}
+
+		getSonArrByPid(null) //传入pid为0或空 即获取0级菜单, 传入level-0 方便实现页面渲染菜单缩进
+
+		//类似二叉树前序遍历 循环菜单查找子菜单，因为线性执行，所以一条分支找完才会去查找下一条分支
+		function getSonArrByPid(preModel) {
+			let itemsTemp = pidItemsDic[preModel] || [] //pid对应子集  缺省值[]
+			for (let i = 0; i < itemsTemp.length; i++) {
+				let item = itemsTemp[i]
+				newDataItems.push(item)
+
+				//存在子集递归
+				if (pidItemsDic[item.id])
+					getSonArrByPid(item.id, item)
+			}
+		}
+
+		return newDataItems
+	}
+
+	function showModelContent(modelId, userId) {
+		$("#showModel").html("");
+		$("#modelOrViewId").val(modelId)
+		$("#type").val("模型")
+		$("input[name=modelOrView]").val($("#modelOrViewId").val());
+		$("input[name=type]").val($("#type").val())
+
+		document.getElementById("addNew").style.display = "none";
+		document.getElementById("showContent").style.display = "block";
+		document.getElementById("updateContent").style.display = "none";
+		$.ajax({
+			url : "../../tdu-base/DevelopModelController/getModelsList.action",
+			data : {
+				Id : modelId,
+				userId : userId
+			},
+			type : "post",
+			async : false,
+			success : function(data) {
+
+				console.log(data)
+
+
+				var tt = remakeData(data);
+				console.log("  tt :" + tt)
+
+				var tt2 = new Array();
+
+				for (var k = 0; k < tt.length; k++) {
+					if (tt[k].checkDel == 0) {
+						tt2.push(tt[k]);
+					}
+				}
+				data = tt2; 
+
+
+				var userName = ""
+				if (data.length != 0) {
+					$.ajax({
+						url : "../../tdu-base/UsersController/getUserName.action",
+						data : {
+							Id : data[0].userKey
+						},
+						type : "post",
+						async : false,
+						success : function(data) {
+							//console.log(data)
+							//console.log(data.name)
+							userName = data.name
+						}
+					});
+				}
+				if (data.length == 0) {
+					//alert("无内容")
+					$("#showModel").html("");
+					var subhtml = '';
+					/* var subhtml = '<div class="item" style="display: inline-block;width: auto;height: auto;position: relative;top: 0rem">'
+
+						+ '<img  onclick="xinzeng()" src="image/000.png" height="203" width="284"/></div>'; */
+
+				}
+
+
+				if (data.length > 0) {
+					var subhtml = '';
+					/* var subhtml = '<div class="item" style="display: inline-block;width: auto;height: auto;position: relative;top: -5.5rem">'
+
+						+ '<img  onclick="xinzeng()" src="image/000.png" height="203" width="284"/></div>'; */
+					var type = "模型"
+					for (var i = 0; i < data.length; i++) {
+
+						if (data[i].photoName == null) {
+							subhtml += '<div class="item"  style="display: inline-block;width: auto;height: auto;"><div>'
+								+ '<img src="' + imgurl + '/test.png" height="131" width="289"/></div>'
+								+ '<p class="itemP" style="color: #868A85">' + data[i].content + '</p>'
+								+ '<div style="position: relative">'
+								+ ' <span style="position: absolute;top: 10%;left: 74%" onclick="window.parent.SaveCppObject3(' + "'" + data[i].modelContentId + "'" + ',' + "'" + data[i].content + "'" + ',' + "'" + userId + "'" + ',' + "'" + data[i].id + "'" + ',' + "'" + data[i].fileName + "'" + ')"><button class="layui-btn layui-btn-xs">提交</button></span>'
+								+ '<span style="position: absolute;top: 5%;left: 88%" onclick="deleteContent(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-delete" style="font-size: 22px"></i></span><p style="line-height: 30px;height: 30px;color: #868A85;">' + userName + '</p></div></div>';
+						} else {
+							subhtml += '<div class="item"  style="display: inline-block;width: auto;height: auto;"><div>'
+								+ '<img src="' + imgurl + '/' + userId + '/' + data[i].modelContentId + '/' + data[i].photoName + '" height="131" width="289"/></div>'
+								+ '<p class="itemP" style="color: #868A85">' + data[i].content + '</p>'
+								+ '<div style="position: relative">'
+								+ ' <span style="position: absolute;top: 10%;left: 74%" onclick="window.parent.SaveCppObject3(' + "'" + data[i].modelContentId + "'" + ',' + "'" + data[i].content + "'" + ',' + "'" + userId + "'" + ',' + "'" + data[i].id + "'" + ',' + "'" + data[i].fileName + "'" + ')"><button class="layui-btn layui-btn-xs">提交</button></span>'
+								+ '<span style="position: absolute;top: 5%;left: 88%" onclick="deleteContent(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-delete" style="font-size: 22px"></i></span><p style="line-height: 30px;height: 30px;color: #868A85;">' + userName + '</p></div></div>';
+						}
+
+					/* subhtml += '<div class="item" style="display: inline-block;width: auto;height: auto;border: 1px solid #DCDCDC"><div>'
+						+ '<img src="http://192.168.0.50:8080/file/Model/' + data[i].userKey + '/' + data[i].id + '/' + data[i].photoName + '" height="131" width="289"/></div>'
+						+ '<p class="itemP" style="color: #868A85">' + data[i].name + '</p>'
+						+ '<div style="position: relative">'
+						+ ' <span style="position: absolute;top: 0%;left: 78%" onclick="updateModelOrView(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-list" style="font-size: 22px"></i>  </span>'
+						+ '<span style="position: absolute;top: 0%;left: 87%" onclick="deleteContent(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-delete" style="font-size: 22px"></i></span><p style="line-height: 30px;height: 30px;color: #868A85;">' + userName + '</p></div></div>';
+ */
+					}
+					subhtml += '<div class="clear"></div></div>';
+				/* if(majorId!=null){
+					$("#subject").val(majorId);
+					} 
+				}  */
+				}
+
+				$("#showModel").html("");
+				//console.log(subhtml);
+				$("#showModel").html(subhtml);
+
+				$(".item").css("border", "1px solid #DCDCDC");
+
+				$('.pagelist').kkPages({
+					PagesClass : '.item', //需要分页的元素
+					PagesMth : 8, //每页显示个数
+					PagesNavMth : 3 //显示导航个数
+
+				});
+			}
+		});
+	}
+	function showModel(modelId, userId) {
+		$("#modelOrViewId").val(modelId)
+		$("#type").val("模型")
+		$("input[name=modelOrView]").val($("#modelOrViewId").val());
+		$("input[name=type]").val($("#type").val())
+
+		document.getElementById("addNew").style.display = "none";
+		document.getElementById("showContent").style.display = "block";
+		document.getElementById("updateContent").style.display = "none";
+		$.ajax({
+			url : "../../tdu-bse/DevelopModelController/getModelListMapper.action",
+			data : {
+				Id : modelId,
+				userId : userId
+			},
+			type : "post",
+			async : false,
+			success : function(data) {
+				var userName = ""
+				if (data.length != 0) {
+					$.ajax({
+						url : "../../tdu-base/UsersController/getUserName.action",
+						data : {
+							Id : data[0].userKey
+						},
+						type : "post",
+						async : false,
+						success : function(data) {
+							//console.log(data)
+							//console.log(data.name)
+							userName = data.name
+						}
+					});
+				}
+				if (data.length == 0) {
+					//alert("无内容")
+					$("#showModel").html("");
+					var subhtml = '<div class="item" style="display: inline-block;width: auto;height: auto;position: relative;top: 0rem">'
+
+						+ '<img  onclick="xinzeng()" src="image/000.png" height="203" width="284"/></div>';
+
+				}
+				console.log(data)
+
+				if (data.length > 0) {
+					var subhtml = '<div class="item" style="display: inline-block;width: auto;height: auto;position: relative;top: -5.5rem">'
+
+						+ '<img  onclick="xinzeng()" src="image/000.png" height="203" width="284"/></div>';
+
+					for (var i = 0; i < data.length; i++) {
+
+						if (data[i].photoName == null) {
+							subhtml += '<div class="item"  style="display: inline-block;width: auto;height: auto;"><div>'
+								+ '<img src="http://192.168.0.50:8080/file/test.png" height="131" width="289"/></div>'
+								+ '<p class="itemP" style="color: #868A85">' + data[i].name + '</p>'
+								+ '<div style="position: relative">'
+								+ ' <span style="position: absolute;top: 10%;left: 74%" onclick="window.parent.SaveCppObject3(' + "'" + data[i].id + "'" + ',' + "'" + data[i].name + "'" + ',' + "'" + data[i].userKey + "'" + ',' + "'" + data[i].contactKey + "'" + ',' + "'" + data[i].type + "'" + ')"><button class="layui-btn layui-btn-xs">提交</button></span>'
+								+ '<span style="position: absolute;top: 5%;left: 88%" onclick="deleteContent(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-delete" style="font-size: 22px"></i></span><p style="line-height: 30px;height: 30px;color: #868A85;">' + userName + '</p></div></div>';
+						} else {
+							subhtml += '<div class="item"  style="display: inline-block;width: auto;height: auto;"><div>'
+								+ '<img src="http://192.168.0.50:8080/file/Model/' + data[i].userKey + '/' + data[i].id + '/' + data[i].photoName + '" height="131" width="289"/></div>'
+								+ '<p class="itemP" style="color: #868A85">' + data[i].name + '</p>'
+								+ '<div style="position: relative">'
+								+ ' <span style="position: absolute;top: 10%;left: 74%" onclick="window.parent.SaveCppObject3(' + "'" + data[i].id + "'" + ',' + "'" + data[i].name + "'" + ',' + "'" + data[i].userKey + "'" + ',' + "'" + data[i].contactKey + "'" + ',' + "'" + data[i].type + "'" + ')"><button class="layui-btn layui-btn-xs">提交</button></span>'
+								+ '<span style="position: absolute;top: 5%;left: 88%" onclick="deleteContent(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-delete" style="font-size: 22px"></i></span><p style="line-height: 30px;height: 30px;color: #868A85;">' + userName + '</p></div></div>';
+						}
+
+					/* subhtml += '<div class="item" style="display: inline-block;width: auto;height: auto;border: 1px solid #DCDCDC"><div>'
+						+ '<img src="http://192.168.0.50:8080/file/Model/' + data[i].userKey + '/' + data[i].id + '/' + data[i].photoName + '" height="131" width="289"/></div>'
+						+ '<p class="itemP" style="color: #868A85">' + data[i].name + '</p>'
+						+ '<div style="position: relative">'
+						+ ' <span style="position: absolute;top: 0%;left: 78%" onclick="updateModelOrView(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-list" style="font-size: 22px"></i>  </span>'
+						+ '<span style="position: absolute;top: 0%;left: 87%" onclick="deleteContent(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-delete" style="font-size: 22px"></i></span><p style="line-height: 30px;height: 30px;color: #868A85;">' + userName + '</p></div></div>';
+ */
+					}
+					subhtml += '<div class="clear"></div></div>';
+				/* if(majorId!=null){
+					$("#subject").val(majorId);
+					} 
+				}  */
+				}
+
+				$("#showModel").html("");
+				//console.log(subhtml);
+				$("#showModel").html(subhtml);
+
+				$(".item").css("border", "1px solid #DCDCDC");
+
+				$('.pagelist').kkPages({
+					PagesClass : '.item', //需要分页的元素
+					PagesMth : 8, //每页显示个数
+					PagesNavMth : 3 //显示导航个数
+
+				});
+			}
+		});
+	}
+	function showView(viewId, userId) {
+		$("#modelOrViewId").val(viewId)
+		$("#type").val("场景")
+		$("input[name=modelOrView]").val($("#modelOrViewId").val());
+		$("input[name=type]").val($("#type").val())
+
+
+		document.getElementById("addNew").style.display = "none";
+		document.getElementById("showContent").style.display = "block";
+		document.getElementById("updateContent").style.display = "none";
+		$.ajax({
+			url : "../../tdu-base/DevelopModelController/getModelListMapper2.action",
+			data : {
+				Id : viewId,
+				userId : userId
+			},
+			type : "post",
+			async : false,
+			success : function(data) {
+				//console.log(data)
+				var userName = ""
+				if (data.length != 0) {
+					$.ajax({
+						url : "../../tdu-base/UsersController/getUserName.action",
+						data : {
+							Id : data[0].userKey
+						},
+						type : "post",
+						async : false,
+						success : function(data) {
+							//console.log(data)
+							//console.log(data.name)
+							userName = data.name
+						}
+					});
+				}
+
+				if (data.length > 0) {
+
+					var subhtml = '<div class="item" style="display: inline-block;width: auto;height: auto;position: relative;top: -5.5rem">'
+
+						+ '<img  onclick="xinzeng()" src="image/000.png" height="203" width="284"/></div>';
+					for (var i = 0; i < data.length; i++) {
+
+						if (data[i].photoName == null) {
+							subhtml += '<div class="item"  style="display: inline-block;width: auto;height: auto;"><div>'
+								+ '<img src="http://192.168.0.50:8080/file/test.png" height="131" width="289"/></div>'
+								+ '<p class="itemP" style="color: #868A85">' + data[i].name + '</p>'
+								+ '<div style="position: relative">'
+								+ ' <span style="position: absolute;top: 10%;left: 74%" onclick="SaveCppObject3(' + "'" + data[i].id + "'" + ',' + "'" + data[i].name + "'" + ',' + "'" + data[i].userKey + "'" + ',' + "'" + data[i].contactKey + "'" + ',' + "'" + data[i].type + "'" + ')"><button class="layui-btn layui-btn-xs">提交</button></span>'
+								+ '<span style="position: absolute;top: 5%;left: 88%" onclick="deleteContent(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-delete" style="font-size: 22px"></i></span><p style="line-height: 30px;height: 30px;color: #868A85;">' + userName + '</p></div></div>';
+						} else {
+							subhtml += '<div class="item"  style="display: inline-block;width: auto;height: auto;"><div>'
+								+ '<img src="http://192.168.0.50:8080/file/Scene/' + data[i].userKey + '/' + data[i].id + '/' + data[i].photoName + '" height="131" width="289"/></div>'
+								+ '<p class="itemP" style="color: #868A85">' + data[i].name + '</p>'
+								+ '<div style="position: relative">'
+								+ ' <span style="position: absolute;top: 10%;left: 74%" onclick="SaveCppObject3(' + "'" + data[i].id + "'" + ',' + "'" + data[i].name + "'" + ',' + "'" + data[i].userKey + "'" + ',' + "'" + data[i].contactKey + "'" + ',' + "'" + data[i].type + "'" + ')"><button class="layui-btn layui-btn-xs">提交</button></span>'
+								+ '<span style="position: absolute;top: 5%;left: 88%" onclick="deleteContent(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-delete" style="font-size: 22px"></i></span><p style="line-height: 30px;height: 30px;color: #868A85;">' + userName + '</p></div></div>';
+						}
+
+						/* subhtml += '<div class="item" style="display: inline-block;width: auto;height: auto;border: 1px solid #DCDCDC"><div>'
+							+ '<img src="http://192.168.0.50:8080/file/Scene/' + data[i].userKey + '/' + data[i].id + '/' + data[i].photoName + '" height="131" width="289"/></div>'
+							+ '<p class="itemP" style="color: #868A85">' + data[i].name + '</p>'
+							+ '<div style="position: relative">'
+							+ ' <span style="position: absolute;top: 0%;left: 78%" onclick="updateModelOrView(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-list" style="font-size: 22px"></i>  </span>'
+							+ '<span style="position: absolute;top: 0%;left: 87%" onclick="deleteContent(' + "'" + data[i].id + "'" + ')"><i class="layui-icon layui-icon-delete" style="font-size: 22px"></i></span><p style="line-height: 30px;height: 30px;color: #868A85;">' + userName + '</p></div></div>'; */
+
+					}
+					subhtml += '<div class="clear"></div></div>';
+					$("#showModel").html("");
+					//console.log(subhtml);
+					$("#showModel").html(subhtml);
+
+					$(".item").css("border", "1px solid #DCDCDC");
+
+					$('.pagelist').kkPages({
+						PagesClass : '.item', //需要分页的元素
+						PagesMth : 8, //每页显示个数
+						PagesNavMth : 3 //显示导航个数
+
+					});
+				/* if(majorId!=null){
+					$("#subject").val(majorId);
+					} 
+				}  */
+				}
+			}
+		});
+	}
+
+	function xuanzhong(obj) {
+		$(".item").css("border", "1px solid #DCDCDC");
+		var css = $(this).attr("style");
+		$(this).css('border', '3px solid #099CA8');
+		console.log($(this).style)
+		/* if (css.indexOf("border: 1px solid #DCDCDC")>=0)
+		    $(this).css("border", "3px solid #099CA8");
+		 else  */
+		$(this).css("border", "3px solid #099CA8");
+		console.log(obj)
+		$("#modelId").val(obj);
+	}
+</script>
+</head>
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-header">
+
+			<div class="layui-logo">开发者平台模型页</div>
+
+			<ul class="layui-nav layui-layout-left">
+				<li class="layui-nav-item"><a style="cursor:pointer;">科目</a>
+					<dl id="model" class="layui-nav-child">
+						<dd>
+							<a href="">选项1</a>
+							<ul>
+								<dd>
+									<a href="javascript:void(0);">1</a>
+								<dd>
+									<a href="javascript:void(0);">2</a>
+								<dd>
+									<a href="javascript:void(0);">3</a>
+							</ul>
+						</dd>
+						<dd>
+							<a href="">选项2</a>
+						</dd>
+						<dd>
+							<a href="">选项3</a>
+						</dd>
+					</dl></li>
+			</ul>
+
+		</div>
+
+		<div class="layui-side layui-bg-black">
+			<div class="layui-side-scroll">
+				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+				<ul id="leftnav" class="layui-nav layui-nav-tree" lay-filter="test">
+					<li class="layui-nav-item layui-nav-itemed"><a class=""
+						href="javascript:;">所有商品</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;">列表一</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">列表二</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">列表三</a>
+							</dd>
+							<dd>
+								<a href="">超链接</a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="javascript:;">解决方案</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;">列表一</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">列表二</a>
+							</dd>
+							<dd>
+								<a href="">超链接</a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="">云市场</a></li>
+					<li class="layui-nav-item"><a href="">发布商品</a></li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div class="layui-body">
+
+			<div id="showContent" class="wrap" style="margin: 50px 0">
+				<hr />
+				<div id="showModel" class="pagelist" style="position: relative">
+					<div class="clear"></div>
+				</div>
+				<hr style="margin-top: 200px;">
+			</div>
+
+
+			<input type="hidden" id="modelOrViewId" /> <input type="hidden"
+				id="type" /> <input type="hidden" id="modelId" /> <input
+				type="hidden" id="subjectTreeId" />
+
+
+			<div id="addNew" style="" class="form">
+				<blockquote class="layui-elem-quote layui-quote-nm"
+					style="margin-top: 5%">新增表单</blockquote>
+				<form action="" method="post" id="createdepform">
+					<!-- ../../ModelController/addModelOrView.action -->
+					<!--enctype="multipart/form-data"  -->
+					<div class="page-wrap">
+						<div class="pt20 pb20">
+							<input id="Id2" name="Id2" value="" style="display:none" /> <input
+								id="id3" name="userId" value="" style="display:none" /> <input
+								name="filePath" value="C:/wamp/www/quanzhouxuexiao/QZ/Photo/"
+								style="display:none" />
+							<table class="college_tb">
+								<tbody>
+									<tr>
+										<th>名称:&nbsp;&nbsp;</th>
+										<td><input type="text" name="Name" required value=""
+											lay-verify="required" placeholder="请输入名称" autocomplete="off"
+											class="layui-input"> <!-- <input type="text" name="Name" class="ulib-r3" value="" /> -->
+										</td>
+									</tr>
+									<tr hidden>
+										<th>关系 :&nbsp;&nbsp;</th>
+										<td><input type="text" name="modelOrView" class="ulib-r3"
+											value="" /></td>
+									</tr>
+									<tr hidden>
+										<th>类型 :&nbsp;&nbsp;</th>
+										<td><input type="text" name="type" class="ulib-r3"
+											value="" /></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div style="text-align:center;">
+							<a class="add-btn ulib-r3" href="javascript:"
+								onclick="SaveCppObject3($('input[name=Id2]').val(),$('input[name=Name]').val(),$('input[name=userId]').val(),$('input[name=modelOrView]').val(),$('#subjectTreeId').val());">保存</a>
+							<a class="add-btn ulib-r3" href="javascript:void(0);"
+								onclick="fanhui()" style="margin-left:5%">返回</a>
+							<!-- $('#createdepform').submit(); -->
+						</div>
+					</div>
+				</form>
+
+
+			</div>
+
+			<div id="updateContent" style="" class="pt40 yahei">
+				<blockquote class="layui-elem-quote layui-quote-nm"
+					style="margin-top: 5%">更改表单</blockquote>
+
+				<form action="../../tdu-base/DevelopModelController/updateModelOrView.action"
+					method="post" id="updateform">
+					<!--enctype="multipart/form-data"  -->
+					<div class="page-wrap">
+						<div class="pt20 pb20">
+							<input id="Id" name="Id" value="" style="display:none" /> <input
+								id="id3" name="userId" value="" style="display:none" /> <input
+								name="filePath" value="C:/wamp/www/quanzhouxuexiao/QZ/Photo/"
+								style="display:none" />
+							<table class="college_tb">
+								<tbody>
+									<tr>
+										<th>名称:&nbsp;&nbsp;</th>
+										<td><input type="text" name="Name" class="ulib-r3"
+											value="" /></td>
+									</tr>
+									<tr hidden>
+										<th>关系 :&nbsp;&nbsp;</th>
+										<td><input type="text" name="modelOrView" class="ulib-r3"
+											value="" /></td>
+									</tr>
+									<tr hidden>
+										<th>类型 :&nbsp;&nbsp;</th>
+										<td><input type="text" name="type" class="ulib-r3"
+											value="" /></td>
+									</tr>
+									<!-- <tr>
+                    <th>概图 :&nbsp;&nbsp;</th>
+                    <td style="padding-bottom:15px;">
+                        <input type="file" id="imgupload" data-options="prompt:'选择上传文件'" accept="image/*" name="file" style="width:50%;height:40px" />
+                        <input type="hidden" id="Photo" name="photo"/>
+                    </td>
+                </tr> -->
+								</tbody>
+							</table>
+						</div>
+						<div style="text-align:center;">
+							<a class="add-btn ulib-r3" href="javascript:"
+								onclick=" $('#updateform').submit();SaveCppObject2($('input[name=Id]').val());">保存</a>
+							<a class="add-btn ulib-r3" href="javascript:void(0);"
+								onclick="fanhui()" style="margin-left:5%">返回</a>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+
+
+	</div>
+	<script>
+	
+		//注意：导航 依赖 element 模块，否则无法进行功能性操作
+		layui.use('element', function() {
+			var element = layui.element;
+
+		});
+	
+		document.getElementById("addNew").style.display = "none";
+		document.getElementById("showContent").style.display = "block";
+		document.getElementById("updateContent").style.display = "none";
+
+		$('.pagelist').kkPages({
+			PagesClass : '.item', //需要分页的元素
+			PagesMth : 8, //每页显示个数
+			PagesNavMth : 3 //显示导航个数
+	
+		});
+		$('.newslist').kkPages({
+			PagesClass : 'li', //需要分页的元素
+			PagesMth : 5, //每页显示个数
+			PagesNavMth : 5 //显示导航个数
+		});
+	
+		function uuid() {
+			/* return ([ 1e7 ] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+			) */
+			function S4() {
+				return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+			}
+			return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+		}
+		function fanhui() {
+			document.getElementById("addNew").style.display = "none";
+			document.getElementById("showContent").style.display = "block";
+			document.getElementById("updateContent").style.display = "none";
+			$("input[name=Name]").val("");
+		}
+		function xinzeng() {
+			var str = uuid();
+			//console.log("新增")
+			//console.log(str)
+			document.getElementById("addNew").style.display = "block";
+			document.getElementById("showContent").style.display = "none";
+			document.getElementById("updateContent").style.display = "none";
+			$("input[name=Id2]").val(str);
+		}
+		function updateModelOrView(id) {
+			document.getElementById("addNew").style.display = "none";
+			document.getElementById("showContent").style.display = "none";
+			document.getElementById("updateContent").style.display = "block";
+			//console.log("修改"+"----"+id)
+	
+			$.ajax({
+				url : "../../tdu-base/DevelopModelController/getModel.action",
+				data : {
+					id : id
+				},
+				type : "post",
+				async : false,
+				success : function(data) {
+					//console.log(data)
+					$("input[name=Id]").val(data.id);
+					$("input[name=Name]").val(data.name);
+					$("input[name=modelOrView]").val(data.contactKey);
+					$("input[name=type]").val(data.type);
+				}
+			});
+	
+		}
+	
+		function deleteContent(id) {
+			var flage = confirm("请确认是否删除")
+			if (flage) {
+				$.ajax({
+					url : "../../tdu-base/ModelController/delModel.action",
+					data : {
+						id : id
+					},
+					type : "post",
+					async : false,
+					success : function(data) {
+						if ($("#type").val() == "0" || $("#type").val() == "场景") {
+							showView($("#modelOrViewId").val(), $("input[name=userId]").val())
+						} else if ($("#type").val() == "1" || $("#type").val() == "模型") {
+							showModel($("#modelOrViewId").val(), $("input[name=userId]").val())
+						}
+					}
+				});
+	
+			}
+		}
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+
+
+    <script type="text/javascript" src="../scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../scripts/ztree/js/jquery.ztree.all.min.js" ></script>
+
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-treegrid/0.2.0/css/jquery.treegrid.min.css">
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/api.js"></script>
+    <script src="../../js/layer/layer.js"></script>
+    <script src="../../js/custom/jquery-1.8.3.min.js"></script>
+    <script src="../../layuiadmin/layui/layui.js"></script>
+    <script src="../js/roleAllocate.js"></script>
+    <style>
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: #3C4154;
+            color: white;
+        }
+        .fixed-table-container{
+            border: 2px solid #2E3546;
+        }
+        .fixed-table-container thead th{
+            border-left: 2px solid #2E3546;
+        }
+        .table>tbody>tr>td{
+            border-left: 2px solid #2E3546;
+            border-top: 2px solid #2E3546;
+        }
+        .bootstrap-table .table{
+            border-bottom: 2px solid #2E3546;
+        }
+        .bootstrap-table .table{
+            border-bottom: 2px solid #2E3546;
+        }
+        .bootstrap-table .table>thead>tr>th{
+            border-bottom: 2px solid #2E3546;
+        }
+        .bootstrap-table .table>tbody>:hover{
+            background:#337ab7;
+        }
+        .bootstrap-table{
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+        .layui-btn{
+            margin-left: 30px;
+            margin-right: 30px;
+            width: 10%;
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:6px;
+        }
+        .fixed-table-container tbody .selected td {
+            background-color: #3C4154;
+        }
+
+
+        .layui-card {
+            background: #3C4154;
+        }
+        .layui-card-header {
+            border-bottom: 0px solid #f6f6f6;
+            padding: 0 0;
+            padding-left: 5%;
+            padding-top: 1%;
+        }
+    </style>
+    <script src="../../js/api.js"></script>
+
+</head>
+<body>
+
+<div class="layui-card">
+    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">
+            <div class="layui-inline" style="color: white">
+                角色筛选
+            </div>
+            <div class="layui-inline">
+                <select name="rolename" lay-filter="LAY-user-adminrole-type"  id="role">
+                    <option value="-1">全部角色</option>
+                    <option value="0">管理员</option>
+                    <option value="1">超级管理员</option>
+                    <option value="2">纠错员</option>
+                    <option value="3">采购员</option>
+                    <option value="4">推销员</option>
+                    <option value="5">运营人员</option>
+                    <option value="6">编辑</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-card-body">
+
+        <div style="margin:2% 2%;background:rgba(52,57,76,1);width: 46%;height: 96%;float: left">
+            <div center="center" style="margin: 0 auto;padding-bottom: 20px;padding-top: 10px;margin-left: 40%">
+                <p style="font-size:22px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);letter-spacing:2px;">权限列表</p>
+            </div>
+            <table id="table" class="table text-nowrap"></table>
+            <br/>
+        </div>
+        <div style="margin:2% 2%;background:rgba(52,57,76,1);width: 46%;height: 96%;float: right">
+            <div center="center" style="margin: 0 auto;padding-bottom: 20px;padding-top: 10px;margin-left: 40%">
+                <p style="font-size:22px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);letter-spacing:2px;">角色权限</p>
+            </div>
+            <table id="roleTable" class="table text-nowrap"></table>
+            <br/>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.12.0/extensions/treegrid/bootstrap-table-treegrid.js"></script>
+<script src="https://cdn.bootcss.com/jquery-treegrid/0.2.0/js/jquery.treegrid.min.js"></script>
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element','form'], function() {
+        var laydate = layui.laydate //日期
+            , laypage = layui.laypage //分页
+            , layer = layui.layer //弹层
+            , table = layui.table //表格
+            , carousel = layui.carousel //轮播
+            , upload = layui.upload //上传
+            ,form = layui.form
+            , element = layui.element //元素操作
+
+        //搜索角色
+        form.on('select(LAY-user-adminrole-type)', function(data){
+            console.log(data.value)
+            getRoleAuths();
+        });
+
+    });
+
+    var $table = $('#table');
+    var data;
+
+    var $roleTable = $('#roleTable');
+
+
+
+    $(function() {
+        getAllAuths();
+        getRoles();
+        getRoleAuths();
+    });
+
+    function getRoleAuths() {
+        var  roleId = $("#role option:selected").val();
+        var fatuerAuth = [];
+        var childAuth= new Array(); //定义一数组
+        var authList = [];
+        $.ajax({
+            type : "POST",
+            url : houtaiurl+"UsersController/getAuthByRoleId.action",
+            async: false,
+            data : {
+                "roleId" :roleId ,
+            },
+            success : function(str) {
+                console.log(str);
+                for(var i=0;i<str.length;i++){
+                    //console.log(data[i]);
+                    if(str[i].children!=null){
+                        fatuerAuth.push(str[i]);
+                    }
+                }
+                console.log(fatuerAuth);
+                for (var i=0;i<fatuerAuth.length;i++){
+                    fatuerAuth[i]['pid']=0;
+                    fatuerAuth[i]['_level']=0;
+                    authList.push(fatuerAuth[i])
+                    childAuth = fatuerAuth[i].children.split(";");
+                    //console.log(childAuth);
+                    for (var k =0;k<childAuth.length;k++){
+                        for (var j=0;j<str.length;j++){
+                            if(childAuth[k]==str[j].id){
+                                str[j]['pid']=fatuerAuth[i].id;
+                                str[j]['_level']=1;
+                                authList.push(str[j]);
+                            }
+                        }
+                    }
+                }
+                //控制台输出一下数据
+                data=authList;
+                //data=JSON.stringify(data);
+                for (var i;i<data.length;i++){
+                    data[i]._level=parseInt(data[i]._level)
+                }
+                //控制台输出一下数据
+                initRoleTable(data)
+            }
+        })
+    }
+
+    function initRoleTable(data) {
+        console.log(data);
+        // 先销毁再创建
+        $roleTable.bootstrapTable('destroy').bootstrapTable({
+            data:data,
+            idField: 'id',
+            dataType:'jsonp',
+            columns: [
+                { field: 'check',  checkbox: true, formatter: function (value, row, index) {
+                    if (row.check == true) {
+                        // console.log(row.serverName);
+                        //设置选中
+                        return {  checked: true };
+                    }
+                }
+                },
+                { field: 'pageName',  title: '节点名称' },
+                /*{field: 'id', title: '编号', sortable: true, align: 'center'},
+                 {field: 'pid', title: '所属上级'},*/
+                /*{ field: 'status',  title: '状态', sortable: true,  align: 'center', formatter: 'statusFormatter'  },*/
+                { field: 'link', title: '链接地址'  },
+                {field: 'parametersType', title: '参数'},
+                { field: 'operate', width:'379px',title: '操作', align: 'center', events : operateEventsRole, formatter: 'operateFormatterRole' },
+            ],
+
+            // bootstrap-table-treegrid.js 插件配置 -- start
+
+            //在哪一列展开树形
+            treeShowField: 'pageName',
+            //指定父id列
+            parentIdField: 'pid',
+
+            onResetView: function(data) {
+                //console.log('load');
+                $roleTable.treegrid({
+                    initialState: 'collapsed',// 所有节点都折叠
+                    // initialState: 'expanded',// 所有节点都展开，默认展开
+                    treeColumn: 1,
+                    // expanderExpandedClass: 'glyphicon glyphicon-minus',  //图标样式
+                    // expanderCollapsedClass: 'glyphicon glyphicon-plus',
+                    onChange: function() {
+                        $roleTable.bootstrapTable('resetWidth');
+                    }
+                });
+
+                //只展开树形的第一级节点
+                $roleTable.treegrid('getRootNodes').treegrid('expand');
+
+            },
+            onCheck:function(row){
+                var datas = $roleTable.bootstrapTable('getData');
+                // 勾选子类
+                selectChilds(datas,row,"id","pid",true);
+
+                // 勾选父类
+                selectParentChecked(datas,row,"id","pid")
+
+                // 刷新数据
+                $roleTable.bootstrapTable('load', datas);
+            },
+
+            onUncheck:function(row){
+                var datas = $roleTable.bootstrapTable('getData');
+                selectChilds(datas,row,"id","pid",false);
+                $roleTable.bootstrapTable('load', datas);
+            },
+            // bootstrap-table-treetreegrid.js 插件配置 -- end
+        });
+    }
+
+
+    function getAllAuths() {
+        var fatuerAuth = [];
+        var childAuth= new Array(); //定义一数组
+        var authList = [];
+        $.ajax({
+            type : "POST",
+            url : houtaiurl+"UsersController/getAllAuth.action",
+            async: false,
+            success : function(str) {
+                console.log(str);
+                for(var i=0;i<str.length;i++){
+                    //console.log(data[i]);
+                    if(str[i].children!=null){
+                        fatuerAuth.push(str[i]);
+                    }
+                }
+                console.log(fatuerAuth);
+                for (var i=0;i<fatuerAuth.length;i++){
+                    fatuerAuth[i]['pid']=0;
+                    fatuerAuth[i]['_level']=0;
+                    authList.push(fatuerAuth[i])
+                    childAuth = fatuerAuth[i].children.split(";");
+                    //console.log(childAuth);
+                    for (var k =0;k<childAuth.length;k++){
+                        for (var j=0;j<str.length;j++){
+                            if(childAuth[k]==str[j].id){
+                                str[j]['pid']=fatuerAuth[i].id;
+                                str[j]['_level']=1;
+                                authList.push(str[j]);
+                            }
+                        }
+                    }
+                }
+                //控制台输出一下数据
+                data=authList;
+                //data=JSON.stringify(data);
+                for (var i;i<data.length;i++){
+                    data[i]._level=parseInt(data[i]._level)
+                }
+                //控制台输出一下数据
+                initTable(data)
+            }
+        })
+    }
+
+    function initTable(data) {
+        console.log(data);
+        $table.bootstrapTable({
+            data:data,
+            idField: 'id',
+            dataType:'jsonp',
+            columns: [
+                { field: 'check',  checkbox: true, formatter: function (value, row, index) {
+                    if (row.check == true) {
+                        // console.log(row.serverName);
+                        //设置选中
+                        return {  checked: true };
+                    }
+                }
+                },
+                { field: 'pageName',  title: '节点名称' },
+                /*{field: 'id', title: '编号', sortable: true, align: 'center'},
+                 {field: 'pid', title: '所属上级'},*/
+                /*{ field: 'status',  title: '状态', sortable: true,  align: 'center', formatter: 'statusFormatter'  },*/
+                { field: 'link', title: '链接地址'  },
+                {field: 'parametersType', title: '参数'},
+                { field: 'operate', width:'379px',title: '操作', align: 'center', events : operateEvents, formatter: 'operateFormatter' },
+            ],
+
+            // bootstrap-table-treegrid.js 插件配置 -- start
+
+            //在哪一列展开树形
+            treeShowField: 'pageName',
+            //指定父id列
+            parentIdField: 'pid',
+
+            onResetView: function(data) {
+                //console.log('load');
+                $table.treegrid({
+                    initialState: 'collapsed',// 所有节点都折叠
+                    // initialState: 'expanded',// 所有节点都展开，默认展开
+                    treeColumn: 1,
+                    // expanderExpandedClass: 'glyphicon glyphicon-minus',  //图标样式
+                    // expanderCollapsedClass: 'glyphicon glyphicon-plus',
+                    onChange: function() {
+                        $table.bootstrapTable('resetWidth');
+                    }
+                });
+
+                //只展开树形的第一级节点
+                $table.treegrid('getRootNodes').treegrid('expand');
+
+            },
+            onCheck:function(row){
+                var datas = $table.bootstrapTable('getData');
+                // 勾选子类
+                selectChilds(datas,row,"id","pid",true);
+
+                // 勾选父类
+                selectParentChecked(datas,row,"id","pid")
+
+                // 刷新数据
+                $table.bootstrapTable('load', datas);
+            },
+
+            onUncheck:function(row){
+                var datas = $table.bootstrapTable('getData');
+                selectChilds(datas,row,"id","pid",false);
+                $table.bootstrapTable('load', datas);
+            },
+            // bootstrap-table-treetreegrid.js 插件配置 -- end
+        });
+    }
+
+    // 格式化按钮
+    function operateFormatter(value, row, index) {
+        /*if(row.children!=null){*/
+            return [
+                '<button type="button" class="RoleOfadd layui-btn" style="height: 38px;width: 80px">新增</button>',
+                /*'<button type="button" class="RoleOfedit layui-btn" style="height: 38px;width: 80px">修改</button>',*/
+            ].join('');
+       /* }else{
+            return [
+                '<button type="button" class="RoleOfedit layui-btn" style="height: 38px;width: 80px">修改</button>',
+                '<button type="button" class="RoleOfdelete layui-btn" style="height: 38px;width: 80px">删除</button>'
+            ].join('');
+        }*/
+    }
+
+    function operateFormatterRole(value, row, index) {
+       /* if(row.children!=null){
+            return [
+                '<button type="button" class="RoleOfadd layui-btn" style="height: 38px;width: 80px">新增</button>',
+                '<button type="button" class="RoleOfedit layui-btn" style="height: 38px;width: 80px">修改</button>',
+            ].join('');
+        }else{*/
+            return [
+                /*'<button type="button" class="RoleOfedit layui-btn" style="height: 38px;width: 80px">修改</button>',*/
+                '<button type="button" class="RoleOfdelete layui-btn" style="height: 38px;width: 80px">删除</button>'
+            ].join('');
+       // }
+    }
+
+    // 格式化类型
+    function typeFormatter(value, row, index) {
+        if (value === 'menu') {  return '菜单';  }
+        if (value === 'button') {  return '按钮'; }
+        if (value === 'api') {  return '接口'; }
+        return '-';
+    }
+    // 格式化状态
+    function statusFormatter(value, row, index) {
+        if (value === 1) {
+            return '<span class="label label-success">正常</span>';
+        } else {
+            return '<span class="label label-default">锁定</span>';
+        }
+    }
+
+    //初始化操作按钮的方法
+    window.operateEvents = {
+        'click .RoleOfadd': function (e, value, row, index) {
+            console.log("auth!")
+            console.log(row)
+            //add(row.id);
+            addRoleAuths(row)
+        },
+        'click .RoleOfdelete': function (e, value, row, index) {
+            //del(row);
+        },
+        'click .RoleOfedit': function (e, value, row, index) {
+            //update(row);
+        }
+    };
+    //初始化操作按钮的方法 ( Role )
+    window.operateEventsRole = {
+        'click .RoleOfadd': function (e, value, row, index) {
+            //add(row.id);
+        },
+        'click .RoleOfdelete': function (e, value, row, index) {
+            console.log("role!")
+            console.log(row)
+            //del(row);
+            delRoleAuths(row)
+        },
+        'click .RoleOfedit': function (e, value, row, index) {
+            //update(row);
+        }
+    }
+    //增加按钮的方法
+    function addRoleAuths(row) {
+        var authList = [];
+        console.log(row);
+        if(row.link!=null&row.children==null){
+            //该节点为子节点
+            authList.push(row.pid)
+            authList.push(row.id)
+            roleAddAuth(authList);
+        }else{
+            //该节点为父节点
+            authList.push(row.id)
+            roleAddAuth(authList);
+        }
+    }
+    //删除按钮的方法
+    function delRoleAuths(row) {
+        var authList = [];
+        console.log(row);
+        if(row.link!=null&row.children==null){
+            //该节点为子节点
+            authList.push(row.id)
+            roleDelAuth(authList);
+        }else{
+            //该节点为父节点
+            authList.push(row.id)
+            var list= row._nodes
+            for(var i=0;i<list.length;i++){
+                authList.push(list[i].id);
+            }
+            roleDelAuth(authList);
+        }
+        //console.log(authList);
+    }
+    //删除按钮的方法的实现
+    function roleDelAuth(authList) {
+        var  roleId = $("#role option:selected").val();
+        if(authList!=""&&authList.length>0){
+            for(var i=0;i<authList.length;i++){
+                $.ajax({
+                    url: houtaiurl + 'UsersController/delRoleAuth.action',
+                    type: 'POST',
+                    data: { "auth":authList[i],"role":roleId },
+                    async: false,
+                    success: function (data) {
+                        console.log(data)
+
+                    }
+                });
+            }
+        }
+        getRoleAuths();
+    }
+
+    //增加按钮的方法的实现
+    function roleAddAuth(authList) {
+        var  roleId = $("#role option:selected").val();
+        if(authList!=""&&authList.length>0){
+           for(var i=0;i<authList.length;i++){
+               $.ajax({
+                   url: houtaiurl + 'UsersController/addRoleAuth.action',
+                   type: 'POST',
+                   data: { "auth":authList[i],"role":roleId },
+                   async: false,
+                   success: function (data) {
+                       console.log(data)
+
+                   }
+               });
+           }
+        }
+        getRoleAuths();
+    }
+
+
+    /**
+     * 选中父项时，同时选中子项
+     * @param datas 所有的数据
+     * @param row 当前数据
+     * @param id id 字段名
+     * @param pid 父id字段名
+     */
+    function selectChilds(datas,row,id,pid,checked) {
+        for(var i in datas){
+            if(datas[i][pid] == row[id]){
+                datas[i].check=checked;
+                selectChilds(datas,datas[i],id,pid,checked);
+            };
+        }
+    }
+
+    function selectParentChecked(datas,row,id,pid){
+        for(var i in datas){
+            if(datas[i][id] == row[pid]){
+                datas[i].check=true;
+                selectParentChecked(datas,datas[i],id,pid);
+            };
+        }
+    }
+
+    function test() {
+        var selRows = $table.bootstrapTable("getSelections");
+        if(selRows.length == 0){
+            alert("请至少选择一行");
+            return;
+        }
+
+        var postData = "";
+        $.each(selRows,function(i) {
+            postData +=  this.id;
+            if (i < selRows.length - 1) {
+                postData += "， ";
+            }
+        });
+        alert("你选中行的 id 为："+postData);
+
+    }
+
+    function add(id) {
+        var content="authPage.html";
+        //alert("add 方法 , id = " + id);
+        var index = layer.open({
+            type: 2,
+            title: false,
+            shadeClose: true,
+            shade: 0.8,
+            area: ['35%', '40%'],
+            content: content+'?parentId='+id, //iframe的url
+            cancel: function(){
+                //右上角关闭回调
+                flag=1
+                console.log("1111")
+                //return false 开启该代码可禁止点击该按钮关闭
+            },
+            end: function () {
+                if(flag==0){
+                    addreturn();
+                }
+            }
+        });
+    }
+    var fatuer = [];
+
+    function del(row) {
+        console.log(data)
+        //alert("del 方法 , id = " + row.id);
+
+        for(var i=0;i<data.length;i++){
+            //console.log(data[i]);
+            if(data[i].link==null&data[i].children!=null){
+                if(data[i].id==row.pid){
+                    var childAuth = data[i].children.split(";");
+                    var child="";
+                    for(var j=0;j<childAuth.length;j++){
+
+                        if(childAuth[j]!=row.id){
+                            console.log(j)
+                            if(j==childAuth.length-2){
+                                child=child+childAuth[j]
+                            }else{
+                                child=child+childAuth[j]+";"
+                            }
+
+                        }
+                    }
+                    data[i].children=child;
+                    fatuer.push(data[i]);
+                }else{
+                    fatuer.push(data[i]);
+                }
+            }
+            console.log(fatuer)
+        }
+        for(var i=0;i<fatuer.length;i++){
+            var node = fatuer[i].children.split(";");
+            var childNode=[];
+            for(var k=0;k<node.length;k++){
+                for(var j=0;j<data.length;j++){
+                    if(data[j].id==node[k]){
+                        data[j]._parentId=fatuer[i].id;
+                        childNode.push(data[j]);
+                    }
+                }
+
+            }
+            fatuer[i].children=childNode;
+        }
+
+        console.log(fatuer)
+
+        var temp = haddledatas(fatuer);
+        console.log(temp);
+        layer.msg("正在删除！");
+        $.post(houtaiurl + "AuthController/SubmitDatas.action", data = { xml: temp, deleteddata: ""+row.id+"" }, function (data) {
+            deletedataids = "";
+            location.reload();
+        });
+    }
+
+</script>
+</html>

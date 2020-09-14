@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../scripts/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="modelShow.js"></script>
+
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/layui/layui.js"></script>
+    <script src="../../js/api.js"></script>
+
+    <style type="text/css">
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        table{
+            border-collapse:collapse;
+            width:90%;
+        }
+        th{
+            background-color: #3C4154;
+        }
+        table,td{
+            border:2px solid #2E3546;
+            background: #3C4154;
+        }
+        th,td{
+            padding-left:10px;
+            text-align: center;
+        }
+        .tableth{
+            padding-left:10px;
+        }
+        #bodydiv{
+            height:70px;
+        }
+        #bodydiv2{
+            margin-bottom:10px;
+        }
+        #bodydiv3{
+            margin-bottom:10px;
+
+        }
+        #bodydiv3 a{
+            color: white;
+        }
+        .layui-btn{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:3px;
+        }
+        #treeTbody{
+            color: white;
+        }
+        /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+        ::-webkit-scrollbar
+        {
+            width: 10px;
+            height: 8px;
+            background-color: #3C4154;
+        }
+
+        /*定义滚动条轨道 内阴影+圆角*/
+        ::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+        }
+
+        /*定义滑块 内阴影+圆角*/
+        ::-webkit-scrollbar-thumb
+        {
+            border-radius: 25px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div id="bodydiv">
+</div>
+<div id="bodydiv2">
+    <button class="layui-btn" id="insertTree" class="insertTree" type="button" style="margin-left: 5.7%">新增</button>
+</div>
+<table id="treeTable">
+    <thead>
+    <tr class="tableth">
+        <th id="subjectTreeName" style="color: white;">模型名称</th>
+        <th id="treeId" style="color: white;">缩略图</th>
+        <th id="operation" style="color: white;">操作</th>
+    </tr>
+    </thead>
+    <tbody id="treeTbody">
+
+    </tbody>
+</table>
+<div id="bodydiv3" style="margin-left: 5.7%">
+    <a>当前页数：</a><a id="currentPage">1</a>
+    <a href="javascript:void(0);" onclick="downCurrent_click()">上一页</a>
+    <a href="javascript:void(0);" onclick="upCurrent_click()">下一页</a>
+    <a>总页数：</a><a id="totalInfos"></a>
+    <a>总数：</a><a id="allModel"></a>
+</div>
+</body>
+</html>

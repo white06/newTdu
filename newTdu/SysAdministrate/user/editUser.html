@@ -1,0 +1,161 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="../../js/api.js"></script>
+</head>
+<link type="text/css" href="style.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../../js/layui/css/layui.css">
+<link href="../../model/Css.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="../../model/MyCss.css"/>
+<link rel="stylesheet" href="../../model/page.css"/>
+<script src="../../js/custom/jquery-1.8.3.min.js"></script>
+
+<style>
+    .layui-btn{
+        background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+    }
+</style>
+<script>
+    var index = parent.layer.getFrameIndex(window.name);
+    var userId = parent.layer.userId;
+    $(document).ready(function () {
+        var str = GetRequest();
+        eval(str)
+        userId = str.userId
+        console.log(userId)
+
+
+        getRoles()
+
+        getUserRole(userId);
+
+
+    })
+    function getRoles() {
+        $.ajax({
+            url: houtaiurl + 'UsersController/seleRoles.action',
+            type: 'POST',
+            async: false,
+            success: function (data) {
+                console.log(data)
+                var html = "";
+                for (var j = 0; j < data.length; j++) {
+
+                    html+='<input type="checkbox" id="'+data[j].id+'" name="role" lay-skin="primary" title="'+data[j].roleName+'" >';
+                }
+                $("#roleCheckbox").html(html)
+            }
+        });
+    }
+    function getUserRole(userId) {
+        $.ajax({
+            url: houtaiurl + 'DepartmentController/GetUserRolesbyId.action',
+            type: 'POST',
+            data: {userid:userId},
+            async: false,
+            success: function (data) {
+                console.log(data)
+                for (var j = 0; j < data.length; j++) {
+                    var checkboxid = data[j].id;
+                    console.log(checkboxid)
+                    document.getElementById(checkboxid).checked = true;
+                }
+            }
+        });
+    }
+
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+</script>
+<div style="height:45px;font-size:32px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(0,0,0,1);
+line-height:45px;text-align: center;margin-top: 20px;">编辑角色
+</div>
+
+<div id="addNew" style="" class="form">
+    <form class="layui-form" action="" style="padding-left: 5%;padding-top: 35px;padding-bottom: 35px;height: 50px;" method="post" id="createdepform">
+        <!-- ../../ModelController/addModelOrView.action -->
+        <!--enctype="multipart/form-data"  -->
+
+
+        <div class="layui-form-item">
+            <!--<label class="layui-form-label">账号</label>
+            <div class="layui-col-md6">
+                <input type="text" name="title" placeholder="用户名" autocomplete="off" class="layui-input">
+            </div>-->
+            <label class="layui-form-label">选择角色</label>
+            <div class="layui-input-block" id="roleCheckbox">
+                <input type="checkbox" id="0c494961-fc3c-41b3-992a-4f9b0d0f57eb" name="role" lay-skin="primary" title="student" >
+                <input type="checkbox" id="0f7b183d-4606-4874-8f36-566d8792403d" name="role" lay-skin="primary" title="teacher">
+                <input type="checkbox" id="9c8c0815-3968-45d0-9fae-0d42885973fc" name="role" lay-skin="primary" title="administrator">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">保存</button>
+                <button type="reset" class="layui-btn layui-btn-primary" style="color: white" onclick="hui()">返回</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index','element','form','layer'], function(){
+        var $ = layui.$
+            ,admin = layui.admin
+            ,element = layui.element
+            ,form = layui.form
+            ,layer = layui.layer;
+        element.render();
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+            var str = "";
+            console.log($("input:checkbox[name='role']:checked"))
+            $("input:checkbox[name='role']:checked").each(function(i){
+                if(str==""){
+                    str+=$(this).context.id;
+                }else{
+                    str+=","+$(this).context.id;
+                }
+            })
+
+            $.ajax({
+                url: houtaiurl + 'DepartmentController/SaveUserRoles.action',
+                type: 'POST',
+                data: { roleidarray:str,userid:userId},
+                async: false,
+                success: function (data) {
+                if(data=="ok"){
+                    window.parent.location.reload();
+                    var index1 = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index1);
+                    layer.msg("修改成功");
+                }
+
+                }
+            });
+            return false;
+        });
+
+        window.hui=function () {
+            var index1 = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index1);
+        }
+
+    });
+</script>

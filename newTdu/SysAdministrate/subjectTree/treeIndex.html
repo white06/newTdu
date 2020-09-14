@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>功能演示2 - 通用分页组件</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../css/content/bootstrap.css" />
+    <link rel="stylesheet" href="../../css/content/Site.css" />
+    <link rel="stylesheet" href="../../css/content/MyCss.css" />
+    <link rel="stylesheet" href="../../css/content/FileLoadCss/jquery.fileupload.css" />
+    <link rel="stylesheet" href="../../css/content/FileLoadCss/jquery.fileupload-noscript.css" />
+    <link rel="stylesheet" href="../../css/content/FileLoadCss/jquery.fileupload-ui-noscript.css" />
+    <link rel="stylesheet" href="../../css/content/FileLoadCss/jquery.fileupload-ui.css" />
+    <link rel="stylesheet" href="../../css/content/zTreeCSS/zTreeStyle/zTreeStyle.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/content/ztree/css/zTreeStyle/zTreeStyle.css" />
+    <link rel="stylesheet" href="../../css/content/zTreeCSS/demo.css" />
+    <link rel="stylesheet"   href="../../css/content/kindeditor-4.1.10/themes/default/default.css" />
+
+
+    <script charset="utf-8" src="../../css/content/jquery-1.10.2.js"></script>
+    <script charset="utf-8" src="../../css/content/kindeditor-4.1.10/kindeditor.js"></script>
+    <script charset="utf-8" src="../../css/content/kindeditor-4.1.10/lang/zh_CN.js"></script>
+    <script type="text/javascript" src="../../css/content/PublicPoolName.js"></script>
+    <script src="../../css/content/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../css/content/ztree/js/jquery.ztree.all.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../../css/content/JPlayer/js/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="../../css/content/JPlayer/js/jquery.grab.js"></script>
+    <script type="text/javascript" src="../../css/content/JPlayer/js/mod.csstransforms.min.js"></script>
+    <script type="text/javascript" src="../../css/content/JPlayer/js/circle.player.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="../../css/content/JPlayer/skin/pink.flag/jplayer.pink.flag.css" />
+    <link type="text/css" rel="stylesheet" href="../../css/content/JPlayer/skin/circle.skin/circle.player.css" />
+    <script type="text/javascript" src="../../css/content/MyHtmlEditor.js"></script>
+    <script type="text/javascript" src="../../css/content/JqPlugin.js"></script>
+    <script charset="UTF-8" type="text/javascript" src="../../css/content/Tree.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/content/easyui.css" />
+    <script src="../../css/content/jquery.easyui.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../css/content/AddKnowledgeContent.js"></script>
+
+
+    <script src="../../js/api.js"></script>
+
+
+    <style type="text/css">
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: rgba(60, 65, 84, 1);
+        }
+        body {
+            padding-top: 0px;
+            font-size: 16px;
+        }
+
+        ul.ztree {
+            height: 280px;
+            width: 200%;
+            margin-top: 0px;
+            margin-left:-40%;
+        }
+        ul.ztreeQuestion {
+            right :750px;
+            bottom:220px;
+            height: 300px;
+            width: 40%;
+            float:right;
+            margin-top: -280px;
+            margin-left:20%;
+        }
+        .custom-table {
+            border-top: 2px solid #2E3546;
+            border-left: 2px solid #2E3546;
+            width: 100%;
+        }
+
+        .custom-table thead th {
+            background-color: #3C4154;
+            text-align: center;
+        }
+
+        .custom-table th, .custom-table td {
+            border-bottom: 2px solid #2E3546;
+            border-right: 2px solid #2E3546;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .custom-table td input[type='text'] {
+            width: 100%;
+        }
+
+        #sourcelist td a:first-child {
+            border-right: 1px solid #000;
+            padding: 3px 10px;
+        }
+
+        #sourcelist td a:not(:first-child) {
+            padding: 3px 10px;
+        }
+
+        #sourcepreview a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        #sourcepreview a:active, a:hover {
+            background-color: #0c99f2;
+            color: #fff;
+        }
+
+        .custom-list {
+            border: 1px solid #AAA;
+            overflow: scroll;
+            padding: 0px;
+            height: 280px;
+            width:125%;
+            max-height: 280px;
+            margin-left:-40px;
+        }
+
+        .custom-list ul {
+            list-style: none outside none;
+        }
+
+        .custom-list ul li:not(.listhead) {
+            border-bottom: 1px solid #ddd;
+            list-style: none outside none;
+            font-size: 16px;
+            padding: 2px 5px;
+        }
+
+        .listhead {
+            border-bottom: 1px solid #ddd;
+            list-style: none outside none;
+            font-size: 16px;
+        }
+
+        .listhead span {
+            border: 1px solid #aaa;
+            padding: 5px 10%;
+        }
+
+
+        .tdqt-navpanel {
+            margin: 15px 15px 0 15px;
+            background-color: #3C4154;
+            border: #3C4154 1px solid;
+        }
+
+        .tdqt-tab-holder {
+            height: 46px;
+            margin: -1px 0 0 -1px;
+            border-bottom: #2E3546 4px solid;
+            text-align: left;
+        }
+
+        .tdqt-tab-holder ul li {
+            float: left;
+            word-wrap: normal;
+            list-style: none;
+        }
+
+        .tdqt-tab-holder ul li a {
+            display: inline-block;
+            margin: 0;
+            padding: 9px 12px;
+            font-size: 1.4em;
+            color: white;
+            text-decoration: none;
+        }
+
+        .tdqt-tab-holder ul li a:hover {
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            text-decoration: none;
+            color: white;
+        }
+
+        .tdqt-tab-holder ul li a.active, .tdqt-tab-holder ul li a.active:hover {
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-bottom: none;
+            color: #fff;
+        }
+
+        a:focus, input:focus {
+            -moz-outline-style: none;
+            outline-style: none;
+        }
+
+        .well {
+            margin: 0 0 20px;
+            padding: 13px;
+        }
+
+        .form-horizontal{
+            width:80% ;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+
+        /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+        ::-webkit-scrollbar
+        {
+            width: 10px;
+            height: 8px;
+            background-color: #3C4154;
+        }
+
+        /*定义滚动条轨道 内阴影+圆角*/
+        ::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+        }
+
+        /*定义滑块 内阴影+圆角*/
+        ::-webkit-scrollbar-thumb
+        {
+            border-radius: 25px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #555;
+        }
+        .btn-primary{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+        }
+        .processcontainer{
+            width:450px;
+            border:1px solid #6C9C2C;
+            height:25px;
+        }
+        #processbar{
+            background:#95CA0D;
+            float:left;
+            height:100%;
+            text-align:center;
+            line-height:150%;
+        }
+    </style>
+
+
+</head>
+<body>
+
+
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%">
+
+
+<div class="row-fluid" style="margin-top:30px;height:auto">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-1" for="sourcetree" style="color: white">资源树</label>
+            <div class="col-md-10" style="width: 70%">
+                <select id="sourcetree" name="sourcetree" class="form-control" style=" max-width: 100%;">
+
+
+
+                </select>
+
+            </div>
+            <div class="col-md-10" style="width: 13.3%">
+                <input type="button" value="新增目录" class="btn btn-primary" style="width:auto;margin:0px 0 30px 0;float:left" id="addKnowledge" />
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-5 col-xs-5 col-lg-offset-2 col-md-offset-1 col-sm-offset-0 col-xs-offset-0" style="height: 420px;width:40%;margin-left: 25%">
+
+        <!--<input type="button" value="发布更新" class="btn btn-primary" style="width: 30%;;margin:10px 0 30px 0;float:right" id="updateJS" />-->
+        <ul id="treeDemo" class="ztree"></ul>
+        <input hidden type="button" class="" id="addcontent" value="" />
+    </div>
+    <div style="clear: both;"></div>
+    <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-0 col-lg-4 col-md-5 col-sm-6 col-xs-7" style="margin-top:54px;display:none;width:0px">
+        <div class="custom-list">
+            <table class="custom-table" id="prevlist">
+                <thead>
+                <tr>
+                    <th>资源类型</th>
+                    <th>资源名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div id="uploadtoolbars" class="row-fluid"  >
+        <div class="col-md-offset-0 col-lg-offset-1 col-sm-offset-0  col-md-12 col-lg-10 col-sm-12 col-xs-12" hidden id="loaduppartail">
+            <div class="tdqt-navpanel yahei">
+                <div class="tdqt-tab-holder">
+                    <ul id="tdqt-tab" class="fl clear">
+                        <li><a id="addVideo" href="javascript:">媒体文件</a></li>
+                        <li><a id="addDocument" href="javascript:">Office文档</a></li>
+                        <li><a id="addPDF" href="javascript:">PDF</a></li>
+                        <li><a id="addSimulite" href="javascript:">仿真</a></li>
+                        <li><a id="addExamList" href="javascript:">考试</a></li>
+                        <li><a id="addQues" href="javascript:">题库</a></li>
+                        <li><a id="addCustom" href="javascript:">自定义</a></li>
+                        <li style="float:right;margin-right:10px;"></li>
+                    </ul>
+                </div>
+            </div>
+            <div hidden class="form-horizontal" style="margin-top:0px;" id="HomeWorkform">
+                <form>
+                </form>
+            </div>
+            <div hidden class="form-horizontal" style="margin-top:50px;" id="customform">
+                <form>
+                    <div class="form-group">
+                        <label for="customname" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">名称：</label>
+                        <input id="customName" class="form-control" name="Ques" type="text" value="自定义" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="style" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">颜色：</label>
+                        <select id="customstyle" class="form-control">
+                            <option value="default">随机色</option>
+                            <option value="orange">橘色</option>
+                            <option value="purple">紫色</option>
+                            <option value="greenDark">深绿色</option>
+                            <option value="red">红色</option>
+                            <option value="blue">蓝色</option>
+                            <option value="yellow">黄色</option>
+                            <option value="pink">粉色</option>
+                            <option value="green">绿色</option>
+                            <option value="blueDark">深蓝色</option>
+                            <option value="pinkDark">深红色</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="customaddress" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">地址：</label>
+                        <input id="customaddress" class="form-control" name="Quesnum" type="text" value="" />
+                    </div>
+                </form>
+            </div>
+
+            <div hidden class="form-horizontal" style="margin-top:50px;" id="Quesform">
+                <form>
+                    <div class="form-group" >
+                        <label for="Quesname" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">名称：</label>
+                        <input id="Quesname" class="form-control" name="Ques" type="text" value="题库" />
+                    </div>
+                    <div class="form-group">
+                        <label for="style" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">题库类型：</label>
+                        <select id="QuesType" class="form-control" onchange="showQuesSubKnow()">
+                            <option value="3">随机（所有科目题库）</option>
+                            <option value="2">随机（当前科目错题）</option>
+                            <option value="1">随机（当前科目所有题库）</option>
+                            <option value="4">随机（指定知识点题库）</option>
+                            <option value="5">个人收藏题库</option>
+                            <option value="6">个人错题题库</option>
+                        </select>
+                    </div>
+                    <div id="Quessubjectdiv" class="form-group" style="display:none">
+                        <label for="style" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">科目：</label>
+                        <select id="Quessubject" class="form-control" onchange="showKnowled()">
+                        </select>
+                    </div>
+                    <div id="QuesKnowledgediv" class="form-group" style="display:none">
+                        <label for="style" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">知识点：</label>
+                        <select id="QuesKnowledge" class="form-control" >
+                        </select>
+                    </div>
+                    <div class="form-group" id="sunm" style="display:block">
+                        <label for="Quesnum" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">随机题数量：</label>
+                        <input id="Quesnum" class="form-control" name="Quesnum" type="text" value="10" />
+                    </div>
+                    <div class="form-group">
+                        <label for="style" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">颜色：</label>
+                        <select id="Quesstyle" class="form-control">
+                            <option value="default">随机色</option>
+                            <option value="widget_orange">橘色</option>
+                            <option value="widget_purple">紫色</option>
+                            <option value="widget_darkgreen">深绿色</option>
+                            <option value="widget_red">红色</option>
+                            <option value="widget_blue">蓝色</option>
+                            <option value="widget_yellow">黄色</option>
+                            <option value="widget_grey">灰色</option>
+                            <option value="widget_green">绿色</option>
+                            <option value="widget_darkblue">深蓝色</option>
+                            <option value="widget_darkred">深红色</option>
+                        </select>
+                    </div>
+                    <ul id="treeDemo1" class="ztreeQuestion" style="display:none"></ul>
+
+                </form>
+            </div>
+
+            <div hidden class="form-horizontal" style="margin-top:50px;" id="Examform">
+                <form>
+                    <div class="form-group" >
+                        <label for="Examnames" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">名称：</label>
+                        <input id="Examname" class="form-control" name="Ques" type="text" value="考试" />
+                    </div>
+                    <div class="form-group">
+                        <label for="style" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">已发布的考试</label>
+                        <select id="examType" class="form-control" onchange="showQuesSubKnow()">
+                        </select>
+                    </div>
+
+                </form>
+            </div>
+
+            <div hidden class="form-horizontal" style="margin-top:50px;" id="simuliteform">
+                <form>
+                    <div class="form-group">
+                        <label for="simulname" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">仿真名称：</label>
+                        <input id="simulname" class="form-control" name="simulname" type="text" value="3D仿真" />
+                    </div>
+                    <div class="form-group">
+                        <label for="urladdress" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">仿真路径：</label>
+                        <input id="urladdress" class="form-control" name="urladdress" type="text" value="SimulatModel" />
+                    </div>
+                    <div class="form-group">
+                        <label for="style" class="control-label col-md-4 col-lg-4 col-xs-4 col-sm-4">仿真类型：</label>
+                        <select id="simulType" class="form-control">
+                            <option value="仿真考核">仿真考核</option>
+                            <option value="仿真练习">仿真练习</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+
+            <form enctype="multipart/form-data"  id="fileuploadform" style="padding-top: 25px;" method="post">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 well">
+                    <table class="custom-table" id="sourcelist">
+                        <thead>
+                        <tr>
+                            <th>资源名称</th>
+                            <th>资源介绍</th>
+                            <th>资源样式</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 well">
+                    <i class="icon-plus"></i>
+                    <input type="file" id="fileupload" multiple class="btn btn-default" onchange="changefile()"  name="fileupload" style="display:none" />
+
+                    <div style="margin-top:10px">
+                        <span>添加文件&nbsp;&nbsp;</span>
+                        <input type="text" id="brosweFile" class="btn btn-default" readonly style="width:50%" />
+                        <input type="button" class="btn btn-primary btn-sm" onclick="$('#fileupload').click()" value="浏览" id="brosweevent" />
+                        <input type="button" class="btn btn-primary btn-sm" onclick="" value="从素材库添加" id="addfromMaterial" />
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 well hide" id="filelistholder"></div>
+            </form>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</div>
+
+<input hidden id="saveTreeNode" />
+<input hidden id="prevsourceid" />
+<a id="userId" style="display: none" ></a>
+
+<input hidden id="rootid" />
+
+
+</div>
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script type="text/javascript">
+    function Closemydlgmaterial() {
+        $("#dlgmaterial").html("");
+        $("#dlgmaterial").dialog('close');
+    }
+    function Closemydlg3() {
+        $("#dlgmaterial").html("");
+    }
+    function Closemydlgbeforsetting() {
+        $("#dlgbeforsetting").html("");
+        $("#dlgbeforsetting").dialog('close');
+    }
+    function Closemydlg4() {
+        $("#dlgbeforsetting").html("");
+    }
+    var bartimer;
+    layui.config({
+        base: '../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'table','element','layer'], function(){
+        var admin = layui.admin
+            ,element = layui.element
+            ,layer = layui.layer //弹层
+            ,table = layui.table;
+
+
+        window.setProcess = function () {
+            var processbar = document.getElementById("processbar");
+            processbar.style.width = parseInt(processbar.style.width) + 1 + "%";
+            processbar.innerHTML = processbar.style.width;
+            if(processbar.style.width == "99%"){
+                window.clearInterval(bartimer);
+            }
+        }
+        /*window.bartimer=function () {
+
+            window.setInterval(function(){setProcess();},100);
+        }*/
+        //bartimer = window.setInterval(function(){setProcess();},100);
+        window.openTiao=function () {
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                area: ['450px', '27px'],
+                shadeClose: true,
+                skin: 'yourclass',
+                content: '<div class="processcontainer"><div id="processbar" style="width:1%;"></div> </div>'
+            });
+        }
+
+        window.closeTiao=function () {
+            layer.closeAll('page');
+        }
+
+    });
+</script>
+</body>

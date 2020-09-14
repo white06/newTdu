@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../scripts/Plugins/jquery-easyui-1.4.1/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../scripts/ztree/css/zTreeStyle/zTreeStyle.css"/>
+    <script type="text/javascript" src="../scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../scripts/ztree/js/jquery.ztree.all.min.js" ></script>
+    <script type="text/javascript" src="navigationBar.js"></script>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/layui/layui.js"></script>
+    <script src="../../js/api.js"></script>
+    <style type="text/css">
+        .updataInput{
+            margin-top: 20px;
+            text-align: center;
+        }
+        .navigationContent{
+            height:50px;
+            width:300px;
+            margin:0 auto;
+            margin-top:2%;
+        }
+    </style>
+
+</head>
+<style>
+    body{
+        margin: 0 0;
+        background: rgba(60, 65, 84, 1);
+        height: 100%;
+    }
+    .layui-form-label{
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(255,255,255,1);
+        width: 120px;text-align: center
+    }
+    .layui-btn{
+        background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+        border-radius:3px;
+        width: 30%;
+        margin-left: 10%;;
+        margin-right: 10%;
+    }
+    .ztree li a span{
+        color: white;
+    }
+    .ztree li a.curSelectedNode{
+        background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+        color: white;
+        height: 18px;
+        border: 1px #5CCDB1 solid;
+    }
+</style>
+<body>
+
+
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;">
+
+
+<div class="" style="width:40%;height:50px;padding-top:5%;margin-left:5%;">
+    <button class="layui-btn" lay-submit lay-filter="setmypass" onclick="addniu()">新增按钮</button>
+</div>
+<div style="width:100%;height:300px;margin-top:2px;padding-bottom: 10%">
+    <div style="background:rgba(60,65,84,1);;width:40%;height:100%;display:block;float:left;margin-left:5%;overflow:auto;">
+        <div id="treeDemo" class="ztree"></div>
+    </div>
+    <div  style="background:rgba(60,65,84,1);;width:40%;height:100%;display:block;float:left;margin-left:5%">
+
+        <form class="layui-form" action="" style="">
+
+        <input type="text" id="id" class="contentInput" hidden="true">
+
+
+        <div class="layui-form-item" style="margin-top: 15px;">
+            <label class="layui-form-label">导航栏名称:</label>
+            <div class="layui-col-md6">
+                <input type="text" id="columnName"  placeholder="导航栏名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">导航栏链接:</label>
+            <div class="layui-col-md6">
+                <input type="text" id="columnLink"  placeholder="导航栏链接" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">导航栏图标:</label>
+            <div class="layui-col-md6">
+                <input type="text" id="columnPicture"  placeholder="导航栏图标" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户权限:</label>
+            <div class="layui-col-md6">
+                <select id="userrole" name="interest" lay-filter="aihao">
+                    <option value="0" selected="selected">所有人</option>
+                    <option value="2">学生</option>
+                    <option value="1">教师</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div style="margin: 0 auto;text-align: center">
+            <button class="layui-btn" lay-submit lay-filter="setmypass" onclick="getUpata()">保存修改</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+</div>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

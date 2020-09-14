@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/custom/jquery-1.8.3.min.js"></script>
+
+
+    <script type="text/javascript" src="../scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../scripts/ztree/js/jquery.ztree.all.min.js" ></script>
+
+    <style>
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: rgba(60, 65, 84, 1);
+        }
+
+        .layui-form-label{
+            font-size:18px;
+            font-family:PingFangSC-Medium,PingFang SC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+            width: 120px;text-align: center
+        }
+        .layui-form{
+
+        }
+        .layui-input-block{
+            margin-left: 150px;
+        }
+        .layui-textarea {
+            min-height: 100px;
+            height: 100%;
+            line-height: 20px;
+            padding: 6px 10px;
+            resize: vertical
+        }
+        .layui-form-item{
+            margin-bottom: 20px;
+        }
+        .layui-btn{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:3px;
+            width: 30%;
+            margin-left: 10%;;
+            margin-right: 10%;
+        }
+        .layui-table[lay-skin=row] {
+            border-top: 2px solid #2E3546;
+            border-width: 2px;
+            border-style: solid;
+            border-color: #2E3546;
+        }
+        .layui-table{
+            background: #3C4154;
+            color: white;
+        }
+        .layui-table thead tr{
+            background: #3C4154;
+            color: white;
+            border: 2px solid #2E3546;
+        }
+        .layui-table[lay-even] tr:nth-child(2n){
+            background: #3C4154;
+            border: 2px solid #2E3546;
+        }
+        .layui-table th{
+            border-color: #2E3546;
+        }
+        .layui-table[lay-even] tr:nth-child(n){
+            border-color: #2E3546;
+        }
+        .layui-input, .layui-select, .layui-textarea {
+            line-height: 1.3;
+            line-height: 38px \9;
+            border-width: 1px;
+            border-style: solid;
+            border-color:#3C4154 ;
+            background-color: #3C4154;
+            border-radius: 2px;
+        }
+        input::-webkit-input-placeholder {
+            color: white;
+        }
+        .layui-input:hover, .layui-textarea:hover {
+            color: white;
+            border-color: #3C4154 !important
+        }
+
+        .layui-input:focus, .layui-textarea:focus {
+            color: white;
+            border-color: #3C4154 !important
+        }
+    </style>
+    <script src="../../js/api.js"></script>
+</head>
+<body>
+
+
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 90%;">
+    <div class="layui-card" style="background:rgba(52,57,76,1)">
+        <div class="layui-card-body">
+
+            <div center="center" style="margin: 0 auto;padding-bottom: 20px;padding-top: 10px;margin-left: 33%">
+                <button  onclick="creatInfo()" type="button" class="layui-btn layui-btn-fluid" style="background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);border-radius:3px;width: 30%;margin: 0 10%">增加角色</button>
+            </div>
+
+            <table class="layui-table" lay-even="" lay-skin="row" style="width: 80%;margin-left: 10%">
+                <colgroup>
+                    <col width="auto">
+                    <col width="auto">
+                    <col width="auto">
+                    <col>
+                </colgroup>
+                <thead >
+                <tr>
+                    <th>角色名</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="test2">
+                <tr>
+                    <td>贤心</td>
+                    <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑角色</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除角色</a></td>
+                </tr>
+                </tbody>
+
+            </table>
+            <div id="test-laypage-demo21" style="margin-left: 10%"></div>
+        </div>
+    </div>
+</div>
+
+<div id="win" class="easyui-window" closed="true"  data-options="modal:true,minimizable:false" style="width:700px;height:400px;padding:5px;"></div>
+
+</body>
+
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script>
+
+
+    //在弹出的表格中每次勾选中班级就记录下
+    var checkClassId=[];
+
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function() {
+        var laydate = layui.laydate //日期
+            , laypage = layui.laypage //分页
+            , layer = layui.layer //弹层
+            , table = layui.table //表格
+            , carousel = layui.carousel //轮播
+            , upload = layui.upload //上传
+            , element = layui.element //元素操作
+
+
+        window.creatInfo=function () {
+            var content="addRole.html"
+            var index = layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['45%', '40%'],
+                content: content, //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    location.reload();
+                    //parent.document.location.reload();
+                }
+            });
+        }
+
+        window.editRole=function (id) {
+            var content="editRole.html"
+            var index = layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['45%', '40%'],
+                content: content+'?roleId='+id, //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    flag=1
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    location.reload();
+                }
+            });
+        }
+
+        window.delRole=function (id) {
+            $.ajax({
+                type:"GET",
+                url:informationurl+"UsersController/deleRole.action?id="+id,
+                async:false,
+                success: function (data) {
+                    location.reload();
+                }
+            })
+        }
+
+        //将一段数组分页展示
+
+        //测试数据
+        var testLayPageData = [
+            '北京',
+            '上海',
+            '广州'
+        ];
+
+        $.ajax({
+            type: "POST",
+            url: informationurl+"UsersController/seleRoles.action",
+            async: false,
+            success: function (data) {
+                testLayPageData = data;
+            }
+        });
+
+        //调用分页
+        laypage.render({
+            elem: 'test-laypage-demo21'
+            , count: testLayPageData.length
+            , jump: function (obj) {
+                //模拟渲染
+                document.getElementById('test2').innerHTML = function () {
+                    console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                    console.log(testLayPageData)
+                    var arr = []
+                        , thisData = testLayPageData.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                    console.log(thisData)
+                    layui.each(thisData, function (index, item) {
+
+                        var html = '<tr><th>';
+                        html+=''+item.roleName+'';
+                        html+='</th><td>';
+                        html+=  '<a class="layui-btn layui-btn-xs" lay-event="edit" onclick="editRole(\''+item.id+'\')">编辑角色</a>';
+                        html+='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" onclick="delRole(\''+item.id+'\')" >删除角色</a>';
+                        html+='</td></tr>';
+                        arr.push(html);
+                    });
+                    return arr.join('');
+                }();
+            }
+        });
+
+    })
+</script>
+</html>

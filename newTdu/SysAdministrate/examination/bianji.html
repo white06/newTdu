@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="js/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="js/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/content/ztree/css/zTreeStyle/zTreeStyle.css" />
+    <link rel="stylesheet" type="text/css" href="js/ztree/css/demo.css" />
+
+    <script type="text/javascript" src="../scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../scripts/ztree/js/jquery.ztree.all.min.js" ></script>
+    <script type="text/javascript" src="bianji.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="highcharts.js"></script>
+
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+
+    <style>
+        .row-fluid{
+            position:relative;
+            width:300px;
+            height:100px;
+            left: 77%;
+            top: -40%;
+        }
+
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: #3C4154;
+        }
+        ul.ztree {
+            margin-top: 0px;
+            border: 1px solid #617775;
+            background: #2E3546;
+            width: 100%;
+            height: 270px;
+            overflow-y: scroll;
+            overflow-x: auto;
+        }
+
+        .layui-table[lay-skin=row] {
+            border-top: 2px solid #2E3546;
+            border-width: 2px;
+            border-style: solid;
+            border-color: #2E3546;
+        }
+        .layui-table{
+            background: #3C4154;
+            color: white;
+        }
+        .layui-table thead tr{
+            background: #3C4154;
+            color: white;
+            border: 2px solid #2E3546;
+        }
+        .layui-table[lay-even] tr:nth-child(2n){
+            background: #3C4154;
+            border: 2px solid #2E3546;
+        }
+        .layui-table th{
+            border-color: #2E3546;
+        }
+        .layui-table[lay-even] tr:nth-child(n){
+            border-color: #2E3546;
+        }
+    </style>
+    <script src="../../js/api.js"></script>
+</head>
+<body>
+
+<div style="margin:2% 2%;;width: 96%;height: 90%;position:absolute;left: 0%">
+
+<div id="rightDiv" style="float:left;width:100%;height:100%;overflow-y: auto;overflow-x: hidden;">
+    <div id="upper" style="width:30%;margin-left:3%;;height:270px;text-indent:15px;font-size:1.5em;border:1px solid #2E3546;float:left;background: #2E3546">
+        <div style="min-width: 400px;height: 30px;margin: 0 auto;margin-top:20px;float:left;line-height:30px;">
+            <span style="display:block;width:80px;float:left;color: white">课程:</span>
+            <span style="float:left;width:320px;height:30px;color:white;font-weight:bold;" id="chooseKecheng"></span>
+        </div>
+        <div style="min-width: 300px;height: 30px;margin: 0 auto;margin-top:20px;float:left;clear:both;line-height:30px;">
+            <span style="display:block;width:130px;float:left;color: white">试卷名:</span>
+            <input style="float:left;width:150px;height:30px;" id="juanming" onkeyup="inspect('juanming')">
+        </div>
+
+        <!--<div style="min-width: 300px;height: 30px;margin: 0 auto;margin-top:20px ;float:left;clear:both;">
+            <span style="display:block;width:130px;float:left;color: white">试卷类型:</span>
+            <select id="juanleixing" style="float:left;width:150px;height:30px;">
+                <option class="">考试</option>
+                <option class="">练习</option>
+            </select>
+        </div>-->
+        <div style="min-width: 300px;height: 30px;margin: 0 auto;margin-top:20px ;float:left;clear:both;">
+            <button class="layui-btn" style="width:50%;height:35px;font-size:80%;margin-left: 10%;margin-top: 5%"><a style="color: white" href="javascript:history.back(-1)">返回考试管理页</a></button>
+        </div>
+    </div>
+
+    <div style="width:30%;height: 270px;text-indent:15px;margin-left:3%;font-size:1.5em;float:left;border:1px solid #2E3546;background: #2E3546">
+        <span style="display:block;width:130px;float:left;height:30px;font-weight:bolder;color: white">试题筛选:</span>
+
+        <input id="kId" hidden="hidden"></input>
+        <span style="display:block;width:20%;float:left;clear:both;height:30px;margin-left:20px;color: white;margin-top: 10px;margin-bottom: 10px">章节:</span>
+        <input id="knowId" type="text" style="width:60%;float:left;height:30px;margin-top: 10px;margin-bottom: 10px;" value="" readonly="readonly">
+
+        <span style="display:block;width:20%;float:left;clear:both;height:30px;margin-left:20px;color: white;margin-top: 10px;margin-bottom: 10px">难度:</span>
+        <select id="nandu" style="width:60%;float:left;height:30px;;margin-top: 10px;margin-bottom: 10px">
+            <option class="">简单</option>
+            <option class="">普通</option>
+            <option class="">困难</option>
+        </select>
+
+        <span style="display:block;width:20%;float:left;clear:both;height:30px;margin-left:20px;color: white;margin-top: 10px;margin-bottom: 10px">题型:</span>
+        <select id="type" style="width:60%;float:left;height:30px;;margin-top: 10px;margin-bottom: 10px">
+            <option class="">单选题</option>
+            <option class="">填空题</option>
+            <option class="">多选题</option>
+            <option class="">判断题</option>
+            <!-- <option class="">问答题</option> -->
+        </select>
+
+        <span style="display:block;width:20%;float:left;clear:both;height:30px;margin-left:20px;color: white;margin-top: 10px;margin-bottom: 10px">数量:</span>
+        <input type="number" id="shuliang" value="10" style="width:60%;float:left;height:30px;;margin-top: 10px;margin-bottom: 10px"/>
+
+        <button class="layui-btn" onclick="insQuestion()"  style="width:50%;height:35px;font-size:80%;margin-left: 25%">查找并加入试卷</button>
+    </div>
+
+
+
+    <div style="width:30%;;height: 270px;text-indent:15px;margin-left:3%;font-size:1.5em;float:left;border:1px solid #2E3546;">
+        <div class="tree" >
+            <ul id="treeDemo" class="ztree"></ul>
+            <input hidden id="rootid" />
+        </div>
+    </div>
+    <input hidden id="saveTreeNode" />
+
+    <div id="lower" style="width: 73.67%;height:auto;float:left;margin-left:3%;margin-top:15px;">
+        <!--<div style="width:100%;height:300px;margin:0 auto;float:left;clear:both;" >
+            <table id="tm" title="试题列表" style="width:100%;height:300px" data-options="singleSelect:true,pageSize:10,pagination:true,rownumbers: true,">
+                <thead>
+                <tr>
+                    <th data-options=" field:'type', width:'10%' ">类型</th>
+                    <th data-options=" field:'content',width:'40%',formatter:showsxml">题干</th>
+                    <th data-options=" field:'time',width:'20%'">添加时间</th>
+                    <th data-options=" field:'fenshu',width:'20%' ">分数</th>
+                    <th data-options=" field:'id',width:'10%',formatter:caozuo">操作</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>-->
+
+        <div  class="layui-card" style="background:rgba(52,57,76,1)">
+            <div class="layui-card-body">
+
+                <div center="center" style="margin: 0 auto;padding-bottom: 20px;padding-top: 10px;margin-left: 36%">
+                    <p style="font-size:22px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);letter-spacing:2px;">考卷试题列表</p>
+                </div>
+
+                <table class="layui-table" lay-even="" lay-skin="row" lay-filter="demo">
+                    <colgroup>
+                        <col width="auto">
+                        <col width="auto">
+                        <col width="auto">
+                        <col>
+                    </colgroup>
+                    <thead >
+                    <tr>
+                        <th>类型</th>
+                        <th>题干</th>
+                        <th>添加时间</th>
+                        <th>分数</th>
+                        <th lay-data="{fixed: 'right', width:auto, align:'center', toolbar: '#barDemo'}">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="test3">
+                    <tr>
+                        <td>贤心</td>
+                        <th>操作</th>
+                        <th>操作</th>
+                        <th>操作</th>
+                        <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a></td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+                <div id="test-laypage-demo21"></div>
+            </div>
+        </div>
+
+
+        <div  class="layui-card" style="background:rgba(52,57,76,1)">
+            <div class="layui-card-body">
+
+                <div center="center" style="margin: 0 auto;padding-bottom: 20px;padding-top: 10px;margin-left: 36%">
+                    <p style="font-size:22px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);letter-spacing:2px;">试题列表</p>
+                </div>
+
+                <table class="layui-table" lay-even="" lay-skin="row" lay-filter="demo">
+                    <colgroup>
+                        <col width="auto">
+                        <col width="auto">
+                        <col width="auto">
+                        <col>
+                    </colgroup>
+                    <thead >
+                    <tr>
+                        <th>类型</th>
+                        <th>题干</th>
+                        <th>添加时间</th>
+                        <th>分数</th>
+                        <th lay-data="{fixed: 'right', width:auto, align:'center', toolbar: '#barDemo'}">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="test2">
+                    </tbody>
+
+                </table>
+
+                <div id="test-laypage-demo20"></div>
+            </div>
+        </div>
+        <button style="width: 100px" class="layui-btn" onclick="zujuan()"> 提交组卷</button>
+</div>
+</div>
+</div>
+
+<script src="../../layuiadmin/layui/layui.js"></script>
+    <script>
+        layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function() {
+            var laydate = layui.laydate //日期
+                , laypage = layui.laypage //分页
+                , layer = layui.layer //弹层
+                , table = layui.table //表格
+                , carousel = layui.carousel //轮播
+                , upload = layui.upload //上传
+                , element = layui.element //元素操作
+
+
+            //监听工具条
+            table.on('tool(test-table-operate)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'detail') {
+                    layer.msg('ID：' + data.id + ' 的查看操作');
+                } else if (obj.event === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del();
+                        layer.close(index);
+                    });
+                } else if (obj.event === 'edit') {
+                    layer.alert('编辑行：<br>' + JSON.stringify(data))
+                }
+            });
+
+
+            //将一段数组分页展示
+
+            //测试数据
+            var testLayPageData = [
+                '北京',
+                '上海',
+                '广州'
+            ];
+            window.showQuestions = function (testLayPageData) {
+                console.log("testLayPageData   : -->")
+                console.log(testLayPageData)
+                laypage.render({
+                    elem: 'test-laypage-demo20'
+                    , count: testLayPageData.length
+                    , jump: function (obj) {
+                        //模拟渲染
+                        document.getElementById('test2').innerHTML = function () {
+                            console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                            console.log(testLayPageData)
+                            var arr = []
+                                , thisData = testLayPageData.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                            console.log(thisData)
+                            layui.each(thisData, function (index, item) {
+                                var html = '<tr><th>';
+                                html += '' + item.type + '';
+                                html += '</th><th>';
+                                html += '' + item.title + '';
+                                html += '</th><th>';
+                                html += '' + item.time + '';
+                                html += '</th><th>';
+                                html += '' + item.fenshu + '';
+                                html += '</th><th>';
+                                html += '<a class="layui-btn  layui-btn-xs" lay-event="edit" onclick="addexam(\'' + item.id + '\',\'' + this + '\')">增加</a>';
+                                html += '</td></tr>';
+                                arr.push(html);
+                            });
+                            return arr.join('');
+                        }();
+                        table.render({
+                            elem: '#demo'
+                            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+                        });
+
+                    }
+                });
+
+            }
+            //测试数据
+            var testLayPageData2 = [
+                '北京',
+                '上海',
+                '广州'
+            ];
+            window.showPageQuestions = function (testLayPageData2) {
+
+                console.log("testLayPageData2   : -->")
+                console.log(testLayPageData2)
+                laypage.render({
+                    elem: 'test-laypage-demo21'
+                    , count: testLayPageData2.length
+                    , jump: function (obj) {
+                        //模拟渲染
+                        document.getElementById('test3').innerHTML = function () {
+                            console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                            console.log(testLayPageData2)
+                            var arr = []
+                                , thisData = testLayPageData2.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                            console.log(thisData)
+                            layui.each(thisData, function (index, item) {
+                                var html = '<tr><th>';
+                                html += '' + item.type + '';
+                                html += '</th><th>';
+                                html += '' + item.title + '';
+                                html += '</th><th>';
+                                html += '' + item.time + '';
+                                html += '</th><th>';
+                                html += '' + item.fenshu + '';
+                                html += '</th><th>';
+                                html += '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" onclick="delexam(\'' + item.id + '\')">删除</a>';
+                                html += '</td></tr>';
+                                arr.push(html);
+                            });
+                            return arr.join('');
+                        }();
+
+                        table.render({
+                            elem: '#demo'
+                            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+                        });
+
+                    }
+                });
+
+            }
+
+
+            window.delexam = function (rowId) {
+                console.log(datainput);
+                console.log(rowId);
+                var flag = false;
+                var count;
+                for(var i=0;i<datainput.length;i++){
+                    console.log(datainput[i].id===rowId)
+                    if(datainput[i].id===rowId){
+                        flag=true;
+                        count =i;
+                    }
+                }
+                if(flag){
+                    datainput.splice(count,1);
+                }
+                showPageQuestions(datainput)
+                /*var dataAllL = datainput.length;
+                console.log(dataAll)
+                for (var i = 0; i < dataAllL; i++) {
+                    if (datainput[i].id === rowId) {
+                        datainput.splice(i, 1);
+                        setTimeout(function () {
+                            $("#tm").datagrid("loadData", datainput);
+                        },10);
+                        return;
+                    }
+                }*/
+            }
+
+            //调用分页
+            window.getPageQuestion=function () {
+                $.ajax({
+                    type:"POST",
+                    url:houtaiurl+"ExamController/getPageQue.action?examId="+examId,
+                    success:function(data){
+                        console.log(data)
+                        var dataL=data.length;
+                        var dataAllL=datainput.length;
+                        if(dataAllL===0){
+                            console.log(datainput);
+                            datainput=data;
+                        }else{
+                            for(var i=0;i<dataL;i++){
+                                var boolean=panduan(data[i]);
+                                if(boolean!==true){
+                                    datainput.push(data[i]);
+                                }
+                            }
+                        }
+                        console.log(datainput)
+                        $("#lower").css("display","block")
+                        showPageQuestions(datainput);
+                    }
+                })
+            }
+            getPageQuestion();
+        });
+    </script>
+</body>
+</html>

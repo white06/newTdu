@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用戶導出</title>
+		<link rel="stylesheet" href="../../js/layui/css/layui.css">
+		<script src="../../js/layui/layui.js"></script>
+		<!--<link rel="stylesheet" type="text/css" href="../css/UserExport.css" />-->
+		<script type="text/javascript" src="../scripts/jquery-1.10.2.js"></script>
+		<script type="text/javascript" src="../scripts/jquery-1.8.0.min.js"></script>
+		<script type="text/jscript" src="../js/UserExport.js"></script>
+	<style>
+		/* 只针对谷歌浏览器*/
+		body::-webkit-scrollbar {
+			display: none;
+		}
+		body{
+			margin: 0 0;
+			background: rgba(60, 65, 84, 1);
+		}
+		.layui-form-label{
+			font-size:22px;
+			font-family:PingFangSC-Medium,PingFang SC;
+			font-weight:500;
+			color:rgba(255,255,255,1);
+			width: 120px;text-align: center
+		}
+		.layui-form{
+
+		}
+		.layui-input-block{
+			margin-left: 150px;
+		}
+		.layui-form-item{
+			margin-bottom: 20px;
+		}
+		.layui-btn{
+			background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+			border-radius:3px;
+			width: 30%;
+			margin-left: 10%;;
+			margin-right: 10%;
+		}
+		.layui-card {
+			background: #3C4154;
+		}
+		.layui-table[lay-skin=row] {
+			border-top: 2px solid #2E3546;
+			border-width: 2px;
+			border-style: solid;
+			border-color: #2E3546;
+		}
+		.layui-table{
+			background: #3C4154;
+			color: white;
+		}
+		.layui-table thead tr{
+			background: #3C4154;
+			color: white;
+			border: 2px solid #2E3546;
+		}
+		.layui-table[lay-even] tr:nth-child(2n){
+			background: #3C4154;
+			border: 2px solid #2E3546;
+		}
+		.layui-table th{
+			border-color: #2E3546;
+		}
+		.layui-table[lay-even] tr:nth-child(n){
+			border-color: #2E3546;
+		}
+	</style>
+	<script src="../../js/api.js"></script>
+</head>
+	<body>
+
+
+	<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;" >
+		<!--    <form class="layui-form" action="">-->
+		<form id="export-form" class="layui-form" style="padding-left: 15%;padding-right: 25%;padding-top: 20px">
+
+			<div class="layui-form-item" style="margin-top: 20px">
+				<label class="layui-form-label">选择学院 : </label>
+				<div class="layui-input-block">
+					<select name="rolename" lay-filter="LAY-user-adminrole-type"  id="role">
+						<option value="-1">全部角色</option>
+						<option value="0">管理员</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item" style="padding-bottom: 20px;">
+				<div class="layui-input-block">
+					<button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" >导出</button>
+					<button type="submit" class="layui-btn" >返回</button>
+				</div>
+			</div>
+		</form>
+	</div>
+		<script type="text/javascript">
+
+            layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element','form'], function() {
+                var laydate = layui.laydate //日期
+                    , laypage = layui.laypage //分页
+                    , layer = layui.layer //弹层
+                    , table = layui.table //表格
+                    , carousel = layui.carousel //轮播
+                    , upload = layui.upload //上传
+                    ,form = layui.form
+                    , element = layui.element //元素操作
+
+                //搜索角色
+                form.on('select(LAY-user-adminrole-type)', function(data){
+                    console.log(data.value)
+                });
+
+				/* 监听提交新增 */
+                form.on('submit(demo1)', function(data){
+                    console.log(data);
+                    if(data.field.rolename==""||data.field.rolename==null){
+                        layer.alert("学院不能为空!");
+                    }else{
+						var url = houtaiurl+"nanjingController/exportExcelByCollege.action?rolename="+data.field.rolename;
+						$("#export-form").attr("action",url);
+						$("#export-form").submit();
+                    }
+                    console.log(data);
+                    return false;
+                });
+
+            });
+
+		</script>
+	</body>
+</html>

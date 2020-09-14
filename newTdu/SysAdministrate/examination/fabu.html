@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/custom/jquery-1.8.3.min.js"></script>
+
+
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="js/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="js/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="js/ztree/css/zTreeStyle/zTreeStyle.css"/>
+
+    <script type="text/javascript" src="../scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="../scripts/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../scripts/ztree/js/jquery.ztree.all.min.js" ></script>
+    <!--<script type="text/javascript" src="js/custom/fabu.js"></script>
+    <script type="text/javascript" src="Index.js"></script>-->
+    <script type="text/javascript" src="highcharts.js"></script>
+
+    <style>
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: rgba(60, 65, 84, 1);
+        }
+
+        .layui-form-label{
+            font-size:18px;
+            font-family:PingFangSC-Medium,PingFang SC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+            width: 120px;text-align: center
+        }
+        .layui-form{
+
+        }
+        .layui-input-block{
+            margin-left: 150px;
+        }
+        .layui-textarea {
+            min-height: 100px;
+            height: 100%;
+            line-height: 20px;
+            padding: 6px 10px;
+            resize: vertical
+        }
+        .layui-form-item{
+            margin-bottom: 20px;
+        }
+        .layui-btn{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:3px;
+            width: 30%;
+            margin-left: 10%;;
+            margin-right: 10%;
+        }
+        .layui-table[lay-skin=row] {
+            border-top: 2px solid #2E3546;
+            border-width: 2px;
+            border-style: solid;
+            border-color: #2E3546;
+        }
+        .layui-table{
+            background: #3C4154;
+            color: white;
+        }
+        .layui-table thead tr{
+            background: #3C4154;
+            color: white;
+            border: 2px solid #2E3546;
+        }
+        .layui-table[lay-even] tr:nth-child(2n){
+            background: #3C4154;
+            border: 2px solid #2E3546;
+        }
+        .layui-table th{
+            border-color: #2E3546;
+        }
+        .layui-table[lay-even] tr:nth-child(n){
+            border-color: #2E3546;
+        }
+        .layui-input, .layui-select, .layui-textarea {
+            line-height: 1.3;
+            line-height: 38px \9;
+            border-width: 1px;
+            border-style: solid;
+            border-color:#3C4154 ;
+            background-color: #3C4154;
+            border-radius: 2px;
+        }
+        input::-webkit-input-placeholder {
+            color: white;
+        }
+        .layui-input:hover, .layui-textarea:hover {
+            color: white;
+            border-color: #3C4154 !important
+        }
+
+        .layui-input:focus, .layui-textarea:focus {
+            color: white;
+            border-color: #3C4154 !important
+        }
+    </style>
+    <script src="../../js/api.js"></script>
+</head>
+<body>
+
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 46%;height: 90%;position:absolute;left: 0%">
+    <div class="layui-card" style="background:rgba(52,57,76,1)">
+        <div class="layui-card-body">
+
+            <div center="center" style="margin: 0 auto;padding-bottom: 20px;padding-top: 10px;margin-left: 36%">
+                <p style="font-size:22px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);letter-spacing:2px;">未发布列表</p>
+            </div>
+
+            <table class="layui-table" lay-even="" lay-skin="row">
+                <colgroup>
+                    <col width="auto">
+                    <col width="auto">
+                    <col width="auto">
+                    <col>
+                </colgroup>
+                <thead >
+                <tr>
+                    <th>试卷名</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="test2">
+                <tr>
+                    <td>贤心</td>
+                    <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>
+                </tr>
+                </tbody>
+
+            </table>
+            <div id="test-laypage-demo20"></div>
+        </div>
+    </div>
+</div>
+
+
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 46%;height: 90%;position:absolute;right: 0%">
+    <div class="layui-card" style="background:rgba(52,57,76,1)">
+        <div class="layui-card-body">
+
+            <div center="center" style="margin: 0 auto;padding-bottom: 20px;padding-top: 10px;margin-left: 36%">
+                <p style="font-size:22px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);letter-spacing:2px;">已发布列表</p>
+            </div>
+
+            <table class="layui-table" lay-even="" lay-skin="row">
+                <colgroup>
+                    <col width="auto">
+                    <col width="auto">
+                    <col width="auto">
+                    <col>
+                </colgroup>
+                <thead >
+                <tr>
+                    <th>试卷名</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="test3">
+                <tr>
+                    <td>贤心</td>
+                    <td><a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a></td>
+                </tr>
+                </tbody>
+
+            </table>
+            <div id="test-laypage-demo21"></div>
+        </div>
+    </div>
+</div>
+
+<div id="win" class="easyui-window" closed="true"  data-options="modal:true,minimizable:false" style="width:700px;height:400px;padding:5px;"></div>
+
+</body>
+
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script>
+
+
+    //在弹出的表格中每次勾选中班级就记录下
+    var checkClassId=[];
+
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
+        var laydate = layui.laydate //日期
+            ,laypage = layui.laypage //分页
+            ,layer = layui.layer //弹层
+            ,table = layui.table //表格
+            ,carousel = layui.carousel //轮播
+            ,upload = layui.upload //上传
+            ,element = layui.element //元素操作
+
+
+        //监听工具条
+        table.on('tool(test-table-operate)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'detail'){
+                layer.msg('ID：'+ data.id + ' 的查看操作');
+            } else if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+            }
+        });
+
+
+        //将一段数组分页展示
+
+        //测试数据
+        var testLayPageData = [
+            '北京',
+            '上海',
+            '广州'
+        ];
+        //测试数据
+        var testLayPageData2 = [
+            '北京',
+            '上海',
+            '广州'
+        ];
+        window.loadWei=function () {
+            $.ajax({
+                type: "POST",
+                url: houtaiurl+"KaoshiController/seleExamAll.action",
+                async: false,
+                success: function (data) {
+                    console.log(data)
+                    testLayPageData = data;
+                }
+            });
+            //调用分页
+            laypage.render({
+                elem: 'test-laypage-demo20'
+                , count: testLayPageData.length
+                , jump: function (obj) {
+                    //模拟渲染
+                    document.getElementById('test2').innerHTML = function () {
+                        console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                        console.log(testLayPageData)
+                        var arr = []
+                            , thisData = testLayPageData.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                        console.log(thisData)
+                        layui.each(thisData, function (index, item) {
+                            console.log(item);
+                            var html = '<tr><th>';
+                            html+=''+item.examName+'';
+                            html+='</th><th>';
+                            html+=  '<a style="width: 10%" class="layui-btn layui-btn-xs" lay-event="edit" onclick="fabuchuang(\''+item.examId+'\',\''+item.examName+'\')">发布</a>';
+                            html+=  '<a style="width: 10%" class="layui-btn layui-btn-xs" lay-event="edit" onclick="bianjiExam(\''+item.examId+'\',\''+item.examName+'\')">编辑</a>';
+                            html+=  '<a style="width: 10%" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" onclick="delExam(\'' + item.examId + '\')">删除</a>';
+                            html+='</td></tr>';
+                            arr.push(html);
+                        });
+                        return arr.join('');
+                    }();
+                }
+            });
+        }
+
+        //删除试卷
+        window.delExam =function (examId) {
+            $.ajax({
+                type:"POST",
+                url:houtaiurl+"KaoshiController/delExam.action?examId="+examId,
+                success:function(data){
+                    loadWei();
+                    loadYi();
+                }
+            })
+        }
+
+        window.fabuchuang=function (id,examName) {
+            checkClassId=[];
+            $('#win').panel('open').panel('setTitle',examName);
+            setHtml();
+            $('#examId').val(id);
+            getClass();
+            setTime();
+        }
+
+        window.loadYi=function () {
+            $.ajax({
+                type: "POST",
+                url: houtaiurl+"KaoshiController/seleExamFabu.action",
+                async: false,
+                success: function (data) {
+                    console.log(data)
+                    testLayPageData2 = data;
+                }
+            });
+
+            //调用分页
+            laypage.render({
+                elem: 'test-laypage-demo21'
+                , count: testLayPageData2.length
+                , jump: function (obj) {
+                    //模拟渲染
+                    document.getElementById('test3').innerHTML = function () {
+                        console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                        console.log(testLayPageData2)
+                        var arr = []
+                            , thisData = testLayPageData2.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                        console.log(thisData)
+                        layui.each(thisData, function (index, item) {
+                            console.log(item);
+                            var html = '<tr><th>';
+                            html+=''+item.examName+'';
+                            html+='</th><th>';
+                            html+=  '<a style="width: 30%" class="layui-btn layui-btn-xs" lay-event="edit" onclick="fabuchuang(\''+item.examId+'\',\''+item.examName+'\')">编辑</a>';
+                            html+=  '<a style="width: 30%"class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" onclick="updateExam(\'' + item.examId + '\',\'' + item.examName + '\')">取消发布</a>';
+                            html+='</td></tr>';
+                            arr.push(html);
+                        });
+                        return arr.join('');
+                    }();
+                }
+            });
+        }
+
+        //编辑试卷
+        window.bianjiExam =function (examId,examName) {
+            window.location.href="bianji.html?examKey="+examId+"&examName="+examName;
+        }
+
+        //将试卷的状态改为未发布
+        window.updateExam =function (examId) {
+            $.ajax({
+                type:"POST",
+                url:houtaiurl+"KaoshiController/updateFabu.action?examId="+examId,
+                success:function(data){
+                        loadWei();
+                        loadYi();
+                }
+            })
+        }
+
+        //将试卷的状态改为已发布
+        window.fabu=function () {
+            var endTime = $('#endTime').datebox('getValue');
+            var startTime=$('#startTime').datebox('getValue');
+            var d1 = new Date(startTime.replace(/\-/g, "\/"));
+            var d2 = new Date(endTime.replace(/\-/g, "\/"));
+            if(startTime!=""&&endTime!=""&&d1 >=d2){
+                alert("开始时间不能大于结束时间！");
+                return false;
+            }else if(startTime==""||endTime==""){
+                alert("请选择时间");
+                return;
+            }
+            var examId=$('#examId').val();
+            var classList=getList();
+            if(classList==""||classList==null){
+                alert("没有选择班级");
+                return;
+            }
+            var examTime=$('#examTime').val();
+            console.log("endTime :"+endTime);
+            console.log("examId :"+examId);
+            console.log("startDate :"+startTime);
+            console.log("classList :"+classList);
+            console.log("examTime :"+examTime);
+
+            $.ajax({
+                type:"POST",
+                url:houtaiurl+"KaoshiController/fabu.action?endDate="+endTime+"&examId="+examId+"&startDate="+startTime+"&classKey="+classList+"&examTime="+examTime,
+                success:function(data){
+                    if(data=="ture"){
+                        alert("发布成功")
+                        $('#win').panel('close');
+                        loadWei();
+                        loadYi();
+                        return;
+                    }
+                }
+            })
+        }
+
+        //初始化
+        loadWei();
+        loadYi();
+
+    });
+    //向小弹窗中加html
+    function setHtml(){
+        var html='<input type="text" id="examId" hidden>'+
+            '<div id="leftClass" style="float: left;width:400px;height:280px;margin-top:10px;">'+
+            '<table id="getClass" title="班级表"  style="width:100%;height:280px"></table>'+
+            '</div>'+
+            '<div id="rightTime" style="float: left;width:260px;height:280px;margin-top:10px;"">'+
+            '<div id="setstart" style="width:260px;heigth:25px;margin-top:20px;line-height:25px;"><span style="display:block;float:left;margin-left:15px;font-size:16px;">开始时间:&nbsp;</span><input id="startTime" type="text" style="width:150px;float:left;margin-left:5px;display:block"/></div>'+
+            '<div id="setend" style="width:260px;heigth:25px;margin-top:20px;line-height:25px;"><span style="display:block;float:left;margin-left:15px;font-size:16px;">截至时间:&nbsp;</span><input id="endTime" type="text" style="width:150px;float:left;margin-left:5px;display:block"></div>'+
+            '<div style="width:260px;heigth:40px;margin:0 auto;margin-top:20px;"><span style="display:block;float:left;margin-left:15px;font-size:16px;">截至时间:&nbsp;</span><select style="width:80px;float:left;" id="examTime"><option>120</option><option>100</option><option>90</option><option>60</option><option>30</option></select><span>分钟</span></div>'+
+            '<div style="width:100%;height:35px;margin:0 auto;margin-top:20px;"><button class="customsubmitbutton" style="width:150px;height:35px;margin-left:15px;" onclick="fabu()">发布</button></div>'+
+            '</div>';
+        $('#win').html(html);
+    }
+
+    //对班级列表的处理
+    function getClass(){
+        $('#getClass').datagrid({
+            url: houtaiurl+"UsersController/seleClassList.action",
+            method:"post",
+            columns:[[
+                {field:'id',title:'选择',width:'20%',checkbox:true},
+                {field:'className',title:'班级名',width:'80%',align:'center'}
+            ]],
+            loadFilter:pagerFilter,
+            //允许多选
+            singleSelect: false,
+            fitColumns:true,
+            rownumbers: true,
+            pagination: true,
+            pageSize: "10",
+            onCheck:function(index, rowData){
+                checkClassId.push(rowData.id);
+            },
+            onUncheck:function(index, rowData){
+                var listL=checkClassId.length;
+                for(var i=0;i<listL;i++){
+                    if(rowData.id==checkClassId[i]){
+                        checkClassId.splice(i,1);
+                    }
+                }
+            },
+            onCheckAll:function(rowData){
+                checkClassId.splice(0,checkClassId.length);
+                var rowDataL=rowData.length;
+                for(var i=0;i<rowDataL;i++){
+                    checkClassId.push(rowData[i].id);
+                }
+            },
+            onUncheckAll:function(rowData){
+                checkClassId.splice(0,checkClassId.length);
+            },
+            onLoadSuccess:function(data){
+
+                $('.datagrid-cell').css('font-size','16px');
+                $('.datagrid-cell').css('text-align','left');
+                $('.datagrid-row').css('height','50px');
+                $('.datagrid-header .datagrid-cell span ').css('font-size','16px');
+                $('.panel-title ').css('font-size','16px');
+            }
+        })
+    }
+
+    //处理时间
+    function setTime(){
+        $('#startTime,#endTime').datetimebox({
+            required: true,
+            showSeconds: false
+        });
+    }
+    function pagerFilter(data){
+        //判断是否是数组
+        if (typeof data.length == 'number' && typeof data.splice == 'function'){	// is array
+            data = {
+                total: data.length,
+                rows: data
+            }
+        }
+        var dg = $(this);
+        var opts = dg.datagrid('options');
+        var pager = dg.datagrid('getPager');
+        pager.pagination({
+            onSelectPage:function(pageNum, pageSize){
+                opts.pageNumber = pageNum;
+                opts.pageSize = pageSize;
+                pager.pagination('refresh',{
+                    pageNumber:pageNum,
+                    pageSize:pageSize
+                });
+                //等待重写，形成列表
+                dg.datagrid('loadData',data);
+            },
+            beforePageText : '第', //页数文本框前显示的汉字
+            afterPageText : '页    共 {pages} 页',
+            displayMsg : '当前显示 {from} - {to} 条记录   共 {total} 条记录',
+        });
+        if (!data.originalRows){
+            data.originalRows = (data.rows);
+        }
+        var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+        var end = start + parseInt(opts.pageSize);
+        data.rows = (data.originalRows.slice(start, end));
+        return data;
+    }
+
+    //分拆数据，将它变成字符串
+    function getList(){
+        var checkClassIdL=checkClassId.length;
+        var classList='';
+        for(var i=0;i<checkClassIdL;i++){
+            if(i===0){
+                classList=checkClassId[i];
+            }else{
+                classList+=("______")+checkClassId[i];
+            }
+        }
+        return classList;
+    }
+</script>
+</html>

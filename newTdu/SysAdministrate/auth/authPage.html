@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/custom/jquery-1.8.3.min.js"></script>
+    <style>
+        .layui-btn{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+        }
+    </style>
+    <script>
+        var index = parent.layer.getFrameIndex(window.name);
+        var parentId = parent.layer.parentId;
+        var data = parent.data;
+        $(document).ready(function () {
+            var str = GetRequest();
+            eval(str)
+            parentId = str.parentId
+            console.log(data)
+
+
+           /* $.ajax({
+                url: houtaiurl + 'DepartmentController/GetUserRolesbyId.action',
+                type: 'POST',
+                data: {userid:userId},
+                async: false,
+                success: function (data) {
+                    console.log(data)
+                    for (var j = 0; j < data.length; j++) {
+                        var checkboxid = data[j].id;
+                        console.log(checkboxid)
+                        document.getElementById(checkboxid).checked = true;
+                    }
+                }
+            });*/
+
+        })
+
+
+        function GetRequest() {
+            var url = location.search; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+    </script>
+    <script src="../../js/api.js"></script>
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>操作节点</legend>
+</fieldset>
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">节点名称 ：</label>
+        <div class="layui-input-block">
+            <input type="text" name="pageName" lay-verify="pageName" autocomplete="off" placeholder="请输入节点名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">链接地址 ：</label>
+        <div class="layui-input-block">
+            <input type="text" name="link" lay-verify="link" lay-reqtext="链接地址是必填项，岂能为空？" placeholder="请输入链接地址" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="submit" class="layui-btn" onclick="fanhui()">返回</button>
+        </div>
+    </div>
+</form>
+
+</body>
+
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script>
+
+    var fatuerAuth = [];
+    var authList = [];
+    var childList = [];
+    layui.config({
+        base: '../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index','element','form','layer'], function(){
+        var $ = layui.$
+            ,admin = layui.admin
+            ,element = layui.element
+            ,form = layui.form
+            ,layer = layui.layer;
+        element.render();
+        
+        
+        
+        window.fanhui=function () {
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+
+            parent.layer.close(index); //再执行关闭
+        }
+        
+        //监听提交
+        form.on('submit(demo1)', function(str){
+
+            var uuId=generateUUID();
+            var auth ={};
+            auth.id=uuId;
+            auth.link=str.field.link;
+            auth.icon=null;
+            auth.children=null;
+            auth.pageName=str.field.pageName;
+            auth.parametersType=0;
+            auth.state="open";
+            auth._parentId=parentId;
+
+            for(var i=0;i<data.length;i++){
+                //console.log(data[i]);
+                if(data[i].link==null&data[i].children!=null){
+                    if(data[i].id==parentId){
+                        data[i].children = data[i].children+";"+""+uuId+""
+                        fatuerAuth.push(data[i]);
+                    }else{
+                        fatuerAuth.push(data[i]);
+                    }
+                }
+
+
+            }
+            for (var i=0;i<fatuerAuth.length;i++){
+               var childAuth = fatuerAuth[i].children.split(";");
+                console.log(childAuth);
+                /*for (var k =0;k<childAuth.length;k++){
+                    for (var j=0;j<data.length;j++){
+                        if(childAuth[k]==data[j].id){
+                            console.log(childAuth[k],data[j].id)
+                            childList.push(data[j]);
+                        }
+                    }
+                }*/
+                fatuerAuth[i].children=fatuerAuth[i]._nodes;
+                if(fatuerAuth[i].id==parentId){
+                    fatuerAuth[i].children.push(auth)
+                }
+                for (var j=0;j<fatuerAuth[i].children.length;j++){
+                    fatuerAuth[i].children[j]._parentId=fatuerAuth[i].id;
+                }
+            }
+            console.log(fatuerAuth)
+
+
+            var temp = haddledatas(fatuerAuth);
+            console.log(temp);
+
+            console.log(auth)
+            console.log(str.field.pageName)
+            console.log(str.field.link)
+            console.log(JSON.stringify(str.field))
+            layer.msg("请稍等！");
+            $.post(houtaiurl + "AuthController/SubmitDatas.action", data = { xml: temp, deleteddata: "" }, function (data) {
+                deletedataids = "";
+                parent.document.location.reload();
+            });
+
+            return false;
+        });
+
+        window.hui=function () {
+            var index1 = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index1);
+        }
+
+        window.generateUUID=function () {
+            var d = new Date().getTime();
+            if (window.performance && typeof window.performance.now === "function") {
+                d += performance.now(); //use high-precision timer if available
+            }
+            var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = (d + Math.random() * 16) % 16 | 0;
+                d = Math.floor(d / 16);
+                return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+            return uuid;
+        }
+    });
+
+    function haddledatas(datas) {
+        var nodexml = "<节点列表>", temp;
+        var j = 0;
+        for (var item in datas) {
+
+            if (datas[item].children.length > 0) {
+                nodexml += "<节点" + j + "><id>" + datas[item].id + "</id><pagename>" + datas[item].pageName + "</pagename><link>" + datas[item].link + "</link><ParametersType>" + datas[item].parametersType + "</ParametersType><children>"+ (datas[item].children == undefined ? "" : datas[item].children.length > 0 ? getchildrenids(datas[item].children) : "isParent") +"</children></节点" + j + ">";
+                for (var i = 0; i < datas[item].children.length; i++) {
+                    j++;
+                    nodexml += "<节点" + j + "><id>" + datas[item].children[i].id + "</id><pagename>" + datas[item].children[i].pageName + "</pagename><link>" + datas[item].children[i].link + "</link><ParametersType>" + datas[item].children[i].parametersType + "</ParametersType><children></children></节点" + j + ">";
+                }
+                j++;
+            }
+            else {
+
+                nodexml += "<节点" + j + "><id>" + datas[item].id + "</id><pagename>" + datas[item].pageName + "</pagename><link>" + datas[item].link + "</link><ParametersType>" + datas[item].parametersType + "</ParametersType><children></children></节点" + j + ">";
+
+            }
+        }
+        nodexml += "</节点列表>"
+        return nodexml;
+    }
+    function getchildrenids(obj) {
+        var tempstr = "";
+        var num = 0;
+        var deletenum = 0;
+        for (var item in obj) {
+            // console.log(obj[item]);
+            if (obj[item].__status == "delete") {
+                if (deletenum == 0) {
+                    deletedataids += obj[item].id;
+                }
+                else {
+                    deletedataids += ";" + obj[item].id;
+                }
+                deletenum++;
+            }
+            else {
+                if (num == 0) {
+                    tempstr += obj[item].id;
+                }
+                else {
+                    tempstr += ";" + obj[item].id;
+                }
+                num++;
+            }
+        }
+        return tempstr
+    }
+</script>
+</html>

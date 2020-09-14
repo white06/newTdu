@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>學院</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/layui/layui.js"></script>
+    <script type="text/javascript" language="javascript" src="../js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" language="javascript" src="../../js/api.js"></script>
+    <style>
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            margin: 0 0;
+            background: rgba(60, 65, 84, 1);
+        }
+
+        #contentDiv {
+            position: relative;
+            /*background:url(img/背景.jpg) no-repeat;*/
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+            min-width: 770px;
+            margin: 0 0;
+            overflow: auto;
+            /*z-index: 2;*/
+        }
+
+        .layui-form-label {
+            font-size: 22px;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 1);
+            width: 120px;
+            text-align: center
+        }
+
+        .layui-input-block {
+            margin-left: 150px;
+        }
+
+        .layui-form-item {
+            margin-bottom: 20px;
+        }
+
+        .layui-btn {
+            background: linear-gradient(337deg, rgba(92, 205, 177, 1) 0%, rgba(92, 205, 178, 1) 0%, rgba(89, 208, 207, 1) 100%);
+            border-radius: 3px;
+            width: 30%;
+            margin-left: 10%;;
+            margin-right: 10%;
+        }
+
+        /*
+
+       */
+        .layui-card {
+            background: #3C4154;
+        }
+
+        .layui-table[lay-skin=row] {
+            border-top: 2px solid #2E3546;
+            border-width: 2px;
+            border-style: solid;
+            border-color: #2E3546;
+        }
+
+        .layui-table {
+            background: #3C4154;
+            color: white;
+        }
+
+        .layui-table thead tr {
+            background: #3C4154;
+            color: white;
+            /*border: 2px solid #2E3546;*/
+        }
+
+        .layui-table[lay-even] tr:nth-child(2n) {
+            background: #3C4154;
+            border: 2px solid #2E3546;
+        }
+
+        .layui-table th {
+            border-color: #2E3546;
+        }
+
+        .layui-table[lay-even] tr:nth-child(n) {
+            border-color: #2E3546;
+        }
+    </style>
+</head>
+<body>
+
+
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;" id="updateDepUser">
+    <form class="layui-form" action="" style="padding-left: 0%;padding-right: 0%">
+        <div class="layui-form-item" style="padding-top: 2.5%;padding-bottom: 2.5%;width: 70%;margin: 0 auto">
+            <!--<label class="layui-form-label" style="">名称 : </label>
+            <div class="layui-input-block" style=" ">
+                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题"
+                       class="layui-input" id="depertName">
+            </div>-->
+            <label class="layui-form-label">失效日期</label>
+            <div class="layui-col-md6">
+                <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd" >
+            </div>
+        </div>
+
+
+
+
+        <div class="layui-form-item  layui-col-space10"
+             style="text-align: center;margin:0 auto;background:rgba(52,57,76,1);width: 70%;height: 96%;padding-bottom: 2.5%;">
+            <label class="layui-form-label" style="">模糊搜索 : </label>
+            <div class="layui-col-md6" style="width: 60%;">
+                <input id="search" type="text" name="title" placeholder="请搜索" autocomplete="off" class="layui-input">
+                <button onclick="chaxun()" type="button" class="layui-btn"
+                        style="margin: 0 0;position: absolute;top: 5px;right: 5px;"><i
+                        class="layui-icon layui-icon-search"></i></button><!--style="color: #5CCDB2"-->
+            </div>
+        </div>
+
+
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div center=class="layui-col-md12">
+                    <div class="layui-card" style="width: 75%;margin: 0 auto">
+                        <div class="layui-card-body">
+
+                            <table class="layui-hide" id="test-table-operate" lay-filter="test-table-operate"></table>
+
+                            <script type="text/html" id="test-table-operate-barDemo">
+                                <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+                                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item" style="padding-bottom: 1.5%;padding-top: 1.5%;margin: 0 auto;width: 80%">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo2" onclick="updateEndDay()">
+                    保存
+                </button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+
+<script src="../../js/layui/layui.js"></script>
+<script>
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'form'], function () {
+        var laydate = layui.laydate //日期
+            , laypage = layui.laypage //分页
+            , layer = layui.layer //弹层
+            , table = layui.table //表格
+            , carousel = layui.carousel //轮播
+            , upload = layui.upload //上传
+            , form = layui.form
+            , element = layui.element //元素操作
+
+        //常规用法
+        laydate.render({
+            elem: '#test1'
+        });
+
+        var $ = layui.$
+
+
+        //记录选中的数据:做缓存使用,作为参数传递给后台,然后生成pdf ,压缩
+        var ids = new Array();
+
+        //记录查询出来的数据；
+        var checkIds = new Array();
+
+        //记录需要移除的学生
+        var removeIds = new Array();
+        //当前表格中的全部数据:在表格的checkbox全选的时候没有得到数据, 因此用全局存放变量
+        var table_data = new Array();
+
+
+        var depertId = "";
+
+
+        window.chaxun = function () {
+            layer.msg($("#search").val());
+            var content = $("#search").val();
+
+            if (content != "") {
+                table.render({
+                    elem: '#test-table-operate'
+                    , url: dapartmenturl + 'UsersController/getAllUsersLikeName.action?userName=' + content
+                    , width: 'auto'
+                    , height: 450
+                    , page: true
+                    , cols: [[
+                        {type: 'checkbox', fixed: 'left'}
+                        , {field: 'id', width: 120, title: 'ID', fixed: 'left'}
+                        , {field: 'name', width: 120, title: '用户名'}
+                        , {field: 'userName', width: 240, title: '登录名'}
+                        , {
+                            field: 'createDate', width: 240, title: '创建日期', templet: function (d) {
+                                return layui.util.toDateString(d.CreateDate, "yyyy-MM-dd HH:mm:ss");
+                            }
+                        }
+                        , {
+                            field: 'idol', width: 240, title: '失效日期', templet: function (d) {
+                                return layui.util.toDateString(d.idol, "yyyy-MM-dd HH:mm:ss");
+                            }
+                        }
+                    ]]
+                    , parseData: function (res) {
+                        console.log(res)
+                        return {
+                            "code": 0,
+                            "msg": "success",
+                            "count": res.count, //解析数据长度
+                            "data": res.list
+                        }
+                        console.log(res)
+                    }
+                    , done: function (res, curr, count) {
+
+
+                        //数据表格加载完成时调用此函数
+                        //如果是异步请求数据方式，res即为你接口返回的信息。
+                        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+
+                        //设置全部数据到全局变量
+                        table_data = res.data;
+                        console.log(table_data);
+
+
+                        //在缓存中找到id ,然后设置data表格中的选中状态
+                        //循环所有数据，找出对应关系，设置checkbox选中状态
+                        for (var i = 0; i < res.data.length; i++) {
+                            for (var j = 0; j < ids.length; j++) {
+                                //数据id和要勾选的id相同时checkbox选中
+                                if (res.data[i].id == ids[j]) {
+                                    //这里才是真正的有效勾选
+                                    res.data[i]["LAY_CHECKED"] = 'true';
+                                    //找到对应数据改变勾选样式，呈现出选中效果
+                                    var index = res.data[i]['LAY_TABLE_INDEX'];
+                                    $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').prop('checked', true);
+                                    $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').next().addClass('layui-form-checked');
+                                }
+                            }
+                        }
+                        //设置全选checkbox的选中状态，只有改变LAY_CHECKED的值， table.checkStatus才能抓取到选中的状态
+                        var checkStatus = table.checkStatus('my-table');
+                        if (checkStatus.isAll) {
+                            $(' .layui-table-header th[data-field="0"] input[type="checkbox"]').prop('checked', true);
+                            $('.layui-table-header th[data-field="0"] input[type="checkbox"]').next().addClass('layui-form-checked');
+                        }
+                        //得到所有数据
+                        console.log(res);
+                        //得到当前页码
+                        console.log(curr);
+                        //得到数据总量
+                        console.log(count);
+
+                        // 隐藏列
+                        $(".layui-table-box").find("[data-field='id']").css("display", "none");
+                    }
+
+                });
+            }
+
+        }
+        table.render({
+            elem: '#test-table-operate'
+            , url: dapartmenturl + 'UsersController/getAllUsers.action'
+            , width: '80%'
+            , height: 332
+            , page: true
+            , cols: [[
+                {type: 'checkbox', fixed: 'left'}
+                , {field: 'id', width: 120, title: 'ID', fixed: 'left'}
+                , {field: 'name', width: 120, title: '用户名'}
+                , {field: 'userName', width: 240, title: '登录名'}
+                , {
+                    field: 'createDate', width: 240, title: '创建日期', templet: function (d) {
+                        return layui.util.toDateString(d.CreateDate, "yyyy-MM-dd HH:mm:ss");
+                    }
+                }
+                , {
+                    field: 'idol', width: 240, title: '失效日期', templet: function (d) {
+                        return layui.util.toDateString(d.idol, "yyyy-MM-dd HH:mm:ss");
+                    }
+                }
+            ]]
+            , parseData: function (res) {
+                console.log(res)
+                return {
+                    "code": 0,
+                    "msg": "success",
+                    "count": res.count, //解析数据长度
+                    "data": res.list
+                }
+                console.log(res)
+            }
+            , done: function (res, curr, count) {
+
+
+
+                //数据表格加载完成时调用此函数
+                //如果是异步请求数据方式，res即为你接口返回的信息。
+                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+
+                //设置全部数据到全局变量
+                table_data = res.data;
+                console.log(table_data);
+
+
+                //在缓存中找到id ,然后设置data表格中的选中状态
+                //循环所有数据，找出对应关系，设置checkbox选中状态
+                for (var i = 0; i < res.data.length; i++) {
+                    for (var j = 0; j < ids.length; j++) {
+                        //数据id和要勾选的id相同时checkbox选中
+                        if (res.data[i].id == ids[j]) {
+                            //这里才是真正的有效勾选
+                            res.data[i]["LAY_CHECKED"] = 'true';
+                            //找到对应数据改变勾选样式，呈现出选中效果
+                            var index = res.data[i]['LAY_TABLE_INDEX'];
+                            $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').prop('checked', true);
+                            $('.layui-table-fixed-l tr[data-index=' + index + '] input[type="checkbox"]').next().addClass('layui-form-checked');
+                        }
+                    }
+                }
+                //设置全选checkbox的选中状态，只有改变LAY_CHECKED的值， table.checkStatus才能抓取到选中的状态
+                var checkStatus = table.checkStatus('my-table');
+                if (checkStatus.isAll) {
+                    $(' .layui-table-header th[data-field="0"] input[type="checkbox"]').prop('checked', true);
+                    $('.layui-table-header th[data-field="0"] input[type="checkbox"]').next().addClass('layui-form-checked');
+                }
+                //得到所有数据
+                console.log(res);
+                //得到当前页码
+                console.log(curr);
+                //得到数据总量
+                console.log(count);
+
+                // 隐藏列
+                $(".layui-table-box").find("[data-field='id']").css("display", "none");
+            }
+
+        });
+        //监听表格复选框选择
+        table.on('checkbox(test-table-operate)', function (obj) {
+
+            console.log(obj.checked); //当前是否选中状态
+            console.log(obj.data); //选中行的相关数据
+            console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+
+            if (obj.type == 'all') {
+                var checkStatus = table.checkStatus('test-table-operate')
+                    , data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            }
+
+
+            console.log(obj);
+            if (obj.checked == true) {
+                if (obj.type == 'one') {
+                    ids.push(obj.data.id);
+                } else {
+                    for (var i = 0; i < table_data.length; i++) {
+                        ids.push(table_data[i].id);
+                    }
+                }
+            } else {
+                if (obj.type == 'one') {
+                    for (var i = 0; i < ids.length; i++) {
+                        if (ids[i] == obj.data.id) {
+                            ids.remove(i);
+                        }
+                    }
+                } else {
+                    for (var i = 0; i < ids.length; i++) {
+                        for (var j = 0; j < table_data.length; j++) {
+                            if (ids[i] == table_data[j].id) {
+                                ids.remove(i);
+                            }
+                        }
+                    }
+                }
+            }
+            console.log(ids);
+        });
+
+        window.updateEndDay = function () {
+            console.log(ids)
+            console.log(checkIds)
+            var endDay=$("#test1").val();
+            console.log("  endDay : "+endDay)
+            if(endDay==""){
+                layer.alert("请先选择失效日期！");
+                return;
+            }
+            /*var day = new Date(endDay);*/
+            var now = new Date();
+            var year = now.getFullYear(); //得到年份
+            var month = now.getMonth();//得到月份
+            var date = now.getDate();//得到日期
+            month = month + 1;
+            if (month < 10) month = "0" + month;
+            if (date < 10) date = "0" + date;
+            var time = year + "-" + month + "-" + date;
+            var flag = false;
+            if (checkIds.length > 0) {
+                for (var i = 0; i < checkIds.length; i++) {
+                    flag = false;
+                    for (var j = 0; j < ids.length; j++) {
+                        if (checkIds[i] == ids[i]) {
+                            flag = true;
+                        }
+                    }
+
+                    if (!flag) {
+                        removeIds.push(checkIds[i])
+                    }
+
+                }
+            }
+            console.log(removeIds)
+            console.log(JSON.stringify(ids))
+
+            if(ids.length>0){
+                console.log("  endDay : "+endDay)
+                $.ajax({
+                    type: "POST",
+                    url: dapartmenturl + "UsersController/updateEndDay.action",
+                    async: false,
+                    data: {"endDay": endDay, "userList": JSON.stringify(ids)},
+                    success: function (data) {
+                        console.log(data);
+                    }
+                })
+            }
+
+
+        }
+
+
+    });
+
+    Array.prototype.remove = function (dx) {
+        if (isNaN(dx) || dx > this.length) {
+            return false;
+        }
+        for (var i = 0, n = 0; i < this.length; i++) {
+            if (this[i] != this[dx]) {
+                this[n++] = this[i]
+            }
+        }
+        this.length -= 1
+    }
+
+</script>
+</body>
+</html>

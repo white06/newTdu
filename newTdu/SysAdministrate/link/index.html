@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>功能演示2 - 通用分页组件</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <script src="../../js/custom/jquery-1.8.3.min.js"></script>
+    <script src="../../js/api.js"></script>
+    <style>
+        /* 只针对谷歌浏览器*/
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body{
+            margin: 0 0;
+            background: rgba(60, 65, 84, 1);
+        }
+
+        #contentDiv {
+            position: relative;
+            /*background:url(img/背景.jpg) no-repeat;*/
+
+            background-size: cover;
+            width:100%;
+            height: 100%;
+            min-width: 770px;
+            margin:  0 0;
+            overflow: auto;
+            /*z-index: 2;*/
+        }
+
+        .layui-form-label{
+            font-size:22px;
+            font-family:PingFangSC-Medium,PingFang SC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+            width: 120px;text-align: center
+        }
+        .layui-form{
+
+        }
+        .layui-input-block{
+            margin-left: 150px;
+        }
+        .layui-form-item{
+            margin-bottom: 20px;
+        }
+        .layui-btn{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+            border-radius:3px;
+            width: 30%;
+            margin-left: 10%;;
+            margin-right: 10%;
+        }
+
+
+        .layui-table[lay-skin=row] {
+            border-top: 0px solid #2E3546;
+            border-width: 0px;
+            border-style: solid;
+            border-color: #2E3546;
+        }
+        .layui-table{
+            background: #3C4154;
+            color: white;
+        }
+        .layui-table thead tr{
+            background: #3C4154;
+            color: white;
+            border-bottom: 2px solid #B1B1B1;
+        }
+        .layui-table[lay-even] tr:nth-child(2n){
+            background: rgba(60, 65, 84, 1);
+            border-bottom: 2px solid #B1B1B1;
+        }
+        .layui-table th{
+            border: 0px;
+            border-color: #2E3546;
+        }
+        /*.layui-table[lay-even] tr:nth-child(n){
+            border-color: #2E3546;
+        }*/
+        .layui-table td{
+            border-color: rgba(60, 65, 84, 1);
+        }
+        .layui-table tr{
+            border-bottom: 2px solid #B1B1B1;
+        }
+    </style>
+</head>
+<body>
+
+<div style="margin:2% 2%;background:rgba(52,57,76,1);width: 96%;height: 96%;">
+    <div class="layui-card" style="background:rgba(60, 65, 84, 1)">
+        <div class="layui-card-body">
+
+            <table class="layui-table" lay-even="" lay-skin="row">
+                <colgroup>
+                    <col width="15%">
+                    <col width="15%">
+                    <col width="15%">
+                    <col width="7.5%">
+                    <col width="25%">
+                    <col width="7.5%">
+                    <col width="15%">
+                </colgroup>
+                <thead >
+                <tr>
+                    <th>分享文件</th>
+                    <th>分享时间</th>
+                    <th>失效时间</th>
+                    <th>浏览次数</th>
+                    <th>连接</th>
+                    <th>验证码</th>
+                    <th>取消分享</th>
+                </tr>
+                </thead>
+                <tbody id="test2">
+                <tr>
+                    <td><img src="img/文档.png" style="vertical-align: middle"/>
+                        <span style="vertical-align: middle">分享文件</span></td>
+                    <td>2020-06-19 11:35</td>
+                    <td>2020-06-19 11:35</td>
+                    <td>101次</td>
+                    <td>https://pan.baidu.com/s/1qgdIBoCFntxpW7gFUnt_Qg </td>
+                    <td>lw1s</td>
+                    <td><img  onclick="delLink()"  src="img/删 除.png"/></td>
+                </tr>
+                <tr>
+                    <td><img src="img/文档.png"/>
+                        <span>分享文件</span></td>
+                    <td>2020-06-19 11:35</td>
+                    <td>2020-06-19 11:35</td>
+                    <td>101次</td>
+                    <td>https://pan.baidu.com/s/1qgdIBoCFntxpW7gFUnt_Qg </td>
+                    <td>lw1s</td>
+                    <td><img onclick="delLink()" src="img/删 除.png"/></td>
+                </tr>
+                <tr>
+                    <td><img src="img/文档.png"/>
+                        <span>分享文件</span></td>
+                    <td>2020-06-19 11:35</td>
+                    <td>2020-06-19 11:35</td>
+                    <td>101次</td>
+                    <td>https://pan.baidu.com/s/1qgdIBoCFntxpW7gFUnt_Qg </td>
+                    <td>lw1s</td>
+                    <td><img onclick="delLink()" src="img/删 除.png"/></td>
+                </tr>
+                </tbody>
+
+            </table>
+            <div id="test-laypage-demo20"></div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script>
+
+    var content="editSubject.html";
+    var subid = "d36aa429-a200-4873-a884-81bf9a75c2b7"
+    var lei="a9873c88-367c-4186-abd7-a6d07fdc05a8";
+
+    /*var url = "creat.html";
+    function creat() {
+        var index1 =layer.open({
+            type: 2,
+            title: false,
+            shadeClose: true,
+            shade: 0.8,
+            area: ['55%', '45%'],
+            //content: 'content/cz/kaoshi.php' //iframe的url
+            content: url, //iframe的url
+            cancel: function(){
+                //右上角关闭回调
+                flag=1
+                console.log("1111")
+                //return false 开启该代码可禁止点击该按钮关闭
+            },
+            end: function () {
+                /!*if(flag==0){
+                    addreturn();
+                }*!/
+            }
+        });
+    }*/
+
+    /*function editSubject(id) {
+        var index =layer.open({
+            type: 2,
+            title: false,
+            shadeClose: true,
+            shade: 0.8,
+            area: ['55%', '45%'],
+            //content: 'content/cz/kaoshi.php' //iframe的url
+            content: content+'?treeid='+id, //iframe的url
+            cancel: function(){
+                //右上角关闭回调
+                flag=1
+                console.log("1111")
+                //return false 开启该代码可禁止点击该按钮关闭
+            },
+            end: function () {
+                /!*if(flag==0){
+                    addreturn();
+                }*!/
+            }
+        });
+    }*/
+
+
+    function getWebRootPath () {
+        var a = window.document.location.href;//
+        var b = window.document.location.pathname;
+        var pos = a.indexOf(b);
+        var path = a.substring(0, pos);
+        a = a.substring(a.indexOf("/") + 2, a.length);
+        a = a.substring(a.indexOf("/") + 1, a.length);
+        var pathName = a.substring(0, a.indexOf("/"));
+        return path + "/" + pathName;
+    }
+
+
+
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function(){
+        var laydate = layui.laydate //日期
+            ,laypage = layui.laypage //分页
+            ,layer = layui.layer //弹层
+            ,table = layui.table //表格
+            ,carousel = layui.carousel //轮播
+            ,upload = layui.upload //上传
+            ,element = layui.element //元素操作
+
+        var straa = getWebRootPath();
+        /*console.log(straa);*/
+
+        window.delLink=function () {
+            layer.confirm('请确认是否删除该分享！', {
+                btn: ['删除','取消'] //按钮
+            }, function(){
+                layer.msg('删除成功', {icon: 1});
+            }, function(){
+                layer.msg('取消成功', {
+                    time: 5000, //20s后自动关闭
+                    /*btn: ['明白了', '知道了']*/
+                });
+            });
+        }
+
+
+        //监听工具条
+        table.on('tool(test-table-operate)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'detail'){
+                layer.msg('ID：'+ data.id + ' 的查看操作');
+            } else if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+            }
+        });
+
+
+        //将一段数组分页展示
+
+        //测试数据
+        var testLayPageData = [
+            '北京',
+            '上海',
+            '广州'
+        ];
+
+        //var subjectKey=$('.choosesub',parent.document)[0].id;
+
+        /*$.ajax({
+            type: "POST",
+            url: houtaiurl+"CourseTreeController/getSubjectTrees.action?subjectKey="+subjectKey,
+            async: false,
+            success: function (data) {
+                testLayPageData = data;
+
+                document.getElementById('test2').innerHTML = function () {
+                    /!*console.log(obj.curr * obj.limit - obj.limit, obj.limit)
+                    console.log(testLayPageData)*!/
+                    var arr = [];
+                        /!*, thisData = testLayPageData.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);*!/
+
+
+                    layui.each(data, function (index, item) {
+
+                        var state = ""
+
+                        if(item.status==0){
+                            state="禁用";
+                        }else{
+                            state="启用";
+                        }
+
+                        var html = '<tr><th>';
+                        html+=''+item.treeName+'';
+                        html+='</th><th>';
+                        html+=''+item.icon+'';
+                        html+='</th><th>'
+                        if(item.icon!=""){
+                            html+='<img src="'+straa+'/'+item.icon+''+'">';
+                            html+='</th><th>'
+                        }
+
+                        if(item.style==0){
+                            html+='模型库';
+                        }else if(item.style==1){
+                            html+='场景库';
+                        }else if(item.style==2){
+                            html+='题库';
+                        }else if(item.style==3){
+                            html+='考试';
+                        }else if(item.style==4){
+                            html+='资源类';
+                        }
+                        html+='</th><th>'
+                        html+=''+state+'';
+                        html+='</th><td>';
+                        html+=  '<a class="layui-btn layui-btn-xs" lay-event="edit" onclick="editSubject(\'' + item.id + '\')">编辑</a>';
+                        html+='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" onclick="deleteTree(\'' + item.id + '\')">删除</a>';
+                        html+='</td></tr>';
+                        arr.push(html);
+                    });
+                    return arr.join('');
+                }();
+            }
+        });*/
+
+
+    });
+    function deleteTree(treeId){
+        var url=houtaiurl+"CourseTreeController/deleteTree.action";
+        var treeid={treeid:treeId};
+        $.post(url,treeid,function(result){
+            location.reload()
+        });
+
+    }
+</script>
+</body>

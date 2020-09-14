@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/api.js"></script>
+</head>
+<body>
+<form action="" enctype="multipart/form-data" id="fileuploadform" style="padding-top: 25px;" method="post">
+    <div class="form-group">
+        <span>选择文件</span>
+        <input class="input" name="fileupload" id="fileupload" type="file" multiple />
+    </div>
+    <button id="startUpload"  value="添加上传" type="button"
+                    onclick="addUploading()">添加上传</button>
+
+
+
+    <div style="margin: 0 auto;width: 80%;height: 500px;;position: relative;border: 1px solid #607d8b">
+        <img class="thumbnail img-responsive" id="file-avatar-img" style="position: absolute;width:100%;height: 100%;z-index: 2" />
+        <img class="thumbnail img-responsive" id="file-avatar-img-2" style="position: absolute;width:50%;height: 70%;left: 25%;top:15%;z-index: 3;" />
+    </div>
+
+</form>
+</body>
+<script>
+
+    var img_1=false;
+    var img_2=false;
+    $("#file-avatar-img").css("display","none");
+    $("#file-avatar-img-2").css("display","none");
+    var file1=null;
+    var file2=null;
+    $(function () {
+        $(document).on('change', "#fileupload", function (event) {
+            var _file = $(this);
+            var _fileObj = _file[0];
+            console.log(_fileObj)
+            var file = $("#fileupload")[0].files[0]
+            console.log($("#fileupload"))
+
+
+            var input = document.getElementById("fileupload");
+                //读取图片数据
+                var f = input.files[0];
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var data = e.target.result;
+                    //加载图片获取图片真实宽度和高度
+                    var image = new Image();
+                    image.onload=function(){
+                        var width = image.width;
+                        var height = image.height;
+                        alert(width+'======'+height+"====="+f.size);
+                    };
+                    image.src= data;
+                };
+                reader.readAsDataURL(f);
+
+            var windowURL = window.URL || window.webkitURL;
+            if(!img_1){
+                $("#file-avatar-img").css("display","block");
+                var dataURL = windowURL.createObjectURL(_fileObj.files[0]);
+                $(document).find('#file-avatar-img').attr('src', dataURL);
+                file1=file;
+                var img = document.getElementById("file-avatar-img")
+                img_1=true;
+            }else{
+                if(!img_2){
+                    $("#file-avatar-img-2").css("display","block");
+                    var dataURL = windowURL.createObjectURL(_fileObj.files[0]);
+                    $(document).find('#file-avatar-img-2').attr('src', dataURL);
+                    file2=file;
+                }else{
+                    var dataURL = windowURL.createObjectURL(_fileObj.files[0]);
+                    $(document).find('#file-avatar-img-2').attr('src', dataURL);
+                    file2=file;
+                }
+            }
+        });
+    });
+
+    function addUploading(){
+        if(file1==null||file2==null){
+            alert("请全部上传！！");
+            return ;
+        }
+        console.log(file1)
+        console.log(file2)
+        var file = [file1,file2]
+        console.log(file)
+        var data= new FormData;
+        for (var i = 0; i < file.length; i++) {
+            //注意这里必须用 【"file"+i】，如果直接【"file"】，会认为同一个文件并且覆盖，导致上传了多个一样的文件
+            data.append("file"+i, file[i]);
+        }
+                data.append("mubucolor","blue");
+                $.ajax({
+                    type:"POST",
+                    //url: "http://localhost/tdu-base/AddKnowledgeController/testAdd.action",
+                    url: "https://www.tduvr.club/tdu-base/AddKnowledgeController/testAdd.action",
+                    data:data,
+                    contentType:false,
+                    processData:false,
+                    success:function(data){
+                        console.log(data);
+                    }
+                });
+
+    }
+</script>
+</html>

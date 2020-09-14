@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>TDu VR教育云平台</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../favicon.ico" rel="shortcut icon">
+
+
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../js/themes/icon.css"/>
+    <!--   -->
+    <script type="text/javascript" src="../js/custom/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../js/layer/layer.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="../js/layui/css/layui.css"/>
+
+    <script type="text/javascript" src="../js/api.js"></script>
+    <script type="text/javascript" src="../js/htmlapi.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+
+    <!--必要样式-->
+    <link rel="stylesheet" href="../css/naranja/naranja.min.css">
+    <script type="text/javascript" src="../js/naranja/naranja.js"></script>
+    <style>
+
+        #contentDiv {
+            position: fixed;
+            top: 10%;
+            /*background:url(img/背景.jpg) no-repeat;*/
+            background: rgba(60, 65, 84, 1);
+            margin-top: 0;
+            width: 87.5%;
+            height: 90%;
+            min-width: 770px;
+            overflow: auto;
+            margin-left: auto;
+            margin-right: auto;
+            /*z-index: 2;*/
+        }
+        .layui-nav .layui-nav-child dd:hover ul {
+            display: block;
+            position: absolute;
+            top: 0px;
+            left: 100%;
+            background: #2E3546;
+            box-shadow: 0 2px rgba(0, 0, 0, .5);
+            /*border: 1px solid #d2d2d2;*/
+            border-radius: 2px;
+        }
+
+        .layui-nav-child dd {
+            position: relative;
+            width: 200px;
+            background:rgba(46,53,70,1);
+        }
+
+        .layui-nav-child {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 65px;
+            min-width: 100%;
+            white-space: nowrap;
+
+            width: 600px;
+            height: 500px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+        .layui-nav .layui-nav-child dd ul dd {
+            width: 100%;
+
+            /*overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;*/
+
+        }
+        .layui-nav .layui-nav-child dd ul {
+            width: 100%;
+            display: none;
+        }
+
+        .layui-nav .layui-nav-child dd ul a:HOVER {
+            background-color: #5FB878;
+            color: white;
+        }
+        #dingwei{ width: 33%; }
+        #subject{width: 36%;left: 33%}
+        #edit{width: 30%;left: 70%}
+
+        @media (max-width:1350px) {
+            #dingwei{ width: 20%; }
+            #subject{width: 40%;left: 20%}
+            #edit{width: 36%;left: 60%}
+        }
+        @media (max-width:1230px) {
+            #dingwei{ width: 20%; }
+            #subject{width: 40%;left: 20%}
+            #edit{width: 40%;left: 60%}
+        }
+        @media (max-width:1100px) {
+            #dingwei{ width: 15%; }
+            #subject{width: 48%;left: 15%}
+            #edit{width: 37%;left: 63%}
+        }
+
+
+
+        .activeLi{
+            background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
+        }
+
+    </style>
+    <script>
+        function shouye() {
+            window.location.href = "index.html";
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="../css/search-form.css">
+    <!--[if IE]>
+    <script src="http://libs.baidu.com/html5shiv/3.7/html5shiv.min.js"></script>
+    <![endif]-->
+
+</head>
+<body id="ContentBody" >
+<div class="pageleft">
+    <div class="col-lg-12 col-md-12 pagelefthead" id="test1">
+        <img style=";position:relative;top: 20%;width: 150px;height: auto;" src="../img/logo.png" alt="开发者平台"/>
+    </div>
+    <div class="col-lg-12 col-md-12 pageleftcontent" style="padding-left: 0px;padding-right: 0px;">
+        <ul class="pageleftcontentul" id="subTree" style="padding-left: 10px;padding-right: 10px">
+
+        </ul>
+
+    </div>
+</div>
+
+<div id="showTree" style="position:fixed;top:15%;left:0px;height: 70%;overflow-y: auto;width: auto;">
+    <!-- <span id="modelSpan" style="color: red;">模型库</span>
+    <ul id="treeDemo" class="ztree" ></ul>
+    <hr id="hr1"/>
+    <span id="sceneSpan"style="color: red;">场景库</span>
+    <ul id="tree" class="ztree" ></ul>
+    <hr id="hr2"/> -->
+</div>
+
+
+<a id="muluId" style="display: none"></a>
+<a id="subId" style="display: none"></a>
+<a id="chuancan" style="display: none"></a>
+<a id="userId" style="display: none"></a>
+<a id="adminOrNo" style="display: none"></a>
+<a style="display: none" id="personName">个人</a>
+<a id="teamUserId" style="display: none"></a>
+
+<!--showMenu(this,'3c549bfe-15fb-4ae5-8148-1856e4c20ade')-->
+<div class="pageright" style="position:relative;">
+    <div class="pagerighthead col-lg-12 col-md-12" style="  z-index:2;position: relative;padding: 0 0">
+
+
+        <div style="position: relative;height: 100%;display: inline-block;position: absolute;top: 0%" id="dingwei">
+            <div style="height: 50%;position: relative;top: 25%;width: 100%;margin: 0 auto">
+                <img style="padding-left: 5px;padding-right:5px;vertical-align: middle;height: 100%;width:auto;" src="../img/icon_weizhi.png" alt="">
+                <a id="tabFirst" href="javascript:void(0);" style="font-size:18px;padding-left: 5px;padding-right:5px;color: white;vertical-align: middle" onclick="shouye()">首页</a>
+                <span style=""><img style="height: 50%;width:auto;padding-left: 5px;padding-right:5px;vertical-align: middle" src="" alt=""></span>
+                <a style="font-size:18px;padding-left: 5px;padding-right:5px;vertical-align: middle;color: white" id="nowAddress"></a>
+                <span><img style="height: 50%;width:auto;padding-left: 5px;padding-right:5px;vertical-align: middle" src="" alt=""></span>
+                <a style="font-size:18px;padding-left: 5px;padding-right:5px;color: white" id="nowAddress2"></a><a style="color: white" id="nowAddress3"></a>
+            </div>
+        </div>
+
+        <div style="height: 100%;display: inline-block;position: relative;top: 0%;" id="subject">
+            <div style="height: 50%;position: relative;top: 15%;display: inline-block">
+                <img style="vertical-align: middle;height: 100%;width: auto" src="../img/ico/zhanshi05.png" alt="">
+                <span style="padding-left: 10px;;vertical-align: middle;font-size:22px;font-family:PingFangSC-Semibold,PingFang SC;font-weight:500;color:rgba(255,255,255,1);line-height:48px;">专业科目 :</span>
+            </div>
+            <ul class="layui-nav" style="width:auto;display: inline-block;background-color: #2E3546;height: 80%;position: relative;top: 10%">
+                <li class="layui-nav-item" style="width: 100%" id="submap">
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+    <div class="pagerightbottom" id="contentDiv">
+    </div>
+
+
+
+    <div id="zhaozi"
+         style="display:none;position:absolute;z-index:99;background:rgba(0,0,0,0.3);width:100%;height:100%;top:0;left:0;">
+    </div>
+    <div id="xianshidiv">
+        <div class="ClosePannel" style="width:100%;height:32px;background:#D1E0EF;">
+            <div id="wenjianming"></div>
+            <a id="CloseCommon" onclick="closePage()">x</a>
+        </div>
+        <div id="xianshiwenjian" style="width:100%;background:#DFDFDF;overflow:auto;"></div>
+    </div>
+
+    <div id="Videodiv">
+        <div class="ClosePannel" style="width:100%;height:32px;background:#D1E0EF;">
+            <div id="wenjianming2" style="width:80%;float:left;"></div>
+            <a id="CloseCommon2" onclick="tuichu()">x</a>
+        </div>
+        <div id="VideoContent" style="width:100%;"></div>
+    </div>
+    <div id="win" class="easyui-window" closed="true" data-options="modal:true,minimizable:false"
+         style="width:700px;height:400px;padding:5px;">
+
+    </div>
+
+
+    <div id="roomzhaozi"
+         style="display:none;position:absolute;z-index:99;background:rgba(0,0,0,0.3);width:100%;height:100%;top:0;left:0;">
+    </div>
+    <div id="roomxianshidiv">
+        <div class="ClosePannel" style="width:100%;height:32px;background:#2262BB;font-size:18px">
+            <div id="roomwenjianming"></div>
+            <a id="roomCloseCommon" onclick="tuichu()">x</a>
+        </div>
+        <div id="roomxianshiwenjian" style="width:100%;background:#fff;height:568px;overflow:hidden;"></div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        </div>
+    </div>
+</div>
+<script src="../js/layui/layui.js"></script>
+<script type="text/javascript">
+    var winWidth = 0;
+    function findDimensions() //函数：获取尺寸
+    {
+        //获取窗口宽度
+        if (window.innerWidth)
+            winWidth = window.innerWidth;
+        else if ((document.body) && (document.body.clientWidth))
+            winWidth = document.body.clientWidth;
+        //通过深入Document内部对body进行检测，获取窗口大小
+        if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+
+            winWidth = document.documentElement.clientWidth;
+        }
+        //跟div赋值
+        var count = winWidth-200;
+        //$(".pagerighthead").css("width",""+count+"");
+        //$("#contentDiv").css("width",""+count+"");
+
+
+    }
+    findDimensions();
+    //调用函数，获取数值
+    window.onresize = findDimensions;
+</script>
+<script>
+
+    $(function() {
+
+    })
+
+
+    layui.use('element', function(){
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+        //监听导航点击
+        element.on('nav(demo)', function(elem){
+            //console.log(elem)
+            layer.msg(elem.text());
+
+            clickLis();
+        });
+        window.creatInfo=function () {
+            naranja().success({
+                title: '通知',
+                text: '通知被接受'
+            })
+            var index = layer.open({
+                type: 2,
+                title: false,
+                shadeClose: true,
+                shade: 0.8,
+                area: ['70%', '70%'],
+                content: "addInfo.html", //iframe的url
+                cancel: function(){
+                    //右上角关闭回调
+                    console.log("1111")
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                end: function () {
+                    layer.close(index);
+                    //parent.document.location.reload();
+                }
+            });
+        }
+
+    });
+
+
+</script>
+
+<script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+<script type="text/javascript">
+    var flag = false;
+    function searchToggle(obj, evt){
+        var container = $(obj).closest('.search-wrapper');
+        if(flag){
+            $('.close').append("<style>.close:before{background:rgba(0, 0, 0, 0)}</style>")
+            $('.close').append("<style>.close:after{background:rgba(0, 0, 0, 0)}</style>")
+            flag = false;
+        }else{
+            $('.close').append("<style>.close:before{background:#FFF}</style>")
+            $('.close').append("<style>.close:after{background:#FFF}</style>")
+            flag=true;
+        }
+
+        if(!container.hasClass('active')){
+            container.addClass('active');
+            evt.preventDefault();
+        }
+        else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
+            container.removeClass('active');
+            // clear input
+            container.find('.search-input').val('');
+            // clear and hide result container when we press close
+            container.find('.result-container').fadeOut(100, function(){$(this).empty();});
+        }
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/babylon.js"></script>
+    <script src="js/babylonjs.loaders.min.js"></script>
+    <script src="js/pep.js"></script>
+    <title>Document</title>
+</head>
+<style>
+    body{
+        display: flex;
+        flex-direction: flex-star;
+        justify-content: center;
+        align-items: center;
+        margin:0 0;
+        width: 100%;
+        height: 100%;
+    }
+    #show1{
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<body>
+<!--必须是canvas元素,不能是div之类的其他元素-->
+<canvas id="show1" touch-action="none"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById("show1");  // 创建画布
+    var engine = new BABYLON.Engine(canvas, true);  // 创建渲染引擎
+
+    var create_scene = function(){
+
+        // Create the scene space
+        var scene = new BABYLON.Scene(engine);
+
+        // Add a camera to the scene and attach it to the canvas
+        var camera = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 4, Math.PI / 4, 4, BABYLON.Vector3.Zero(), scene);
+        camera.attachControl(canvas, true);
+
+        // Add lights to the scene
+        var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(1, 1, 0), scene);
+        var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 1, -1), scene);
+
+        // Add and manipulate meshes in the scene
+        var box = BABYLON.MeshBuilder.CreateBox("box", {height: 1, width: 0.75, depth: 0.25}, scene);
+
+        return scene;
+    };
+
+    var scene = create_scene();
+    /* 不停的渲染场景.
+     * runRenderLoop 是一个渲染循环.
+     * api: https://doc.babylonjs.com/api/classes/babylon.engine#runrenderloop
+     */
+    engine.runRenderLoop(function(){
+        scene.render();  // 渲染场景
+    });
+
+    window.addEventListener("resize", function(){
+        engine.resize();
+    });
+
+</script>
+</html>
