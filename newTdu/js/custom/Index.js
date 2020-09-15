@@ -1133,7 +1133,7 @@ function getSceneLink(sceneId,mark,type) {
             scene=="18132d4c-5691-4006-b61a-1f5f3ec3c07e"||scene=="1bd47b35-eea9-4615-b12b-3ac1d2265633"){
             window.open("https://tdu.tduvr.club/BuildScan/index-buildScan.html?"+link+"&key="+userId);
         }else if(scene=="bdd43444-e830-42b8-a78f-783bbc39788c"||
-            scene=="1fbc02bd-8c2f-43b7-a76e-bdfeb357d073"||scene=="b2a747bf-d6e8-4228-82b2-3b0a3806d9e9"){
+          scene=="b2a747bf-d6e8-4228-82b2-3b0a3806d9e9"){
             window.open("https://tdu.tduvr.club/BuildScan/index-buildScan.html?"+link+"&key="+userId);
         }else if(subTreeId=="a4bc82f4-f25c-4431-8562-6d2561ce082f"&&scene!="24512b73-7a65-4fe2-975e-1b5ccc6d8571"){
             window.open("https://tdu.tduvr.club/MusicOffice/index-musicoffice.html?"+link+"&key="+userId+"&isVisitor=scheme&");
@@ -1141,7 +1141,7 @@ function getSceneLink(sceneId,mark,type) {
             window.open("https://tdu.tduvr.club/TDuGeneVaccine/index.html?"+link+"&key="+userId+"&");
         }else if(subTreeId=="46fa8aaa-bcb3-48cd-8e3f-9f23c67111d2"){
             window.open("https://tdu.tduvr.club/TDuCultivatingCorals/index.html?"+link+"&key="+userId+"&");
-        }else if(subTreeId=="1fbc02bd-8c2f-43b7-a76e-bdfeb357d073"){
+        }else if(scene=="1fbc02bd-8c2f-43b7-a76e-bdfeb357d073"){
         window.open("https://tdu.tduvr.club/bagualou/index.html");
     } else{
             window.open("https://tdu.tduvr.club/TDuWebEngine/index.html?"+link);
