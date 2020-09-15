@@ -1141,7 +1141,9 @@ function getSceneLink(sceneId,mark,type) {
             window.open("https://tdu.tduvr.club/TDuGeneVaccine/index.html?"+link+"&key="+userId+"&");
         }else if(subTreeId=="46fa8aaa-bcb3-48cd-8e3f-9f23c67111d2"){
             window.open("https://tdu.tduvr.club/TDuCultivatingCorals/index.html?"+link+"&key="+userId+"&");
-        } else{
+        }else if(subTreeId=="1fbc02bd-8c2f-43b7-a76e-bdfeb357d073"){
+        window.open("https://tdu.tduvr.club/bagualou/index.html");
+    } else{
             window.open("https://tdu.tduvr.club/TDuWebEngine/index.html?"+link);
         }
     }
