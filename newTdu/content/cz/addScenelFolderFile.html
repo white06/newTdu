@@ -1,18 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="../../js/api.js"></script>
+</head>
 <link rel="stylesheet" href="../../js/layui/css/layui.css">
 <script src="../../js/layui/layui.js"></script>
 <script src="../../js/custom/jquery-1.8.3.min.js"></script>
 <style>
-    .layui-table tbody tr:hover, .layui-table thead tr, .layui-table-click, .layui-table-header, .layui-table-hover, .layui-table-mend, .layui-table-patch, .layui-table-tool, .layui-table-total, .layui-table-total tr, .layui-table[lay-even] tr:nth-child(even) {
-        background-color: white;
+    body {
+        height: 100%;
+        width: 100%;
+        background: rgba(30,37,54,1);
     }
-    .layui-table td, .layui-table th {
-        position: relative;
-         padding: 1px 2px;
-        min-height: 20px;
-        line-height: 20px;
-        font-size: 14px;
+
+    .layui-form-item {
+        margin: 0 0;
     }
 </style>
 <script>
@@ -20,13 +23,15 @@
     var subid1 = parent.layer.subid;
     var lei1 = parent.layer.lei;
     var userKey = parent.layer.userId;
+    var model ;
     $(document).ready(function () {
         var str = GetRequest();
         eval(str)
         subid1 = str.subid
         lei1 = str.lei
         userKey = str.userId
-        console.log(subid1, lei1)
+        model = str.modle;
+        console.log(subid1, lei1,userKey,model)
 
     })
     function GetRequest() {
@@ -53,16 +58,11 @@
             var str = "random=" + Math.random() + "&Content=" + name + "&id=" + "" + "&lei=" + lei1 + "&subid=" + subid1;
             $.ajax({
                 type: "Post",
-                //url: "../../../TreesController/insScenes.action",
-                url: "../../../tdu-base/DevelopScenesController/AllinsScenes.action",
+                url: informationurl+"DevelopScenesController/AllinsScenes.action",
                 data: str,
                 async: false,
                 success: function (data) {
-
                     parent.layer.close(index);
-
-                    // $("#contentDiv").load('content/cz/caozuo.php');
-                    //    document.getElementById('divShow').contentWindow.location.reload(true);
                 }
             });
         } else if (sel == "1") {
@@ -76,61 +76,24 @@
                 alert("请输入标题！");
                 return
             }
-            /*if(list.length==0){
-                alert("请先选择模型！");
-                return
-            }*/
-            console.log(list)
             var data= new FormData;
+            console.log(data)
             data.append("KnowledgeId","");
             data.append("name",name);
             data.append("cusstyle","default");
             data.append("treeId1",subid1);
-            data.append("model",JSON.stringify(list));
+            data.append("model",model);
+            //data.append("model",JSON.stringify(list));
             for(var i=0; i<File1.length;i++){
                 data.append('file', File1[i]);
             }
-            var xmlDoc = null;
-            for(var i=0;i<File1.length;i++){
-                console.log(File1[i]);
-
-                var suffix=File1[i].name.substring(File1[i].name.lastIndexOf("."));
-                if(suffix==(".tdb")||suffix==(".tdc")||suffix==(".EXM")||suffix==(".exm")||suffix==(".glb")||suffix==(".GLB")){
-// 新建一个FileReader
-                    var reader = new FileReader()
-                    // 读取文件
-                    reader.readAsText(File1[i], "UTF-8")
-                    // 读取完文件之后会回来这里
-                    console.log(reader)
-                    reader.onload = function(e){
-                        console.log(e)
-                        // 读取文件内容
-                        var fileString = e.target.result
-                        try {
-                            domParser = new DOMParser();
-                           xmlDoc = domParser.parseFromString(fileString, 'text/xml');
-                            console.log(xmlDoc)
-                        } catch (e) {
-                        }
-                        // 接下来可对文件内容进行处理
-
-                        var x=xmlDoc.getElementsByTagName("File");
-                        $(fileString).find("File").attr("count");
-                        console.log(x[0].setAttribute('ModelID','two'))
-                        console.log(x[0].setAttribute("UserID","222"))
-                        console.log(x[0].getAttribute("ModelID"))
-                        console.log(x[0].getAttribute("UserID"))
-                        console.log(x[0].innerHTML="111")
-                        console.log(x[0].innerHTML)
-
-                        var str=xml2String(xmlDoc);
-                        fileString=str
-                    }
-                }
-            }
             $.ajax({
                 type: "Post",
-                url: "../../../tdu-base/DevelopScenesController/AddScenesContentFile.action",
+                url: informationurl+"DevelopScenesController/AddScenesContentFile.action",
+                /*data:{ KnowledgeId: KnowledgeId1,
+                       name: name,
+                       "cusstyle":"default",
+                       treeId:treeId1},*/
                 data:data,
                 contentType:false,
                 processData:false,
@@ -139,6 +102,17 @@
                     parent.layer.close(index);
                 }
             });
+            // $.ajax({
+            //     type: "Post",
+            //     url: informationurl+"DevelopScenesController/AddScenesContentFile.action",
+            //     data:data,
+            //     contentType:false,
+            //     processData:false,
+            //     async: false,
+            //     success: function (data) {
+            //         parent.layer.close(index);
+            //     }
+            // });
 
         }
     }
@@ -164,143 +138,64 @@
     }
 
 </script>
-</head>
 <body>
-<div id="addNew" style=" width: 30%;display: inline-block;height: 100%;padding-top: 5%;padding-bottom: auto" class="form">
-    <div style="height:45px;font-size:32px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(0,0,0,1);
-line-height:45px;text-align: center;margin-top: 20px;margin-bottom: 20px;">新增文件夹
+
+
+<div style="width: 100%;height: 20%;text-align: center;">
+    <fieldset class="layui-elem-field layui-field-title"
+              style="margin: 0 0;display: inline-block;vertical-align: middle;color: white;">
+        <legend>场景</legend>
+    </fieldset>
+    <span style="display: inline-block;vertical-align: middle;height: 100%;"></span>
+</div>
+
+
+<div class="layui-form" style="width: 80%;height: 40%;;margin: 0 auto;text-align: center;">
+
+    <div class="layui-form-item"
+         style="margin: 0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;display: none">
+        <img src="../../img/三色—icon19.png" alt="">
+
+        <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
+            <select lay-filter="business" name="interest" lay-verify="required" data-ratio="true" id="testSelect">
+                <option value="0">文件夹</option>
+                <option value="1" selected>场景</option>
+            </select>
+        </div>
+
     </div>
-    <form class="layui-form" action="" method="post" id="createdepform">
-        <!-- ../../ModelController/addModelOrView.action -->
-        <!--enctype="multipart/form-data"  -->
-        <div class="layui-form-item"
-             style="margin: 0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
-            <img src="../../img/三色—icon19.png" alt="">
 
-            <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
-                <select lay-filter="business" name="interest" lay-verify="required" data-ratio="true" id="testSelect">
-                    <option value="0">文件夹</option>
-                    <option value="1">场景</option>
-                </select>
-            </div>
-
+    <div id="file" class="layui-form-item" style="margin: 0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
+        <img src="../../img/三色—icon19备份.png" alt="">
+        <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
+            <input type="hidden" name="type" value="1"/>
+            <input id="dir" type="file" name="file" webkitdirectory mozdirectory style="width: auto;color: white;"/>
         </div>
 
-        <div id="file" class="layui-form-item" style="margin: 0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
-            <img src="../../img/三色—icon19.png" alt="">
+    </div>
 
-            <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
-                <input type="hidden" name="type" value="1"/>
-                <input id="dir" type="file" name="file" webkitdirectory mozdirectory style="width: auto"/>
-            </div>
-
+    <div class="item" style="margin:0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
+        <img src="../../img/三色—icon19.png" alt="">
+        <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
+            <input type="text" name="Name"  lay-verify="title" autocomplete="off" placeholder="请输入场景名字"
+                   class="layui-input" id="name">
         </div>
-
-        <div class="item" style="margin:0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
-            <img src="../../img/三色—icon19备份.png" alt="">
-            <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
-                <input id="name" type="text" name="Name" name="Name" lay-verify="title" autocomplete="off" placeholder="请输入标题"
-                       class="layui-input">
-            </div>
-        </div>
-
-        <div style="text-align:center;margin: 0 auto;width: 40%;margin-top: 10px;margin-bottom: 20px;
-height:40px;
-background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
-border-radius:36px;">
-            <a style="height:28px;
-font-size:20px;
-font-family:PingFangSC-Regular,PingFang SC;
-font-weight:400;
-color:rgba(255,255,255,1);
-line-height:40px;" class="add-btn ulib-r3" href="javascript:"
-               onclick="saveFolder($('input[name=Name]').val(),$('#testSelect option:selected') .val());">保存</a>
-        </div>
-    </form>
-
-
-    <div>
-        <table id="table" class="layui-table" style="width: 80%;margin: 0 auto 10px auto">
-            <colgroup>
-                <col width="auto">
-                <col width="auto">
-                <col width="auto">
-                <col width="auto">
-            </colgroup>
-            <thead>
-            <tr>
-                <th>模型Id</th>
-                <th>模型Name</th>
-                <th>模型tdb/tdc</th>
-                <th>删除</th>
-            </tr>
-            </thead>
-            <tbody id="tlist">
-
-
-            </tbody>
-        </table>
     </div>
 
 </div>
-<div style=" width: 70%;height: 100%;position: relative;float: right">
-    <iframe style="height: 100%" id="iframe" name="my-iframe" id="my-iframe" src=""
-            frameborder="0" width="100%" height="90%" scrolling="no"></iframe>
+<div style="width: 80%;height: 20%;text-align: center;margin: 0 auto;">
+    <div style="display: inline-block;vertical-align: middle;">
+        <button onclick="saveFolder($('input[name=Name]').val(),$('#testSelect option:selected') .val());" style="width: 40%;margin-right: 10px;" class="layui-btn" >确认</button>
+        <button onclick="returnPage()" style="width: 40%;" class="layui-btn">取消</button>
+    </div>
+    <span style="display: inline-block;vertical-align: middle;height: 100%;"></span>
 </div>
+
 </body>
+
+
+
 <script>
-    var list=[];
-    function SaveCppObject3(a, b, c, d, e) {
-        var str = a + "|" + b + "|" + c + "|" + d + "|" + e;
-        //alert(str)
-        console.log(str)
-        var flag=true;
-        var modle = {ModelID:a, UserID:c, txt:e};
-        if(list.length==0){
-            list.push(modle);
-        }else if(list.length>0){
-            for (var i=0;i<list.length;i++){
-                if(list[i].ModelID==a){
-                    flag=false;
-                }
-            }
-            if(flag){
-                list.push(modle);
-            }else{
-                alert("模型重复")
-            }
-        }
-
-        console.log(list)
-        //alert(a)
-        //alert("model ID" + obj2)
-        var str='<tr><td>'+a+'</td><td>'+c+'</td><td>'+e+'</td><td><button id="'+a+'" type="button" onclick="deleteTr(this)" class="layui-btn layui-btn-primary layui-btn-xs">删除</button></td></tr>'
-        if(flag){
-            $("#tlist").append(str);
-        }
-
-    }
-    function deleteTr(nowTr){
-        //多一个parent就代表向前一个标签,
-        // 本删除范围为<td><tr>两个标签,即向前两个parent
-        //如果多一个parent就会删除整个table
-        $(nowTr).parent().parent().remove();
-        var id = nowTr.id;
-        if(list.length>0){
-
-
-        for (var i=0;i<list.length;i++){
-            if(list[i].ModelID==id){
-                list.splice(i,1);
-            }
-        }
-        }
-        console.log(list)
-    }
-
-    $("#file").hide();
-    $("#iframe").hide();
-    $("#table").hide();
 
     layui.use('form', function () {
         var form = layui.form;
@@ -311,19 +206,12 @@ line-height:40px;" class="add-btn ulib-r3" href="javascript:"
             return false;
         });
 
-        form.on('select(business)', function(data){
-            console.log(data.value);
-            if(data.value==0){
-                $("#file").hide();
-                $("#iframe").hide();
-                $("#table").hide();
-            }else if(data.value==1){
-                $("#file").show();
-                $("#table").show();
-                $("#iframe").show();
-                document.getElementById("iframe").src='../../model/ChooseModel.html?userID='+userKey;
-            }
-        })
+        //常规用法
+        window.returnPage=function () {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index); //再执行关闭
+            //layer.close(index);
+        }
 
     });
 </script>

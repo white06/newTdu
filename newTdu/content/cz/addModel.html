@@ -1,10 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="../../js/api.js"></script>
 </head>
 <link rel="stylesheet" href="../../js/layui/css/layui.css">
 <script src="../../js/layui/layui.js"></script>
 <script src="../../js/custom/jquery-1.8.3.min.js"></script>
+<style>
+    body {
+        height: 100%;
+        width: 100%;
+        background: rgba(30,37,54,1);
+    }
 
+    .layui-form-item {
+        margin: 0 0;
+    }
+</style>
 <script>
 var index = parent.layer.getFrameIndex(window.name);
 var	KnowledgeId1 =parent.layer.KnowledgeId;
@@ -33,6 +46,7 @@ function GetRequest() {
 		return theRequest;
 	}
 function saveFolder(name,sel){
+    sel="1"
 if(sel==null||sel==""){
 	alert("请选择类别！");
 		return
@@ -75,7 +89,7 @@ if(sel==null||sel==""){
         }
     	 $.ajax({
             type: "Post",
-            url: "../../../tdu-base/DevelopModelController/AddModelsContentFile.action",
+            url: informationurl+"DevelopModelController/AddModelsContentFile.action",
             /*data:{ KnowledgeId: KnowledgeId1,
                    name: name,
                    "cusstyle":"",
@@ -95,63 +109,63 @@ if(sel==null||sel==""){
 }
 </script>
 
+<body>
 
-<div style="height:45px;font-size:32px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(0,0,0,1);
-line-height:45px;text-align: center;margin-top: 20px;margin-bottom: 20px;">新增文件夹
+
+<div style="width: 100%;height: 20%;text-align: center;">
+    <fieldset class="layui-elem-field layui-field-title"
+              style="margin: 0 0;display: inline-block;vertical-align: middle;color: white;">
+        <legend>模型</legend>
+    </fieldset>
+    <span style="display: inline-block;vertical-align: middle;height: 100%;"></span>
 </div>
 
-<div id="addNew" style="" class="form">
 
-    <form class="layui-form" action="" method="post" id="createdepform">
-        <!-- ../../ModelController/addModelOrView.action -->
-        <!--enctype="multipart/form-data"  -->
-        <div class="layui-form-item"
-             style="margin: 0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
-            <img src="../../img/三色—icon19.png" alt="">
+<div class="layui-form" style="width: 80%;height: 40%;;margin: 0 auto;text-align: center;">
 
-            <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
-                <select lay-filter="business" name="interest" lay-verify="required" data-ratio="true" id="testSelect">
-                    <option value="0">文件夹</option>
-                    <option value="1">模型</option>
-                </select>
-            </div>
+    <div class="layui-form-item"
+         style="margin: 0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;display: none">
+        <img src="../../img/三色—icon19.png" alt="">
 
-        </div>
-        <div id="file" class="layui-form-item" style="margin: 0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
-            <img src="../../img/三色—icon19.png" alt="">
-
-            <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
-                <input type="hidden" name="type" value="1"/>
-                <input id="dir" type="file" name="file" webkitdirectory mozdirectory style="width: auto"/>
-            </div>
-
-        </div>
-        <div class="item" style="margin:0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
-            <img src="../../img/三色—icon19备份.png" alt="">
-            <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
-                <input type="text" name="Name"  lay-verify="title" autocomplete="off" placeholder="请输入标题"
-                       class="layui-input" id="name">
-            </div>
+        <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
+            <select lay-filter="business" name="interest" lay-verify="required" data-ratio="true" id="testSelect">
+                <option value="0">文件夹</option>
+                <option value="1" selected>模型</option>
+            </select>
         </div>
 
-        <div style="text-align:center;margin: 0 auto;width: 25%;margin-top: 40px;margin-bottom: 20px;
-height:40px;
-background:linear-gradient(337deg,rgba(92,205,177,1) 0%,rgba(92,205,178,1) 0%,rgba(89,208,207,1) 100%);
-border-radius:36px;">
-            <a style="height:28px;
-font-size:20px;
-font-family:PingFangSC-Regular,PingFang SC;
-font-weight:400;
-color:rgba(255,255,255,1);
-line-height:40px;" class="add-btn ulib-r3" href="javascript:"
-               onclick="saveFolder($('input[name=Name]').val(),$('#testSelect option:selected') .val());">保存</a>
+    </div>
+
+    <div id="file" class="layui-form-item" style="margin: 0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
+        <img src="../../img/三色—icon19备份.png" alt="">
+        <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
+            <input type="hidden" name="type" value="1"/>
+            <input id="dir" type="file" name="file" webkitdirectory mozdirectory style="width: auto;color: white;"/>
         </div>
-    </form>
+
+    </div>
+
+    <div class="item" style="margin:0 22% 0 8%;width: 70%;text-align: center;margin-top: 20px;margin-bottom: 20px;">
+        <img src="../../img/三色—icon19.png" alt="">
+        <div class="layui-input-block" style="display: inline-block;width: 70%;margin-left: 10%">
+            <input type="text" name="Name"  lay-verify="title" autocomplete="off" placeholder="请输入模型名字"
+                   class="layui-input" id="name">
+        </div>
+    </div>
 
 </div>
+<div style="width: 80%;height: 20%;text-align: center;margin: 0 auto;">
+    <div style="display: inline-block;vertical-align: middle;">
+        <button onclick="saveFolder($('input[name=Name]').val(),$('#testSelect option:selected') .val());" style="width: 40%;margin-right: 10px;" class="layui-btn" >确认</button>
+        <button onclick="returnPage()" style="width: 40%;" class="layui-btn">取消</button>
+    </div>
+    <span style="display: inline-block;vertical-align: middle;height: 100%;"></span>
+</div>
+
+</body>
+
+
 <script>
-
-    $("#file").hide();
 
     layui.use('form', function () {
         var form = layui.form;
@@ -161,13 +175,11 @@ line-height:40px;" class="add-btn ulib-r3" href="javascript:"
             layer.msg(JSON.stringify(data.field));
             return false;
         });
-        form.on('select(business)', function(data){
-            console.log(data.value);
-            if(data.value==0){
-                $("#file").hide();
-            }else if(data.value==1){
-                $("#file").show();
-            }
-        })
+        //常规用法
+        window.returnPage=function () {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index); //再执行关闭
+            //layer.close(index);
+        }
     });
 </script>

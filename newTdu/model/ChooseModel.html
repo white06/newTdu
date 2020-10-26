@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Developers</title>
-	<link rel="stylesheet" type="text/css" href="../js/layui/css/layui.css"/>
+	<link rel="stylesheet" type="text/css" href="css/layui.css"/>
 <link href="Css.css" rel="stylesheet" type="text/css" />
 
 <link rel="stylesheet" href="MyCss.css" />
@@ -52,7 +52,7 @@ hr {
 	position: absolute;
 	top: 0px;
 	left: 100%;
-	background: #2E3546;
+	background: white;
 	box-shadow: 0 2px rgba(0, 0, 0, .5);
 	/*border: 1px solid #d2d2d2;*/
 	border-radius: 2px;
@@ -64,6 +64,11 @@ hr {
 	background:rgba(46,53,70,1);
 }
 
+.layui-nav-childstr{
+	width: 600px;
+	height: 500px;
+}
+
 .layui-nav-child {
 	display: none;
 	position: absolute;
@@ -71,9 +76,6 @@ hr {
 	top: 65px;
 	min-width: 100%;
 	white-space: nowrap;
-
-	width: 600px;
-	height: 500px;
 	overflow-x: hidden;
 	overflow-y: scroll;
 }
@@ -101,6 +103,54 @@ hr {
 ::-webkit-scrollbar{width:0px;height:6px;}
 /*---�����򱳾���ʽ--*/
 ::-webkit-scrollbar-track-piece{background-color:#E9F0FA;-webkit-border-radius:0;}
+
+.layui-nav-child .layui-show dd {
+	color: black;
+}
+
+.layui-layout-admin .layui-header {
+	background-color: #5BCEBA;
+}
+.layui-layout-admin .layui-logo {
+	color: black;
+}
+.layui-nav {
+	background-color: white;
+}
+.layui-nav-tree .layui-nav-item a {
+	color: black;
+}
+.layui-nav .layui-nav-item a:hover, .layui-nav .layui-this a {
+	color: black;
+}
+.layui-nav-itemed > a, .layui-nav-tree .layui-nav-title a, .layui-nav-tree .layui-nav-title a:hover {
+	color: black !important;
+}
+.layui-side-scroll {
+	background: white;
+}
+.layui-nav-child dd {
+	background: white;
+}
+.layui-nav-tree .layui-nav-item a:hover {
+	background-color: #5BCEBA;
+}
+.layui-nav .layui-nav-child a:hover {
+	background-color: #5BCEBA;
+}
+.layui-nav .layui-nav-child dd:hover ul li a:hover {
+	background-color: #5BCEBA;
+}
+.layui-nav .layui-nav-child a:hover {
+	color: black;
+}
+.layui-nav .layui-nav-child a {
+	color: black;
+}
+
+.layui-nav .layui-nav-more{border-top-color:#535353;}
+.layui-nav .layui-nav-mored{border-color: transparent transparent #535353;}
+
 </style>
 <script type="text/javascript">
 	var g_obj_CPP;
@@ -158,13 +208,13 @@ hr {
 	function getRootId(subId) {
 		$.ajax({
 			type : "POST",
-			url : "../../tdu-base/DevelopModelController/getSubjectModelsRootId.action",
+			url : userurl+"DevelopModelController/getSubjectModelsRootId.action",
 			data : {
 				"subId" : subId
 			},
 			success : function(res) {
-				console.log(res)
-				console.log(res.id)
+				//console.log(res)
+				//console.log(res.id)
 				subtreeId = res.id;
 				$("#subjectTreeId").val(res.id)
 				gettModelsRootId(res.id)
@@ -174,13 +224,13 @@ hr {
 	function gettModelsRootId(rootId) {
 		$.ajax({
 			type : "POST",
-			url : "../../tdu-base/DevelopModelController/gettModelsRootId.action",
+			url : userurl+"DevelopModelController/gettModelsRootId.action",
 			data : {
 				"subId" : rootId
 			},
 			success : function(res) {
-				console.log(res)
-				console.log(res.id)
+				//console.log(res)
+				//console.log(res.id)
 				getModelFirst(res.id);
 
 			}
@@ -188,7 +238,7 @@ hr {
 	}
 
 	function getModelFirst(str) {
-		console.log("userId  :" + userId);
+		//console.log("userId  :" + userId);
 		$("#showModel").html("")
 		var count = "59d74fb8-6571-4668-95f9-a7e856d03736";
 
@@ -197,12 +247,12 @@ hr {
 			/*默认为开发者平台的subtreeId*/
 			$("#subjectTreeId").val("36c8c7c2-8aaf-44c9-b6c8-53e0e3fa3a68")
 		}
-		console.log("subtreeId  :" + $("#subjectTreeId").val())
+		//console.log("subtreeId  :" + $("#subjectTreeId").val())
 		var mId = "";
 		//递归方式查询
 		$.ajax({
 			type : "POST",
-			url : "../../tdu-base/DevelopModelController/getModelsSecond.action",
+			url : userurl+"DevelopModelController/getModelsSecond.action",
 			data : {
 				KnowledgesFisId : str,
 				userId : userId
@@ -219,7 +269,7 @@ hr {
 							mId = result[i].id ;
 						}
 						if (obj.modelContentId == "00000000-0000-0000-0000-000000000000") {
-							var HtmlShow = "<li id='" + result[i].id + "' class='layui-nav-item layui-nav-itemed'><a href=\"javascript:void(0);\"   onclick=\"showModelContent('" + result[i].id + "'" + ',' + "'" + userId + "')\">" + result[i].content + "</a></li>"
+							var HtmlShow = "<li id='" + result[i].id + "' class='layui-nav-item'><a href=\"javascript:void(0);\"   onclick=\"showModelContent('" + result[i].id + "'" + ',' + "'" + userId + "')\">" + result[i].content + "</a></li>"
 
 							divShow.append(HtmlShow);
 						}
@@ -228,7 +278,7 @@ hr {
 							return function(data) {
 
 								 var tt = remakeData(data);
-								console.log("  tt :" + tt)
+								//console.log("  tt :" + tt)
 
 								var tt2 = new Array();
 
@@ -240,10 +290,11 @@ hr {
 								data = tt2; 
 
 								var str2 = objY.id;
-								console.log(str2)
+								//console.log(str2)
 								var divAppend = $("#" + str2 + "");
 								if (data.length > 0) {
-									var HtmlShow = "<dl class='layui-nav-child'>";
+								    //console.log(data)
+									var HtmlShow = "<dl id='child' class='layui-nav-child'>";
 									for (var k = 0; k < data.length; k++) {
 										if (data[k].modelContentId == "00000000-0000-0000-0000-000000000000") {
 											HtmlShow += "<dd><a href='javascript:void(0);' onclick=\"showModelContent('" + data[k].id + "'" + ',' + "'" + userId + "')\">" + data[k].content + "</a></dd>";
@@ -251,6 +302,7 @@ hr {
 										}
 									}
 									HtmlShow += "</dl>";
+									//console.log(HtmlShow);
 									divAppend.append(HtmlShow);
 
 								}
@@ -271,7 +323,7 @@ hr {
 							}
 						}(obj)
 
-						$.post("../../tdu-base/DevelopModelController/getParentModels.action", {
+						$.post(userurl+"DevelopModelController/getParentModels.action", {
 							"id" : result[i].id
 						}, function1);
 
@@ -305,32 +357,32 @@ hr {
 
 	function updateModelName(str) {
 		$.ajax({
-			url : "../../tdu-base/DevelopModelController/updateModelName.action",
+			url : userurl+"DevelopModelController/updateModelName.action",
 			data : {
 				Id : str
 			},
 			type : "post",
 			async : false,
 			success : function(data) {
-				console.log(data);
+				//console.log(data);
 			}
 		});
 	}
 	function showModelNav() {
 		$.ajax({
-			url : "../../tdu-base/ShouyeController/getSubjects2.action",
+			url : userurl+"ShouyeController/getSubjects2.action",
 			data : {
 				userId : userId
 			},
 			type : "post",
 			async : false,
 			success : function(data) {
-				console.log(data)
+				//console.log(data)
 				var keyList = Object.keys(data);
-				console.log(keyList)
+				//console.log(keyList)
 				var length = Object.keys(data).length;
-				console.log(length)
-				console.log(data[0])
+				//console.log(length)
+				//console.log(data[0])
 
 				if (length > 0) {
 					//for (var i = 0; i < keyList.length; i++) {
@@ -364,7 +416,7 @@ hr {
 
 	function showViewNav() {
 		$.ajax({
-			url : "../../tdu-base/DevelopModelController/getModelContacts2.action",
+			url : userurl+"DevelopModelController/getModelContacts2.action",
 			data : {},
 			type : "post",
 			async : false,
@@ -396,7 +448,7 @@ hr {
 						$("input[name=type]").val($("#type").val())
 
 						$.ajax({
-							url : "../../tdu-base/DevelopModelController/getModelListMapper2.action",
+							url : userurl+"DevelopModelController/getModelListMapper2.action",
 							data : {
 								Id : viewId,
 								userId : userId
@@ -408,7 +460,7 @@ hr {
 								var userName = ""
 								if (data.length != 0) {
 									$.ajax({
-										url : "../../tdu-base/UsersController/getUserName.action",
+										url : userurl+"UsersController/getUserName.action",
 										data : {
 											Id : data[0].userKey
 										},
@@ -525,7 +577,7 @@ hr {
 		document.getElementById("showContent").style.display = "block";
 		document.getElementById("updateContent").style.display = "none";
 		$.ajax({
-			url : "../../tdu-base/DevelopModelController/getModelsList.action",
+			url : userurl+"DevelopModelController/getModelsList.action",
 			data : {
 				Id : modelId,
 				userId : userId
@@ -534,11 +586,11 @@ hr {
 			async : false,
 			success : function(data) {
 
-				console.log(data)
+				//console.log(data)
 
 
 				var tt = remakeData(data);
-				console.log("  tt :" + tt)
+				//console.log("  tt :" + tt)
 
 				var tt2 = new Array();
 
@@ -553,7 +605,7 @@ hr {
 				var userName = ""
 				if (data.length != 0) {
 					$.ajax({
-						url : "../../tdu-base/UsersController/getUserName.action",
+						url : userurl+"UsersController/getUserName.action",
 						data : {
 							Id : data[0].userKey
 						},
@@ -652,7 +704,7 @@ hr {
 				var userName = ""
 				if (data.length != 0) {
 					$.ajax({
-						url : "../../tdu-base/UsersController/getUserName.action",
+						url : userurl+"UsersController/getUserName.action",
 						data : {
 							Id : data[0].userKey
 						},
@@ -739,7 +791,7 @@ hr {
 		document.getElementById("showContent").style.display = "block";
 		document.getElementById("updateContent").style.display = "none";
 		$.ajax({
-			url : "../../tdu-base/DevelopModelController/getModelListMapper2.action",
+			url : userurl+"DevelopModelController/getModelListMapper2.action",
 			data : {
 				Id : viewId,
 				userId : userId
@@ -751,7 +803,7 @@ hr {
 				var userName = ""
 				if (data.length != 0) {
 					$.ajax({
-						url : "../../tdu-base/UsersController/getUserName.action",
+						url : userurl+"UsersController/getUserName.action",
 						data : {
 							Id : data[0].userKey
 						},
@@ -822,15 +874,16 @@ hr {
 		$(".item").css("border", "1px solid #DCDCDC");
 		var css = $(this).attr("style");
 		$(this).css('border', '3px solid #099CA8');
-		console.log($(this).style)
+		//console.log($(this).style)
 		/* if (css.indexOf("border: 1px solid #DCDCDC")>=0)
 		    $(this).css("border", "3px solid #099CA8");
 		 else  */
 		$(this).css("border", "3px solid #099CA8");
-		console.log(obj)
+		//console.log(obj)
 		$("#modelId").val(obj);
 	}
 </script>
+	<script src="../js/api.js"></script>
 </head>
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
@@ -840,7 +893,7 @@ hr {
 
 			<ul class="layui-nav layui-layout-left">
 				<li class="layui-nav-item"><a style="cursor:pointer;">科目</a>
-					<dl id="model" class="layui-nav-child">
+					<dl id="model" class="layui-nav-child layui-nav-childstr">
 						<dd>
 							<a href="">选项1</a>
 							<ul>
@@ -867,7 +920,7 @@ hr {
 			<div class="layui-side-scroll">
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul id="leftnav" class="layui-nav layui-nav-tree" lay-filter="test">
-					<li class="layui-nav-item layui-nav-itemed"><a class=""
+					<li class="layui-nav-item "><a class=""
 						href="javascript:;">所有商品</a>
 						<dl class="layui-nav-child">
 							<dd>
@@ -969,7 +1022,7 @@ hr {
 				<blockquote class="layui-elem-quote layui-quote-nm"
 					style="margin-top: 5%">更改表单</blockquote>
 
-				<form action="../../tdu-base/DevelopModelController/updateModelOrView.action"
+				<form action=userurl+"DevelopModelController/updateModelOrView.action"
 					method="post" id="updateform">
 					<!--enctype="multipart/form-data"  -->
 					<div class="page-wrap">
@@ -1073,7 +1126,7 @@ hr {
 			//console.log("修改"+"----"+id)
 	
 			$.ajax({
-				url : "../../tdu-base/DevelopModelController/getModel.action",
+				url : userurl+"DevelopModelController/getModel.action",
 				data : {
 					id : id
 				},
@@ -1094,7 +1147,7 @@ hr {
 			var flage = confirm("请确认是否删除")
 			if (flage) {
 				$.ajax({
-					url : "../../tdu-base/ModelController/delModel.action",
+					url : userurl+"ModelController/delModel.action",
 					data : {
 						id : id
 					},
