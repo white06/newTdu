@@ -76,8 +76,13 @@
                 alert("请输入标题！");
                 return
             }
+
+            var AudioFlag = false;
+            var VideoFlag = false;
+            var SkinFlag = false;
+            var GoodsFlag = false;
+            var htmlFlag = false;
             var data= new FormData;
-            console.log(data)
             data.append("KnowledgeId","");
             data.append("name",name);
             data.append("cusstyle","default");
@@ -85,26 +90,34 @@
             data.append("model",model);
             //data.append("model",JSON.stringify(list));
             for(var i=0; i<File1.length;i++){
+                console.log(File1[i].webkitRelativePath.split("/")[1])
+                if(File1[i].webkitRelativePath.split("/")[1]=="Audio"){
+                    AudioFlag = true;
+                }
+                if(File1[i].webkitRelativePath.split("/")[1]=="Video"){
+                    VideoFlag = true;
+                }
+                if(File1[i].webkitRelativePath.split("/")[1]=="Skin"){
+                    SkinFlag = true;
+                }
+                if(File1[i].webkitRelativePath.split("/")[1]=="Goods"){
+                    GoodsFlag = true;
+                }
+                if(File1[i].webkitRelativePath.split("/")[1]=="html"){
+                    htmlFlag = true;
+                }
                 data.append('file', File1[i]);
             }
-            $.ajax({
-                type: "Post",
-                url: informationurl+"DevelopScenesController/AddScenesContentFile.action",
-                /*data:{ KnowledgeId: KnowledgeId1,
-                       name: name,
-                       "cusstyle":"default",
-                       treeId:treeId1},*/
-                data:data,
-                contentType:false,
-                processData:false,
-                async: false,
-                success: function (data) {
-                    parent.layer.close(index);
-                }
-            });
+
+            console.log("  AudioFlag  : "+AudioFlag+"  VideoFlag : "+VideoFlag+"  SkinFlag : "+SkinFlag+"  GoodsFlag : "+GoodsFlag+"  htmlFlag : "+htmlFlag)
+
             // $.ajax({
             //     type: "Post",
             //     url: informationurl+"DevelopScenesController/AddScenesContentFile.action",
+            //     /*data:{ KnowledgeId: KnowledgeId1,
+            //            name: name,
+            //            "cusstyle":"default",
+            //            treeId:treeId1},*/
             //     data:data,
             //     contentType:false,
             //     processData:false,
@@ -113,7 +126,6 @@
             //         parent.layer.close(index);
             //     }
             // });
-
         }
     }
 
