@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" style="height: 100%">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Title</title>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
+    <script src="layui/layui.js"></script>
+    <script src="js/login-2.js"></script>
+    <style>
+        body {
+            margin: 0 0;
+            padding: 0 0;
+            width: 100%;
+            height: 100%;
+            background: #3D4053;
+            position: relative;
+        }
+
+        ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+            color: #6C7E7D;
+        }
+
+        ::-moz-placeholder { /* Firefox 19+ */
+            color: #6C7E7D;
+        }
+
+        :-ms-input-placeholder { /* IE 10+ */
+            color: #6C7E7D;
+        }
+
+        :-moz-placeholder { /* Firefox 18- */
+            color: #6C7E7D;
+        }
+    </style>
+</head>
+<body>
+<div style="width: 100%;height: 10%;text-align: center;background: #2F3445">
+    <img style="display: inline-block;height:100%;vertical-align: middle;height: 42%;" src="image/lgo@3x.png"/>
+    <span style="display: inline-block;height:100%;vertical-align: middle;"></span>
+</div>
+<div style="width: 31%;height: 23%;position: absolute;top: 35%;left:34.3%;background: #2F3445;z-index: 2">
+
+    <div style="width: 100%;height: 25%;background: #51CEC8;">
+        <div style="text-indent: 60px;display: inline-block;vertical-align: middle;font-size:25px;font-family:Microsoft YaHei;font-weight:bold;line-height:47px;color:rgba(255,255,255,1);opacity:1;">
+            链接已加密
+        </div>
+        <span style="display: inline-block;height:100%;vertical-align: middle;"></span>
+    </div>
+
+    <div style="height: 25%;position: relative;">
+        <span style="text-indent: 60px;font-family:Microsoft YaHei;font-weight:400;color:rgba(255,255,255,1);opacity:1;position: absolute;bottom: 0px">验证码</span>
+    </div>
+    <div style="height: 38%;width: 100%;position: relative">
+
+        <div style="display: inline-block;width: 55%;height: 100%;margin-top: 25px;text-indent: 60px;">
+            <input style="color: white;border: 0px;display: inline-block;vertical-align: middle;width:100%;height:44px;background:rgba(31,36,53,1);opacity:1;"
+                   type="text" id="jiami"/>
+            <span style="display: inline-block;height:100%;vertical-align: middle;"></span>
+        </div>
+        <div style="display: inline-block;width: 20%;height: 100%;position: absolute;top: 25px;left: 70%">
+            <div style="display: inline-block;vertical-align: middle;width:100%;height:44px;background:rgba(81,206,200,1);opacity:1;text-align: center;cursor: pointer;"
+                 type="text" onclick="queding()">
+                <span style="height:33px;font-size:25px;font-family:Microsoft YaHei;font-weight:400;line-height:44px;color:rgba(255,255,255,1);opacity:1;">确定</span>
+            </div>
+            <span style="display: inline-block;height:100%;vertical-align: middle;"></span>
+        </div>
+
+    </div>
+
+
+</div>
+<div style="width: 100%;height: 50%;background: no-repeat;background-size: 100%;background-image: url('image/蒙版组 67.png');position: absolute;bottom: 0px">
+
+</div>
+
+</body>
+</html>
