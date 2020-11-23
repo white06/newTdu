@@ -1029,7 +1029,7 @@ function getdivmodel(subid) {
                         /*'                <div style="width: 32%;display: inline-block;text-align: center;cursor:pointer" onclick="window.location.href=\''+str+'\'"><img src="img/ico/icon_vr.png" height="38" width="38" title="VR"/></div>\n' +
                         '                <div style="width: 32%;display: inline-block;text-align: center;cursor:pointer" onclick="window.location.href=\''+str+'\'"><img src="img/ico/icon_ffehg.png" height="38" width="38" title="编辑器"/></div>\n' +
                         '                <div style="width: 32%;display: inline-block;text-align: center;cursor:pointer" onclick="window.location.href=\''+str+'\'"><img src="img/ico/icon_fess.png" height="38" width="38" title="仿真"/></div>\n' +*/
-                        '                <div style="width: 32%;display: inline-block;text-align: center;cursor:pointer" onclick="getModelLink(\'' + data[i].id + '\',\'' + 1 + '\',\'' + 1 + '\')"><img src="img/ico/icon_vr.png" height="38" width="38" title="VR"/></div>\n' +
+                        '                <div style="width: 32%;display: inline-block;text-align: center;cursor:pointer" onclick="getModelVRLink(\'' + data[i].id + '\',\'' + 1 + '\',\'' + 1 + '\')"><img src="img/ico/icon_vr.png" height="38" width="38" title="VR"/></div>\n' +
                         '                <div style="width: 32%;display: inline-block;text-align: center;cursor:pointer" onclick="getModelLink(\'' + data[i].id + '\',\'' + 2 + '\',\'' + 1 + '\')"><img src="img/ico/icon_ffehg.png" height="38" width="38" title="编辑器"/></div>\n' +
                         '                <div style="width: 32%;display: inline-block;text-align: center;cursor:pointer" onclick="getModelLink(\'' + data[i].id + '\',\'' + 4 + '\',\'' + 1 + '\')"><img src="img/ico/icon_fess.png" height="38" width="38" title="仿真"/></div>\n' +
                         '            </div>\n' +
@@ -1042,7 +1042,68 @@ function getdivmodel(subid) {
     })
 }
 
+function getModelVRLink(modelId, mark, type) {
 
+    let content = "https://tdu.tduvr.club/TDuVRWebEngine/VRParameter.html";
+
+    var count = mark;
+    modelId = Base64.encode(modelId);
+    mark = Base64.encode(mark);
+    type = Base64.encode(type);
+    console.log(modelId, mark, type)
+
+    //  flag参数 1-模型  2-场景 3-资源类型
+
+    var link = "tduvr://command=open&App=";
+    if (count == 1) {
+        link = link + "TDuVREngine";
+    } else if (count == 2) {
+        link = link + "TDuVRDirector";
+    } else if (count == 3) {
+        link = link + "TDuSimEngine";
+    } else if (count == 4) {
+        link = link + "TDuSimEngine";
+    }
+    link = link + "&knowledgeId=" + modelId + "&mark=" + mark + "&type=" + type + "&flag=" + "1&";
+    console.log(link);
+    var index = layer.open({
+        type: 2,
+        title: false,
+        shadeClose: true,
+        shade: 0.8,
+        area: ['60%', '70%'],
+        //content: 'content/cz/kaoshi.php' //iframe的url
+        //content: content + '?modelId=' + modelId + "&mark=" + mark + '&type=' + type + '&subTreeId=' + subTreeId + '&userId=' + userId, //iframe的url
+        content: content + '?' + link, //iframe的url
+        cancel: function () {
+            //右上角关闭回调
+            flag = 1
+            console.log("1111")
+            //return false 开启该代码可禁止点击该按钮关闭
+        },
+        end: function () {
+            if (flag == 0) {
+                //addreturn();
+            }
+        }
+    });
+    //window.location.href = link;
+    //window.open("https://tdu.tduvr.club/TDuWebEngine/index.html?" + link);
+    // $.ajax({
+    //     url: preurl + "DevelopModelController/getLink.action",
+    //     type: "POST",
+    //     data: {"knowledgeId": modelId, "mark": mark, "type": type},
+    //     success: function (data) {
+    //         //name = name + "KnowledgeID=" + knowContentId + "&OperateID=" + userId + "&"+ "loginId=" + data+"&";
+    //         //   window.location.href=name;
+    //         //window.location.href=data
+    //         console.log(data);
+    //     },
+    //     error: function () {
+    //         return;
+    //     }
+    // });
+}
 function getModelLink(modelId, mark, type) {
     var count = mark;
     modelId = Base64.encode(modelId);
@@ -1064,7 +1125,8 @@ function getModelLink(modelId, mark, type) {
     }
     link = link + "&knowledgeId=" + modelId + "&mark=" + mark + "&type=" + type + "&flag=" + "1&";
     console.log(link);
-    window.location.href = link;
+    //window.location.href = link;
+	window.open("https://tdu.tduvr.club/TDuWebEngine/index.html?" + link);
     $.ajax({
         url: preurl + "DevelopModelController/getLink.action",
         type: "POST",
@@ -1199,7 +1261,15 @@ function getSceneLink(sceneId, mark, type) {
     link = link + "&knowledgeId=" + sceneId + "&mark=" + mark + "&type=" + type + "&flag=" + "2&";
     console.log(link);
     if (count != "3") {
-        window.location.href = link;
+        if(count == 1){
+            if (scene == "9faa6f5c-a662-41a1-9f7e-1f9e43c38b34") {
+                window.open("https://tdu.tduvr.club/TDuVRWebEngine/index.html?" + link + "&key=" + userId);
+            }else{
+                window.location.href = link;
+            }
+        }else{
+            window.location.href = link;
+        }  
     } else {
         if (scene == "e92eba19-f405-42b2-bfed-7ffc7f0df5a3") {
             window.open("https://tdu.tduvr.club/Interpretation/index.html?" + link + "&key=" + userId);
@@ -1363,7 +1433,7 @@ function modelsecondshow(dataid, userid, username) {
                             'color:rgba(255,255,255,1);\n' +
                             'line-height:40px;">' + data[i].content + '</div>\n' +
                             '            <div style="position: absolute;bottom: 38px;width: 100%;height: 38px">\n' +
-                            '                <div style="width: 32%;display: inline-block;text-align: center;cursor:pointer" onclick="getModelLink(\'' + data[i].id + '\',\'' + 1 + '\',\'' + 1 + '\')"><img src="img/ico/icon_vr.png" height="38" width="38" title="VR"/></div>\n' +
+                            '                <div style="width: 32%;display: inline-block;text-align: center;cursor:pointer" onclick="getModelVRLink(\'' + data[i].id + '\',\'' + 1 + '\',\'' + 1 + '\')"><img src="img/ico/icon_vr.png" height="38" width="38" title="VR"/></div>\n' +
                             '                <div style="width: 32%;display: inline-block;text-align: center;cursor:pointer" onclick="getModelLink(\'' + data[i].id + '\',\'' + 2 + '\',\'' + 1 + '\')"><img src="img/ico/icon_ffehg.png" height="38" width="38" title="编辑器"/></div>\n' +
                             '                <div style="width: 32%;display: inline-block;text-align: center;cursor:pointer" onclick="getModelLink(\'' + data[i].id + '\',\'' + 4 + '\',\'' + 1 + '\')"><img src="img/ico/icon_fess.png" height="38" width="38" title="仿真"/></div>\n' +
                             '            </div>\n' +

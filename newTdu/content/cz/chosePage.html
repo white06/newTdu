@@ -160,7 +160,16 @@
             }else if(scene=="1fbc02bd-8c2f-43b7-a76e-bdfeb357d073"){
                 window.open("https://tdu.tduvr.club/bagualou/index.html");
             } else{
-                window.open("https://tdu.tduvr.club/TDuWebEngine/index.html?"+link);
+                let host = window.location.hostname;
+                let protocol = window.location.protocol;
+                console.log(typeof(Number(host.split(".")[0])))
+                if(typeof(Number(host.split(".")[0]))=="number"){
+                    window.open(protocol+"://"+host+":8501/TDuWebEngine/index.html?"+link);
+                }else{
+                    window.open("https://tdu.tduvr.club/TDuWebEngine/index.html?"+link);
+                }
+                console.log()
+                //window.open("https://tdu.tduvr.club/TDuWebEngine/index.html?"+link);
             }
         }
 

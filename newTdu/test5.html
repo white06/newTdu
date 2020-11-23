@@ -3,30 +3,23 @@
 <head>
     <meta charset="utf-8">
     <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript">
-        var countdown=60;
-        function sendemail(){
-            var obj = $("#btn");
-            settime(obj);
-        }
-        function settime(obj) { //发送验证码倒计时
-            if (countdown == 0) {
-                obj.attr('disabled',false);
-                //obj.removeattr("disabled");
-                countdown = 60;
-                return;
-            } else {
-                obj.attr('disabled',true);
-                obj.val("重新发送(" + countdown + ")");
-                countdown--;
-            }
-            setTimeout(function() {
-                    settime(obj) }
-                ,1000)
-        }
-    </script>
+
 <body>
-<input type="button" id="btn" value="免费获取验证码" onclick="sendemail()" />
 
 </body>
+<script type="text/javascript">
+    $.ajax({
+        type: "POST",
+        url :  "http://localhost/tdu-base/DevelopScenesController/getFileForEditor.action",
+        data : {
+            userKey : "b971b9bc-18fb-4c2a-982f-7fa991a2a28e",
+            sceneContentKey : "d2826549-7c84-4fd5-ba10-f4fdf8c8b724"
+        },
+        async: false,
+        success : function(result) {
+
+            console.log(result)
+        }
+    });
+</script>
 </html>

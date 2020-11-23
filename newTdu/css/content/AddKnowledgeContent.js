@@ -143,6 +143,10 @@ function addUploading(){
 	var brosweFile=$("#brosweFile").val();
 	
 	var File1 = $("#fileupload")[0].files[0];
+    console.log($("#fileupload"))
+    console.log($("#fileupload")[0])
+    console.log($("#fileupload")[0].files)
+	console.log(File1)
 	if(File1==undefined){
 		$.messager.alert("提示","上传的文件不存在！");
 		return ;
@@ -164,6 +168,7 @@ function addUploading(){
     		data.append("treeNodeId",treeNodeId);
     		data.append("type",typeid);
     		data.append("file",File1);
+            console.log(data)
     		$.ajax({
     			type:"POST",
     			url: houtaiurl+url,
