@@ -132,6 +132,16 @@
             }else if(scene=="dbb7777c-0df5-47f2-9eb3-af0c0b383ef0"||scene=="e577ff7d-92d1-48c5-9f81-3674694963b0"
                 ||scene=="14df764a-9c64-4def-918c-1d8a33d929ad"||scene=="5eb2b1d8-9d54-497c-9e8f-68ce5932f947"){
                 window.open("https://tdu.tduvr.club/TDuCosmetics/index.html?"+link+"&key="+userId);
+            }else if(scene=="aab89d48-3ca2-41e5-abb5-5bd0513c613f"){
+                window.open("https://tdu.tduvr.club/BuildScan2/index-buildScan.html?"+link+"&key="+userId);
+            }else if(scene=="9e8612ac-856b-4911-8bba-a4fdaeb484e8"){
+                window.open("https://tdu.tduvr.club/BuildScan3/index-buildScan.html?"+link+"&key="+userId);
+            }else if(scene=="8a831eb3-db90-4303-aaa5-89c0e21effa7"){
+                window.open("https://tdu.tduvr.club/BuildScan4/index-buildScan.html?"+link+"&key="+userId);
+            }else if(scene=="6bfc6c42-f9dc-44ab-9c4f-d14ca15ca860"){
+                window.open("https://tdu.tduvr.club/BuildElectrical/index.html?"+link+"&key="+userId);
+            }else if(scene=="53e868c1-ec76-4ea7-85e7-56133aa315e0"){
+                window.open("https://tdu.tduvr.club/TDuHunNingTu/show/hunningtu.html?"+link+"&key="+userId);
             }else if(scene=="4437df7e-ce70-4a88-a164-80f393d826a5"){
                 window.open("https://tdu.tduvr.club/TDuCo2fireSystem/index.html?"+link+"&key="+userId);
             }else if(scene == "8e6d8428-def5-427a-a88c-c621c25d69f4" || scene == "4018b621-52dc-4277-a48e-d3c4d5c35be2"
@@ -159,17 +169,10 @@
                 window.open("https://tdu.tduvr.club/TDuCultivatingCorals/index.html?"+link+"&key="+userId+"&");
             }else if(scene=="1fbc02bd-8c2f-43b7-a76e-bdfeb357d073"){
                 window.open("https://tdu.tduvr.club/bagualou/index.html");
-            } else{
-                let host = window.location.hostname;
-                let protocol = window.location.protocol;
-                console.log(typeof(Number(host.split(".")[0])))
-                if(typeof(Number(host.split(".")[0]))=="number"){
-                    window.open(protocol+"://"+host+":8501/TDuWebEngine/index.html?"+link);
-                }else{
-                    window.open("https://tdu.tduvr.club/TDuWebEngine/index.html?"+link);
-                }
-                console.log()
-                //window.open("https://tdu.tduvr.club/TDuWebEngine/index.html?"+link);
+            }else if(scene=="7be6e298-22fb-4baf-a91c-8abdf5666607"){
+                window.open("https://tdu.tduvr.club/TDuDemo/index.html?"+link+"&key="+userId+"&");
+            }  else{
+                window.open("https://tdu.tduvr.club/TDuWebEngine/index.html?"+link);
             }
         }
 

@@ -1044,8 +1044,7 @@ function getdivmodel(subid) {
 
 function getModelVRLink(modelId, mark, type) {
 
-    let content = "https://tdu.tduvr.club/TDuVRWebEngine/VRParameter.html";
-
+    let content = "content/cz/VRParameter.html";
     var count = mark;
     modelId = Base64.encode(modelId);
     mark = Base64.encode(mark);
