@@ -1,0 +1,25 @@
+a{
+    color:#ff0000;
+}
+
+span{
+    font-size:16px;
+    font-family:Segoe UI;
+    font-weight:bold;
+    line-height:31px;
+    color:rgba(255,255,255,1);
+    opacity:1;
+
+}
+
+.tishi {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 15%;
+    left: 0;
+    /* display: none; */
+    background: url(../images/tishilan.png) no-repeat;
+    /* margin-top: 80%; */
+    margin-left: 2%;
+}

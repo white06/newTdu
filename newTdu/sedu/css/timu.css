@@ -1,0 +1,54 @@
+.tixing{
+    z-index: 7;
+    position: absolute;
+    margin-top: 7%;
+    margin-left: 30%;
+    width: 588px;
+    height: 400px;
+    background: rgba(86,86,86,1);
+    border: 2px solid rgba(38,86,149,1);
+    opacity: 1;
+    border-radius: 10px;
+
+}
+
+.ques_body {
+    padding-top: 20px;
+    width: 80%;
+    height: auto;
+    margin-left: 10%;
+}
+ul.dks-pdkey {
+    padding: 6px;
+}
+ul.dks-pdkey li {
+    float: left;
+    width: 100%;
+}
+.dks-pdkey li {
+    word-break: break-all;
+    height: 45px;
+    font-size: 18px;
+    margin-top: 15px;
+}
+input:not([type="image" i]) {
+    box-sizing: border-box;
+}
+input[type="radio" i] {
+    background-color: initial;
+    cursor: default;
+    -webkit-appearance: radio;
+    box-sizing: border-box;
+    margin: 3px 3px 0px 5px;
+    padding: initial;
+    border: initial;
+}
+.shu{
+    font-size: 16px;
+    background-color: #000;
+    border: 0;
+    color: #fff;
+    outline: none;
+    /* font-size: 12px; */
+    width: 5%;
+}

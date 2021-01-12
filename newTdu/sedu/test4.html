@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>色度键控技术虚拟仿真实验测试题</title>
+    <link href="css/timu.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-3.5.1.js"></script>
+    <script src="js/layer/layer.js"></script>
+    <link href="css/layui.css" rel="stylesheet" type="text/css">
+<!--    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">-->
+
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+
+<!--    <meta name="viewport" content="width=device-width,initial-scale=1">-->
+<!--    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />-->
+<!--    <script src="bootstrap/js/bootstrap.min.js"></script>-->
+
+    <script>
+        var count=0;
+        var userId="4d272f66-9dac-4b87-a2a1-22b6e5910779";
+        $(function() {
+
+        });
+
+        function yuxi(yuxi){
+
+  
+                // $(window.parent.document).find("#lilun1").empty();
+                // $(window.parent.document).find("#lilun1").text(lilunsc);
+                // $(window.parent.document).find("#caozuo").val(caozuosc);
+                // $(window.parent.document).find("#zhunque").val(zhunquesc);
+                // $(window.parent.document).find("#sizheng").val(sizhengsc);
+                // $(window.parent.document).find("#chuangxin").val(chuangxinsc);
+                //$(window.parent.document).find("#showsc").click();
+            $.ajax({
+                type:"POST",
+                url:"https://www.tduvr.club/tdu-base/"+"ItemController/yuxi.action",
+                data:{"yuxi":yuxi,"userId":userId},
+                async:false,
+                success:function(res) {
+                    window.parent.location.reload(); //刷新父页面
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    parent.layer.close(index);  // 关闭layer
+                }
+            });
+        }
+      function tijiao() {
+          if($(".shu1:checked").val()=="B"){
+              count+=4;
+          }
+          if($(".shu2:checked").val()=="B"){
+              count+=4;
+          }
+          if($(".shu3:checked").val()=="C"){
+              count+=4;
+          }
+          console.log($(".shu3:checked").val());
+          if($(".shu4:checked").val()=="D"){
+              count+=4;
+          }
+          if($(".shu5:checked").val()=="D"){
+              count+=4;
+          }
+          yuxi(count/2);
+
+
+      }
+
+    </script>
+    <style>
+        body {
+            background: rgba(38,38,38,1);
+            margin:0px;
+            padding:0px;
+            color:#fff;
+            font-size:16px;}
+        /* 按钮样式 */
+        .funct input {
+            height: 30px;
+            width: 30px;
+            margin: 5px 5px;
+            font: 400 20px/40px "微软雅黑";
+        }
+        /* 清除按钮样式 */
+
+        /* 按钮样式 */
+        .funct input {
+            height: 30px;
+            width: 30px;
+            margin: 5px 5px;
+            font: 400 20px/40px "微软雅黑";
+        }
+
+
+
+
+        .tixing1{
+            z-index: 3;
+            /* position: absolute; */
+            /* margin-top: 15%; */
+        margin-left: 30%;
+            width: 588px;
+            height: 340px;
+            background: rgba(38,38,38,1);
+            /* border: 2px solid rgba(38,86,149,1); */
+            opacity: 1;
+            border-radius: 10px;
+        }
+
+
+
+
+    </style>
+</head>
+
+
+<body>
+<div class="tixing1" style=" display: block;">
+    <div class="ques_body" data-type="单选题" id="leixing">
+        <div style="word-break:break-all;font-size:18px;">1、在视频合成中，红色通道在RGB通道中拥有最高的亮度值。</div>
+        <ul class="dks-pdkey clear" style="margin-top:10px;">
+            <li><label><input type="radio" value="A" name="E1"  class="shu1">A、 对 </label></li>
+            <li><label><input type="radio" value="B" name="E1"  class="shu1">B、 错  </label></li>
+<!--            <li><label><input type="radio" value="C" name="E1"  class="shu1">C、 8080 </label></li>-->
+<!--            <li><label><input type="radio" value="D" name="E1"  class="shu1">D、 3381</label></li>-->
+        </ul>
+       
+    </div>
+    <!--    <div class="tixing-fontdiv"><span class="tixing-font">实验考核评价</span></div>-->
+
+    <!--    <div style="width: 500px;height: 400px;">-->
+    <!--        <div id="main"></div>-->
+    <!--    </div>-->
+</div>
+<div class="tixing1" style=" display: block;">
+    <div class="ques_body" data-type="单选题" id="leixing">
+        <div style="word-break:break-all;font-size:18px;">2、大部分高端高清数码摄影机传感器中绿色像点比红色或者蓝色像点在数量上多。</div>
+        <ul class="dks-pdkey clear" style="margin-top:10px;">
+            <li><label><input type="radio" value="A" name="E2"  class="shu2">A、对 </label></li>
+            <li><label><input type="radio" value="B" name="E2"  class="shu2">B、错</label></li>
+<!--            <li><label><input type="radio" value="C" name="E2"  class="shu2">C、ms17-010</label></li>-->
+<!--            <li><label><input type="radio" value="D" name="E2"  class="shu2">D、ms17-011</label></li>-->
+        </ul>
+       
+    </div>
+    <!--    <div class="tixing-fontdiv"><span class="tixing-font">实验考核评价</span></div>-->
+
+    <!--    <div style="width: 500px;height: 400px;">-->
+    <!--        <div id="main"></div>-->
+    <!--    </div>-->
+</div>
+<div class="tixing1" style=" display: block;">
+    <div class="ques_body" data-type="单选题" id="leixing">
+        <div style="word-break:break-all;font-size:18px;">3、绿幕比蓝幕更容易被较少的灯光照亮。</div>
+        <ul class="dks-pdkey clear" style="margin-top:10px;">
+            <li><label><input type="radio" value="A" name="E3"  class="shu3">A、对 </label></li>
+            <li><label><input type="radio" value="B" name="E3"  class="shu3">B、错</label></li>
+<!--            <li><label><input type="radio" value="C" name="E3"  class="shu3">C、只要把内存加大，就可以避免缓冲区溢出  </label></li>-->
+<!--            <li><label><input type="radio" value="D" name="E3"  class="shu3">D、缓冲区溢出的危害在于如果可以精确控制内存跳转地址，就可以执行指定代码，获得权限或破坏系统。</label></li>-->
+        </ul>
+       
+    </div>
+    <!--    <div class="tixing-fontdiv"><span class="tixing-font">实验考核评价</span></div>-->
+
+    <!--    <div style="width: 500px;height: 400px;">-->
+    <!--        <div id="main"></div>-->
+    <!--    </div>-->
+</div>
+<div class="tixing1" style=" display: block;">
+    <div class="ques_body" data-type="单选题" id="leixing">
+        <div style="word-break:break-all;font-size:18px;">4、使用背景幕时应保证幕布干净，褶皱和反光并不影响后期合成的效果。</div>
+        <ul class="dks-pdkey clear" style="margin-top:10px;">
+            <li><label><input type="radio" value="A" name="E4"  class="shu4">A、对</label></li>
+            <li><label><input type="radio" value="B" name="E4"  class="shu4">B、错</label></li>
+<!--            <li><label><input type="radio" value="C" name="E4"  class="shu4">C、密钥传输方便</label></li>-->
+<!--            <li><label><input type="radio" value="D" name="E4"  class="shu4">D、永恒之蓝勒索病毒采用AES加密</label></li>-->
+        </ul>
+       
+    </div>
+    <!--    <div class="tixing-fontdiv"><span class="tixing-font">实验考核评价</span></div>-->
+
+    <!--    <div style="width: 500px;height: 400px;">-->
+    <!--        <div id="main"></div>-->
+    <!--    </div>-->
+</div>
+
+<div class="tixing1" style=" display: block;">
+    <div class="ques_body" data-type="单选题" id="leixing">
+        <div style="word-break:break-all;font-size:18px;">5. 在拍摄中，光子反射导致人物边缘带有不可避免的色溢时，最好的办法是让主体靠近背景幕来减少色溢。</div>
+        <ul class="dks-pdkey clear" style="margin-top:10px;">
+            <li><label><input type="radio" value="A" name="E5"  class="shu5">A、对</label></li>
+            <li><label><input type="radio" value="B" name="E5"  class="shu5">B、错</label></li>
+<!--            <li><label><input type="radio" value="C" name="E5"  class="shu5">C、能发现开放端口 </label></li>-->
+<!--            <li><label><input type="radio" value="D" name="E5"  class="shu5">D、可防御网络攻击</label></li>-->
+        </ul>
+
+    </div>
+
+
+    <!--    <div class="tixing-fontdiv"><span class="tixing-font">实验考核评价</span></div>-->
+
+    <!--    <div style="width: 500px;height: 400px;">-->
+    <!--        <div id="main"></div>-->
+    <!--    </div>-->
+</div>
+
+
+<div class="tixing1" style=" display: block;">
+    <div class="ques_body" data-type="单选题" id="leixing">
+        <div style="word-break:break-all;font-size:18px;">6. 主光灯是最主要的灯光，它是角色照明中最主要的光源，根据合成使用的背景中最强光源的方向来匹配放置方位。</div>
+        <ul class="dks-pdkey clear" style="margin-top:10px;">
+            <li><label><input type="radio" value="A" name="E5"  class="shu5">A、对</label></li>
+            <li><label><input type="radio" value="B" name="E5"  class="shu5">B、错</label></li>
+            <!--            <li><label><input type="radio" value="C" name="E5"  class="shu5">C、能发现开放端口 </label></li>-->
+            <!--            <li><label><input type="radio" value="D" name="E5"  class="shu5">D、可防御网络攻击</label></li>-->
+        </ul>
+
+    </div>
+
+
+    <!--    <div class="tixing-fontdiv"><span class="tixing-font">实验考核评价</span></div>-->
+
+    <!--    <div style="width: 500px;height: 400px;">-->
+    <!--        <div id="main"></div>-->
+    <!--    </div>-->
+</div>
+<div class="tixing1" style=" display: block;">
+    <div class="ques_body" data-type="单选题" id="leixing">
+        <div style="word-break:break-all;font-size:18px;">7. 在棚内拍摄时，摄影棚的空间越小，反射的效果越大，造成色溢越轻微。</div>
+        <ul class="dks-pdkey clear" style="margin-top:10px;">
+            <li><label><input type="radio" value="A" name="E5"  class="shu5">A、对</label></li>
+            <li><label><input type="radio" value="B" name="E5"  class="shu5">B、错</label></li>
+            <!--            <li><label><input type="radio" value="C" name="E5"  class="shu5">C、能发现开放端口 </label></li>-->
+            <!--            <li><label><input type="radio" value="D" name="E5"  class="shu5">D、可防御网络攻击</label></li>-->
+        </ul>
+
+    </div>
+
+
+    <!--    <div class="tixing-fontdiv"><span class="tixing-font">实验考核评价</span></div>-->
+
+    <!--    <div style="width: 500px;height: 400px;">-->
+    <!--        <div id="main"></div>-->
+    <!--    </div>-->
+</div>
+<div class="tixing1" style=" display: block;">
+    <div class="ques_body" data-type="单选题" id="leixing">
+        <div style="word-break:break-all;font-size:18px;">8. 在拍摄夜晚或者场景包含了大量的冷光时，可能使用蓝色背景幕。</div>
+        <ul class="dks-pdkey clear" style="margin-top:10px;">
+            <li><label><input type="radio" value="A" name="E5"  class="shu5">A、对</label></li>
+            <li><label><input type="radio" value="B" name="E5"  class="shu5">B、错</label></li>
+            <!--            <li><label><input type="radio" value="C" name="E5"  class="shu5">C、能发现开放端口 </label></li>-->
+            <!--            <li><label><input type="radio" value="D" name="E5"  class="shu5">D、可防御网络攻击</label></li>-->
+        </ul>
+
+    </div>
+
+
+    <!--    <div class="tixing-fontdiv"><span class="tixing-font">实验考核评价</span></div>-->
+
+    <!--    <div style="width: 500px;height: 400px;">-->
+    <!--        <div id="main"></div>-->
+    <!--    </div>-->
+</div>
+<div class="tixing1" style=" display: block;">
+    <div class="ques_body" data-type="单选题" id="leixing">
+        <div style="word-break:break-all;font-size:18px;">9. 下图中的镜头拍摄时可使用绿色背景幕。</div>
+        <img src="img/sedu1.jpg" style="
+    width: 100%;
+">
+        <ul class="dks-pdkey clear" style="margin-top:10px;">
+            <li><label><input type="radio" value="A" name="E5"  class="shu5">A、对</label></li>
+            <li><label><input type="radio" value="B" name="E5"  class="shu5">B、错</label></li>
+            <!--            <li><label><input type="radio" value="C" name="E5"  class="shu5">C、能发现开放端口 </label></li>-->
+            <!--            <li><label><input type="radio" value="D" name="E5"  class="shu5">D、可防御网络攻击</label></li>-->
+        </ul>
+
+
+    </div>
+
+
+    <!--    <div class="tixing-fontdiv"><span class="tixing-font">实验考核评价</span></div>-->
+
+    <!--    <div style="width: 500px;height: 400px;">-->
+    <!--        <div id="main"></div>-->
+    <!--    </div>-->
+</div>
+<div class="tixing1" style=" display: block;">
+    <div class="ques_body" data-type="单选题" id="leixing">
+        <div style="word-break:break-all;font-size:18px;">10. 下图中，C组灯是为背景幕提供均匀光照的幕灯。</div>
+        <img src="img/sedu2.jpg" style="
+    width: 100%;
+">
+        <ul class="dks-pdkey clear" style="margin-top:10px;">
+            <li><label><input type="radio" value="A" name="E5"  class="shu5">A、对</label></li>
+            <li><label><input type="radio" value="B" name="E5"  class="shu5">B、错</label></li>
+            <!--            <li><label><input type="radio" value="C" name="E5"  class="shu5">C、能发现开放端口 </label></li>-->
+            <!--            <li><label><input type="radio" value="D" name="E5"  class="shu5">D、可防御网络攻击</label></li>-->
+        </ul>
+
+    </div>
+
+
+    <!--    <div class="tixing-fontdiv"><span class="tixing-font">实验考核评价</span></div>-->
+
+    <!--    <div style="width: 500px;height: 400px;">-->
+    <!--        <div id="main"></div>-->
+    <!--    </div>-->
+</div>
+<div style="margin-left: 50%;margin-top: 20%;
+    margin-bottom: 2%;">
+    <botton class="layui-btn layui-btn-normal" onclick="tijiao()">提交</botton>
+</div>
+<!--<a id="next" style="    width: 90px;-->
+<!--    height: 36px;-->
+<!--    display: block;-->
+<!--    color: #fff;-->
+<!--    background: #10ABF5;-->
+<!--    text-align: center;-->
+<!--    /* float: right; */-->
+<!--    margin-left: 40%;-->
+<!--    margin-top: 60%;" onclick="tijiaodaan()">确定</a>-->
+</body>
+</html>

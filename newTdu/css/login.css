@@ -161,8 +161,9 @@ span{
      }
      canvas {
        display: block;
-       position: absolute;
-       top: 0%;
+		 /*float: right;*/
+       /*position: absolute;*/
+       /*top: 0%;*/
        z-index:1;;
      }
    #particles-js {

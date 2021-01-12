@@ -1,0 +1,204 @@
+@charset "utf-8";
+body {
+    background: url('../images/windows.png');
+    width:100%;
+    height:100%;
+    background-size: 100%,100%;
+    background-repeat: no-repeat;
+    margin:0px;
+    padding:0px;
+    color:#fff;
+    font-size:16px;}
+.window {
+    z-index:-1;
+    border: 2px #ccc outset;
+    width:891px;
+    height:597px;
+    background-color:#000;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    overflow:hidden}
+.title {
+    /*width:100%;*/
+    /*height:100%;*/
+    /*background-size:cover;*/
+    /*position:absolute;*/
+    /*top:0;left:0;*/
+    /*background: url('../images/linux-top.png')*/
+    /*background-color:#08246B;*/
+    /*padding:2px;*/
+}
+#text {
+    background-color:#000;
+    border-top:#ccc outset 2px;
+    height:530px;
+    overflow-y:scroll;}
+ul {
+    margin:0px;
+    padding:0px;
+    list-style:none;
+}
+input {
+    font-size:16px;
+    background-color:#000;
+    border:0;
+    color:#fff;
+    outline:none;
+    /*font-size:12px;*/
+    width:100%}
+.test{
+    width:1099px;
+    height:68%;
+    margin-top: 9%;
+    margin-left: 18%;
+background:rgba(18,18,18,1);
+border:1px solid rgba(112,112,112,1);
+opacity:1;
+}
+
+.top{
+    margin-top: 5%;
+    margin-left: 5%;
+}
+.top-font{
+    width:603px;
+    height:41px;
+    font-size:31px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    line-height:41px;
+    color:rgba(29,240,255,1);
+    opacity:1;
+}
+.content{
+    margin-top: 4%;
+    margin-left: 4%;
+    width:1011px;
+    height:391px;
+    background:rgba(255,255,255,1);
+    border:1px solid rgba(112,112,112,1);
+    opacity:1;
+}
+
+.video{
+    margin-top: 99px;
+    margin-left: 35%;
+    width:280px;
+    height:185px;
+    font-size:140px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    line-height:185px;
+    color:rgba(49,160,225,1);
+    opacity:0.52;
+}
+.foot{
+    margin-top: 3%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+}
+
+.foot-font{
+    width:998px;
+    height:53px;
+    font-size:16px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    line-height:21px;
+    color:rgba(29,240,255,1);
+    opacity:1;
+}
+
+.touxiang{
+    margin-top: 15%;
+    margin-left: 22%;
+    float: left;
+}
+.guanbi{
+    margin-top: 28%;
+    margin-left: 55%;
+}
+
+.guanbi-font{
+    width:228px;
+    height:75px;
+    font-size:57px;
+    font-family:Microsoft YaHei;
+    font-weight:bold;
+    line-height:75px;
+    color:rgba(80,219,98,1);
+    -webkit-text-stroke:1 rgba(26,57,34,1);
+    text-stroke:1 rgba(26,57,34,1);
+    opacity:1;
+}
+.jinggao{
+    z-index: 2;
+    position: absolute;
+    width:60%;
+}
+
+.tishi{
+    margin-top: 2%;
+    width:795px;
+    height:238px;
+    background:rgba(18,18,18,0.5);
+    border:1px solid rgba(171,171,171,1);
+    border-radius:10px;
+}
+
+.tishi-font{
+
+    font-size:19px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    line-height:25px;
+    color:#FFFFFF;
+}
+.tishi-top{
+    margin-top: 6%;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+.window1{
+    z-index: -1;
+    position:absolute;
+    margin-top: 8%;
+    margin-left: 25%;
+    width:850px;
+    height:599px;
+    background: url("../images/gongji1.png") no-repeat;
+    background-size: 100%;
+}
+.window2{
+    margin-top: 14%;
+    margin-left: 20%;
+    z-index: 2;
+    position: absolute;
+    width: 676px;
+    height: 478px;
+    background: url(../images/gongji2.png) no-repeat;
+    background-size: 100%;
+}
+.window3{
+    margin-top: 20%;
+    margin-left: 26%;
+    z-index: 2;
+    position: absolute;
+    width: 292px;
+    height: 341px;
+    background: url(../images/gongji4.png) no-repeat;
+    background-size: 100%;
+}
+.window4{
+    margin-top: 20%;
+    margin-left: 42%;
+    z-index: 2;
+    position: absolute;
+    width: 338px;
+    height: 350px;
+    background: url(../images/gongji3.png) no-repeat;
+    background-size: 100%;
+}

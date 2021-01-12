@@ -1,0 +1,31 @@
+a{
+    color:#ff0000;
+}
+
+span{
+    vertical-align: middle;
+    font-size: 14px;
+
+    transition: all .2s;
+    -webkit-transition: all .2s;
+    position: relative;
+    line-height: 40px;
+    max-width: 135px;
+    margin: 18px 10px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+
+}
+
+.tishi {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 15%;
+    left: 0;
+    /* display: none; */
+    background: url(../images/tishilan.png) no-repeat;
+    /* margin-top: 80%; */
+    margin-left: 2%;
+}

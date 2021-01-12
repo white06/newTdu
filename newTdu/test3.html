@@ -1,30 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <script src="https://xiangyuecn.github.io/Recorder/recorder.mp3.min.js"></script>
-</head>
-<body>
-<input type="button" onclick="startRec()" value="开始录音">
-<hr>
-<input type="button" onclick="playRec()" value="结束并播放">
-<input type="button" onclick="uploadRec()" value="结束并上传">
+    <meta charset="utf-8">
+    <script type="text/javascript" src="http://116.63.178.23:8000/web-apps/apps/api/documents/api.js"></script>
+    </style></head>
+    <body>
+    <div id="placeholder" class = "nav"></div>
 
-<script>
-    var rec;
-    function startRec(){
-        rec=Recorder();//使用默认配置，mp3格式
 
-        //打开麦克风授权获得相关资源
-        rec.open(function(){
-            //开始录音
-            rec.start();
-        },function(msg,isUserNotAllow){
-            //用户拒绝了权限或浏览器不支持
-            alert((isUserNotAllow?"用户拒绝了权限，":"")+"无法录音:"+msg);
-        });
-    };
-</script>
-</body>
-</html>
+      </body>
+<script language="javascript" type="text/javascript">
+    new DocsAPI.DocEditor("placeholder", {
+    "document": {
+    "fileType": "docx",
+    "key": "12NAFE",
+    "title": "test6.docx",
+    "url": "你需要编辑word文件的url"
+    },
+    "documentType": "text",
+    "width": "1600px",
+    "height": "900px",
+    "editorConfig": {
+    "callbackUrl": "编辑word后保存时回调的地址，这个api需要自己写了，将编辑后的文件通过这个api保存到自己想要的位置"
+    },
+    "permissions": {
+    "comment": true,
+    "download": true,
+    "edit": true,
+    "fillForms": true,
+    "print": true,
+    "review": true
+    }
+    });
+
+</script></html>

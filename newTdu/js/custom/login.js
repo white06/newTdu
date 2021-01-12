@@ -3,8 +3,6 @@ $(function () {
     $("#loginTel").hide();
 });
 
-var telFlag=false;
-
 
 function getTelphone2() {
     var telphone = $("#telphone2").val();
@@ -336,7 +334,7 @@ function loginByTel() {
 }
 
 //登陆点击事件
-function login() {
+function loginOnline() {
     var UserName = $("#UserName").val();
     var PassWord = $("#PassWord").val();
     if (!UserName.length > 0) {

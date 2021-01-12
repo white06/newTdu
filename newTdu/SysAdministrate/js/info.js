@@ -40,10 +40,12 @@ function tijiao(){
     var File1 = $("#fileupload")[0].files[0];
     var data= new FormData;
     if(File1==undefined){
-        layer.msg("未上传文件")
+        layer.msg("未上传文件");
         data.append("file",null);
-    }else {
+    }else if(File1.type=="image/png"||File1.type=="mage/vnd.microsoft.icon"||File1.type=="image/jpeg"){
         data.append("file",File1);
+    }else{
+        layer.alert("上传头像格式错误，请上传jpg,png,ico格式");
     }
     data.append("name",name);
     data.append("password",password);
