@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+
+    <!-- 引入样式 -->
+<!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <link rel="stylesheet" href="css/element_ui.css">
+
+
+    <style>
+        .el-dropdown-link {
+            cursor: pointer;
+            color: #409EFF;
+        }
+        .el-icon-arrow-down {
+            font-size: 12px;
+        }
+    </style>
+    <script src="js/jquery-1.8.3.min.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <!--模糊查询-->
+        <el-form-item>
+            <el-input placeholder="请输入学校名称"  @blur="relsh" v-model="inputVal" ></el-input>
+        </el-form-item>
+        <el-button type="primary" icon="el-icon-search" @click="schfilter" >模糊搜索</el-button>
+
+        <!--多条件查询-->
+        <el-form-item style="margin-left: 15px;" label="省份">
+                <el-select @change="proChange" v-model="provincesValue" placeholder="请选择省份">
+                    <el-option
+                            v-for="(option,index) in provinces"
+                            :key="index"
+                            :label="option"
+                            :value="index">
+                    </el-option>
+                </el-select>
+        </el-form-item>
+        <el-form-item label="城市">
+            <el-select @change="cityChange"  v-model="cityValue" placeholder="请选择省份">
+                <el-option
+                        v-for="(option,index) in citys"
+                        :key="index"
+                        :label="option"
+                        :value="index">
+                </el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item>
+            <el-button  @click="getProCity" type="primary" @click="onSubmit">查询</el-button>
+        </el-form-item>
+    </el-form>
+
+    <!-- 表格 -->
+    <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%">
+        <el-table-column prop="name" label="学校名称" width="180">
+        </el-table-column>
+        <el-table-column prop="sheng" label="省份">
+        </el-table-column>
+        <el-table-column prop="shi" label="城市">
+        </el-table-column>
+        <el-table-column prop="address" label="地址">
+        </el-table-column>
+        <el-table-column prop="roleName" label="联系人" >
+        </el-table-column>
+        <el-table-column prop="roleJob" label="职务" >
+        </el-table-column>
+        <el-table-column prop="rolePhone" label="电话" >
+        </el-table-column>
+        <el-table-column prop="itemCount" label="合作项目次数" >
+        </el-table-column>
+        <el-table-column prop="item" label="合作项目" >
+            <template slot-scope="scope">
+            <el-select v-model="scope.row.value" placeholder="请选择">
+                <el-option
+                        v-for="option in scope.row.item"
+                        :key="option"
+                        :label="option"
+                        :value="option">
+                </el-option>
+            </el-select>
+            </template>
+        </el-table-column>
+
+        <el-table-column label="操作">
+            <template slot-scope="scope">
+                <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+<!--    <el-pagination-->
+<!--            layout="prev, pager, next"-->
+<!--            //:total="total"-->
+<!--            :total="total"-->
+<!--            @current-change="current_change">-->
+<!--    </el-pagination>-->
+    <!-- 分页器 -->
+    <div class="block" style="margin-top:15px;">
+        <el-pagination align='center' @size-change="handleSizeChange" @current-change="current_change"
+                       :current-page="currentPage"
+                       :page-sizes="[1,5,10,20]"
+                       :page-size="pagesize"
+                       layout="total, sizes, prev, pager, next, jumper"
+                       :total="tableData.length">
+        </el-pagination>
+    </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="js/element_ui.js"></script>
+<script src="js/proCity.js"></script>
+<!-- 引入组件库 -->
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            cityChose:'',
+            citFlag:false,
+            chosePro:'',
+            cityValue:'',
+            provincesValue:'',
+            provinces:[],
+            citys:[],
+            tableData: [],
+            formInline: {
+                user: '',
+                region: ''
+            },
+            inputVal: '', //模糊搜索
+            value: '', //下拉框
+            dataReturn: [],
+            total: 0,  //总条数
+            pagesize:10,  //每页的数据条数
+            currentPage:1  // 当前页码
+        },
+        computed: {
+        },
+        mounted() {
+            this.provinces = province;
+            console.log(this.provinces)
+            this.addUser();
+            //this.total = this.tableData.length;
+            //this.dataReturn = this.tableData
+            //console.log(total);
+            // let dems=0
+            // const demo =setInterval(()=>{
+            //     dems+=1;
+            //     if(dems==1){
+            //         console.log("---->")
+            //         clearInterval(demo)
+            //         this.addUser()
+            //     }
+            // },300)
+        },
+        methods:{
+
+            schfilter(){
+                this.tableData = this.dataReturn;
+                if(this.inputVal!=""){
+                    this.tableData = this.tableData.filter( item => (~item.name.indexOf(this.inputVal)));
+                }else{
+                    this.tableData = this.dataReturn;
+                }
+
+            },
+            relsh(){
+              console.log(this.inputVal)
+            },
+            //多条件查询
+            onSubmit() {
+                console.log('submit!');
+            },
+            proChange(val){
+                this.chosePro = this.provinces[val]
+                if (val) {
+                    this.citys = city[val]
+                }
+            },
+            cityChange(val){
+                if(val){
+                    this.citFlag = true;
+                    this.cityChose = this.citys[val];
+                }else{
+                    this.citFlag = false;
+                }
+            },
+            getProCity(){
+                if(this.citFlag){
+                    this.tableData = this.dataReturn;
+                    if(this.cityChose!=""){
+                        this.tableData = this.tableData.filter( item => (~item.shi.indexOf(this.cityChose)));
+                    }
+                }else{
+                    this.tableData = this.dataReturn;
+                    if(this.chosePro!=""){
+                        this.tableData = this.tableData.filter( item => (~item.sheng.indexOf(this.chosePro)));
+                    }
+                }
+            },
+            //每页条数改变时触发 选择一页显示多少行
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+                this.currentPage = 1;
+                this.pagesize = val;
+            },
+            //当前页改变时触发 跳转其他页
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+                this.currentPage = val;
+            },
+
+            //编辑
+            handleEdit(index, row) {
+                console.log(index, row);
+                console.log(row.id);
+                window.location.href='edit.html?customerId='+row.id;
+            },
+            //删除
+            handleDelete(index, row) {
+                console.log(index, row);
+                console.log(row.id);
+                $.ajax({
+                    url: 'http://192.168.0.94:8080/tdu-base/ItemController/delCustomer.action?customerId='+row.id,
+                    //data: {"customerId": row.id},
+                    type: 'post',
+                    contentType: 'application/json',
+                    dataType: 'JSON',
+                    // cache: false,
+                    //processData: str1,// 告诉jQuery不要去处理发送的数据
+                    // contentType: false,// 告诉jQuery不要去设置Content-Type请求头
+
+                    success: function (data) {
+                        // if (data.respCode == 'success') {
+                        //     vue.BatchInforResponseVO = data.batchInforResponseVOList;
+                        //     vue.totalPage = data.totalPage;
+                        // } else {
+                        //     vue.show = true;
+                        //     vue.content = data.respMsg;
+                        // }
+                        console.log(data)
+                        app.addUser();
+                    },
+                    error: function (data) {
+                        console.log(data)
+                    }
+                })
+            },
+            //获取初始数据 tableData
+            addUser() {
+                // axios({
+                //     method:'POST',
+                //     url:'http://192.168.0.94:8080/tdu-base/ItemController/getCustomers.action'
+                // }).then(function(res){
+                //     console.log(this.tableData)
+                //     console.log(res.data);
+                //     this.tableData = res.data;
+                //     this.total = res.data.length;
+                //     this.dataReturn = res.data;
+                //     console.log(this.tableData)
+                //     console.log(this.total)
+                // });
+                this.$http.post('http://192.168.0.94:8080/tdu-base/ItemController/getCustomers.action').then(function(res){
+                    this.tableData = res.data;
+                    this.total = res.data.length;
+                    this.dataReturn = res.data;
+                },function(){
+                    console.log('请求失败处理');
+                });
+
+            },
+            current_change:function(currentPage){
+                this.currentPage = currentPage;
+            },
+
+        },
+
+        watch:{
+
+        },
+
+        filters:{},
+    })
+</script>
+</html>

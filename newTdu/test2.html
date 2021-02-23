@@ -1,55 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset=utf-8>
+    <link rel="stylesheet" href="js/layui/css/layui.css">
+    <script src="js/custom/jquery-3.5.1.js"></script>
+    <script src="js/api.js"></script>
 </head>
-
-<style>
-    .fl{
-        float: left;
-    }
-    .form{
-        position: relative;
-    }
-    .tips{
-        position: absolute;
-        width: 100px;
-        top: 0;
-        left: 210px;
-    }
-    .A{
-        width: 1000px;
-        overflow: hidden;
-        position: absolute;
-    }
-   .B{
-        /*overflow: hidden;*/
-        position: relative;
-    }
-    .clearfix:after {
-        clear: both;
-        content: ".";
-        display: block;
-        height: 0;
-        visibility: hidden;
-    }
-</style>
-
-
 <body>
-
-
-<div class="form A">
-    <div class="fl"><span>*</span>键名</div>
-    <div class="fl B">
-        <input />
-        <div class="tips">
-            <p>可设置2~100之间两位小数</p><p>可设置2~100之间两位小数</p><p>可设置2~100之间两位小数</p><p>可设置2~100之间两位小数</p><p>可设置2~100之间两位小数</p><p>可设置2~100之间两位小数</p><p>可设置2~100之间两位小数</p><p>可设置2~100之间两位小数</p><p>可设置2~100之间两位小数</p><p>可设置2~100之间两位小数</p><p>可设置2~100之间两位小数</p><p>可设置2~100之间两位小数</p>
-        </div>
+<div style="width:100%;height:90%;margin:0 auto;padding-top: 10%;">
+    <div style="width: 140px;height:30px;margin:0 auto;">
+        <input id="file1" type="file" value="选择文件">
+    </div>
+    <div style="width: 80px;height:30px;margin:0 auto;margin-top:30px;">
+        <input type="button" value="上传" onclick="test()" style="width:100%;height:100%;">
+    </div>
+    <div style="width:400px;height:80px;margin:0 auto;margin-top:30px;">
+        <ol>
+            <li style="display: inline-block;">导入表格模板请按照给定的模板</li>
+            <a style="display: inline-block; color:red" href="导入文件.xls" download="导入文件.xls">点我下载excel模板文件</a>
+            <li>请必须在每一个表格的工作簿写上需要导入的班级名</li>
+        </ol>
     </div>
 </div>
-
-
 </body>
-</html>
+<script>
+    function test(){
+        //console.log(1111111)
+        var fd=new FormData;
+        var file=$('#file1')[0].files[0];
+        console.log(file+"----11");
+        fd.append("file",file);
+        $.ajax({
+            type:"POST",
+            url:houtaiurl+"ItemController/getFile.action",
+            data:fd,
+            contentType: false,
+            processData: false,
+            success:function(data){
+                // $("#file1").val("");
+                // var index1 = parent.layer.getFrameIndex(window.name);
+                // parent.layer.close(index1);
+                // window.parent.location.reload();
+                // alert(data);
+            }
+        })
+    }
+</script>

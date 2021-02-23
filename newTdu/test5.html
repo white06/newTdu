@@ -8,18 +8,49 @@
 
 </body>
 <script type="text/javascript">
+    $(function () {
+        getName();
+
+    });
+function getName(){
+    // $.ajax({
+    //     type: "POST",
+    //     url :  "http://localhost:8080/tdu-base/BusinessController/insBusiness.action",
+    //      data :{"id":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "name":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "customerId":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "businessId":"4984f884-e8f6-4618-85cf-464d0cb6b208",//用户id
+    //          "lastTime":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "content":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "type":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "budget":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "billTime":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "phase":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "possibility":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "number":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "founder":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "collaboration":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "creationTime":"4984f884-e8f6-4618-85cf-464d0cb6b208",
+    //          "beizhu":"4984f884-e8f6-4618-85cf-464d0cb6b208"},
+    //     async: false,
+    //     success : function(result) {
+    //
+    //         console.log(result);
+    //     }
+    // });
+
+
     $.ajax({
         type: "POST",
-        url :  "http://localhost/tdu-base/DevelopScenesController/getFileForEditor.action",
-        data : {
-            userKey : "b971b9bc-18fb-4c2a-982f-7fa991a2a28e",
-            sceneContentKey : "d2826549-7c84-4fd5-ba10-f4fdf8c8b724"
-        },
+        url :  "http://localhost:8080/tdu-base/BusinessController/getFollow.action",
+        data :{"busId":"658a42e4-b48a-4714-8d82-4d35ab741dcb"},
         async: false,
         success : function(result) {
 
-            console.log(result)
+            console.log(result);
         }
     });
+}
+
 </script>
 </html>

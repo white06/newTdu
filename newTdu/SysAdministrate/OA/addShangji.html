@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+
+    <!-- 引入样式 -->
+<!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <link rel="stylesheet" href="css/element_ui.css">
+    <!-- 引入组件库 -->
+<!--    <script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+    <script src="js/element_ui.js"></script>
+
+    <style>
+        .el-dropdown-link {
+            cursor: pointer;
+            color: #409EFF;
+        }
+        .el-icon-arrow-down {
+            font-size: 12px;
+        }
+    </style>
+    <script src="js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <el-form ref="form" :model="form" label-width="80px" style="width: 70%;margin: 0 auto;" >
+        <el-form-item label="商机标题">
+            <el-input v-model="form.shangjiName"></el-input>
+        </el-form-item>
+        <el-form-item label="所属部门">
+            <el-select v-model="form.bumen" placeholder="请选择部门">
+                <el-option label="商务部" value="shangwu"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="负责人">
+            <el-select v-model="form.businessId" placeholder="请选择负责人">
+                <el-option label="管理员" value="4d272f66-9dac-4b87-a2a1-22b6e5910779"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="客户">
+                    <el-select v-model="form.customerId" placeholder="请选择客户">
+                        <el-option
+                                v-for="(option,index) in valueContent"
+                                :key="index"
+                                :label="option.name"
+                                :value="option.id">
+                        </el-option>
+                    </el-select>
+        </el-form-item>
+        <el-form-item label="跟进时间">
+            <el-col :span="11">
+                <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+            </el-col>
+            <el-col class="line" :span="2">-</el-col>
+            <el-col :span="11">
+                <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
+            </el-col>
+        </el-form-item>
+        <el-form-item label="跟进方式">
+            <el-select v-model="form.type" placeholder="请选择跟进方式">
+                <el-option label="线上" value="1"></el-option>
+                <el-option label="电话" value="2"></el-option>
+                <el-option label="访谈" value="3"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="跟进内容">
+            <el-input v-model="form.content"></el-input>
+        </el-form-item>
+        <el-form-item label="销售金额">
+            <el-input v-model="form.budget"></el-input>
+        </el-form-item>
+        <el-form-item label="销售阶段">
+            <el-select v-model="form.phase" placeholder="请选择活动区域">
+                <el-option label="初谈" value="1"></el-option>
+                <el-option label="合作" value="2"></el-option>
+                <el-option label="赢单" value="3"></el-option>
+                <el-option label="输单" value="4"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="预计签单">
+            <el-col :span="11">
+                <el-date-picker type="date" placeholder="选择日期" v-model="form.date3" style="width: 100%;"></el-date-picker>
+            </el-col>
+            <el-col class="line" :span="2">-</el-col>
+            <el-col :span="11">
+                <el-time-picker placeholder="选择时间" v-model="form.date4" style="width: 100%;"></el-time-picker>
+            </el-col>
+        </el-form-item>
+        <el-form-item label="可能性">
+            <el-input v-model="form.possibility"></el-input>
+        </el-form-item>
+        <el-form-item label="编号">
+            <el-input v-model="form.number"></el-input>
+        </el-form-item>
+        <el-form-item label="跟进人">
+            <el-input v-model="form.collaboration"></el-input>
+        </el-form-item>
+        <el-form-item label="添加时间">
+            <el-col :span="11">
+                <el-date-picker type="date" placeholder="选择日期" v-model="form.date5" style="width: 100%;"></el-date-picker>
+            </el-col>
+            <el-col class="line" :span="2">-</el-col>
+            <el-col :span="11">
+                <el-time-picker placeholder="选择时间" v-model="form.date6" style="width: 100%;"></el-time-picker>
+            </el-col>
+        </el-form-item>
+        <el-form-item label="备注">
+            <el-input type="textarea" v-model="form.beizhu"></el-input>
+        </el-form-item>
+
+
+        <el-form-item>
+            <el-button type="primary" @click="onSubmit">立即添加</el-button>
+            <el-button>取消</el-button>
+        </el-form-item>
+    </el-form>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            //valueContent: '', //下拉框
+            valueContent: [],
+            form: {
+                shangjiName: '',
+                bumen: '',
+                businessId: '',
+                customerId: '',
+                date1: "",
+                date2: '',
+
+                lastTime: '',
+
+                type: '',
+                content: '',
+                budget: '',
+                phase: '',
+                date3: '',
+                date4: '',
+
+                billTime: " ",
+
+                possibility: '',
+                number: '',
+                collaboration: '0',
+                founder:"0",
+                date5: '',
+                date6: '',
+
+                creationTime:" ",
+
+                beizhu: '',
+
+            }
+        },
+        computed: {
+        },
+        methods:{
+            formatDate1: function (value) {
+                let date = new Date(value);
+                let y = date.getFullYear();
+                let MM = date.getMonth() + 1;
+                MM = MM < 10 ? ('0' + MM) : MM;
+                let d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                let h = date.getHours();
+                return y + '-' + MM + '-' + d + '';
+            },
+            formatDate2: function (value) {
+                let date = new Date(value);
+                let h = date.getHours();
+                h = h < 10 ? ('0' + h) : h;
+                let m = date.getMinutes();
+                m = m < 10 ? ('0' + m) : m;
+                let s = date.getSeconds();
+                s = s < 10 ? ('0' + s) : s;
+                return h + ':' + m + ':' + s;
+            },
+            formatDate: function (value) {
+                let date = new Date(value);
+                let y = date.getFullYear();
+                let MM = date.getMonth() + 1;
+                MM = MM < 10 ? ('0' + MM) : MM;
+                let d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                let h = date.getHours();
+                h = h < 10 ? ('0' + h) : h;
+                let m = date.getMinutes();
+                m = m < 10 ? ('0' + m) : m;
+                let s = date.getSeconds();
+                s = s < 10 ? ('0' + s) : s;
+                return y + '-' + MM + '-' + d + '' + h + ':' + m + ':' + s;
+            },
+            checkparam: function () {
+
+                // if (this.batchInforRequestVO.appkey == '' && this.batchInforRequestVO.batchnum == '') {
+                //     vue.showcontent = true;
+                //     vue.content = '查询参数不可以为空!';
+                //     return false
+                // }
+                // else {
+                //     return true
+                // }
+                return true
+
+            },
+
+            onSubmit() {
+                console.log('submit!');
+                this.form.date1 = this.formatDate1(this.form.date1)
+                this.form.date2 = this.formatDate2(this.form.date2)
+                this.form.date3 = this.formatDate1(this.form.date3)
+                this.form.date4 = this.formatDate2(this.form.date4)
+                this.form.date5 = this.formatDate1(this.form.date5)
+                this.form.date6 = this.formatDate2(this.form.date6)
+                this.form.lastTime = this.form.date1+" "+this.form.date2;
+                this.form.billTime = this.form.date3+" "+this.form.date4;
+                this.form.creationTime = this.form.date5+" "+this.form.date6;
+                console.log(this.form);
+                var data = JSON.stringify(this.form); // 这里才是你的表单数据
+
+                if (!app.checkparam()) {
+                    return
+                };
+                //da.append("name", this.name)可以逐次添加多个参数
+                console.log(data)
+
+                console.log(this.form);
+                $.ajax({								        //ajax提交
+                    type:"POST",								//post方式
+                    url:"../../../tdu-base/BusinessController/insBusiness.action",			//请求路径
+                    dataType: 'JSON',						//json格式，返回的数据类型
+                    data :{
+                        "name":this.form.shangjiName,
+                        "customerId":this.form.customerId,
+                        "businessId":this.form.businessId,//用户id
+                        "lastTime":this.form.lastTime,
+                        "content":this.form.content,
+                        "type":this.form.type,
+                        "budget":this.form.budget,
+                        "billTime":this.form.billTime,
+                        "phase":this.form.phase,
+                        "possibility":this.form.possibility,
+                        "number":this.form.number,
+                        "founder":this.form.founder,
+                        "collaboration":this.form.collaboration,
+                        "creationTime":this.form.creationTime,
+                        "beizhu":this.form.beizhu},
+                    success:function(result){
+                       console.log(result)
+                    }
+                });
+
+            },
+
+        },
+
+        mounted: function () {
+            $.ajax({
+                url: '../../../tdu-base/ItemController/getCustomers.action',
+                type: 'post',
+                contentType: 'application/json',
+                dataType: 'JSON',
+                success: function (data) {
+                    for (let i= 0;i<data.length;i++){
+                        app.valueContent.push(data[i])
+                    }
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            })
+        },
+        watch:{
+
+        },
+
+        filters:{},
+    })
+</script>
+</html>

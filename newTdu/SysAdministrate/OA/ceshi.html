@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+
+    <!-- 引入样式 -->
+    <!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <link rel="stylesheet" href="css/element_ui.css">
+
+
+    <style>
+        .el-dropdown-link {
+            cursor: pointer;
+            color: #409EFF;
+        }
+
+        .el-icon-arrow-down {
+            font-size: 12px;
+        }
+
+        body {
+            background-color: #F2F2F2;
+        }
+
+        .block {
+            display: inline-block;
+            width: 50%;
+        }
+        .el-form-item__content{
+            margin-left: 120px;
+        }
+    </style>
+    <script src="js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <div class="block" style="margin-top: 100px;">
+        <el-form ref="form" :model="form" label-width="80px" style="width: 70%;margin: 0 auto;">
+            <el-form-item label="商机标题">
+                <el-input v-model="form.shangjiName"></el-input>
+            </el-form-item>
+            <el-form-item label="对应客户">
+                <el-select v-model="form.customerId" placeholder="请选择客户">
+                    <el-option
+                            v-for="option in valueContent"
+                            :key="option"
+                            :label="option"
+                            :value="option">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="销售金额">
+                <el-input v-model="form.budget"></el-input>
+            </el-form-item>
+
+            <el-form-item label="预计签单">
+                <el-col :span="11">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="form.date3"
+                                    style="width: 100%;"></el-date-picker>
+                </el-col>
+                <el-col class="line" :span="2">-</el-col>
+                <el-col :span="11">
+                    <el-time-picker placeholder="选择时间" v-model="form.date4" style="width: 100%;"></el-time-picker>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="销售阶段">
+                <el-select v-model="form.phase" placeholder="请选择活动区域">
+                    <el-option label="初谈" value="1"></el-option>
+                    <el-option label="合作" value="2"></el-option>
+                    <el-option label="赢单" value="3"></el-option>
+                    <el-option label="输单" value="4"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="跟进方式">
+                <el-select v-model="form.type" placeholder="请选择跟进方式">
+                    <el-option label="线上" value="1"></el-option>
+                    <el-option label="电话" value="2"></el-option>
+                    <el-option label="访谈" value="3"></el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item label="可能性">
+                <el-input v-model="form.possibility"><i slot="suffix">%</i></el-input>
+            </el-form-item>
+            <el-form-item label="下次跟进">
+                <el-col :span="11">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="form.date5"
+                                    style="width: 100%;"></el-date-picker>
+                </el-col>
+                <el-col class="line" :span="2">-</el-col>
+                <el-col :span="11">
+                    <el-time-picker placeholder="选择时间" v-model="form.date6" style="width: 100%;"></el-time-picker>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="备注">
+                <el-input type="textarea" v-model="form.beizhu"></el-input>
+            </el-form-item>
+            <el-form-item label="商机编号">
+                <el-input v-model="form.number"></el-input>
+            </el-form-item>
+            <el-form-item label="跟进人">
+                <el-input v-model="form.collaboration"></el-input>
+            </el-form-item>
+
+        </el-form>
+
+    </div>
+
+    <!-- Form -->
+    <el-button style="position: absolute;top: 3%;right: 20%" type="text" @click="dialogFormVisible = true">新增跟进</el-button>
+
+    <el-dialog title="新增跟进" :visible.sync="dialogFormVisible" >
+        <el-form  :model="diag" label-width="120px" class="demo-ruleForm" >
+            <el-form-item label="跟进内容" :label-width="formLabelWidth">
+                <el-input v-model="diag.name" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="跟进时间">
+                <el-col :span="7">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="diag.date1"></el-date-picker>
+                </el-col>
+                <el-col class="line" :span="1">-</el-col>
+                <el-col :span="7">
+                    <el-time-picker placeholder="选择时间" v-model="diag.date2"></el-time-picker>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="跟进类别" :label-width="formLabelWidth">
+                <el-select v-model="diag.region" placeholder="请选择跟进类别">
+                    <el-option label="线上" value="1"></el-option>
+                    <el-option label="电话" value="2"></el-option>
+                    <el-option label="访谈" value="3"></el-option>
+                </el-select>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="addGengJin">确 定</el-button>
+        </div>
+    </el-dialog>
+
+
+    <div class="block" style="position: absolute;top: 100px;right: 0px;">
+        <el-timeline>
+            <el-timeline-item
+                    placement="top"
+                    v-for="(activity, index) in activities"
+                    :key="index"
+                    :timestamp="activity.lastTime">
+                <el-card>
+                    <h4>{{activity.userName}}</h4>
+                    <p>{{activity.content}}</p>
+                </el-card>
+            </el-timeline-item>
+        </el-timeline>
+    </div>
+
+
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="js/element_ui.js"></script>
+<!-- 引入组件库 -->
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            valueContent: [],
+            diag: {
+                lastTime:'',
+                name: '',
+                region: '',
+                date1: '',
+                date2: '',
+                delivery: false,
+                type: [],
+                resource: '',
+                desc: ''
+            },
+            formLabelWidth: '120px',
+            dialogFormVisible: false,
+            form: {
+                shangjiName: '',
+                customerId: '',
+                budget: '',
+                phase: '',
+                date3: '',
+                date4: '',
+
+                billTime: " ",
+
+                type: '',
+                possibility: '',
+                number: '',
+                collaboration: '0',
+                founder: "0",
+                date5: '',
+                date6: '',
+
+                creationTime: " ",
+
+                beizhu: '',
+
+            },
+            activities: [
+                {
+                    content: '支持使用图标',
+                    lastTime: '2018-04-12 20:46',
+                    userName: '小红',
+                }, {
+                    content: '支持自定义颜色',
+                    lastTime: '2018-04-03 20:46',
+                    userName: '小红',
+                }, {
+                    content: '支持自定义尺寸',
+                    lastTime: '2018-04-03 20:46',
+                    userName: '小红',
+                }, {
+                    content: '默认样式的节点',
+                    lastTime: '2018-04-03 20:46',
+                    userName: '小红',
+                }
+            ]
+
+        },
+        mounted() {
+            this.getkehu();
+            this.getCustorm();
+            this.getFollow();
+        },
+        computed: {},
+        methods: {
+            addGengJin(){
+                this.diag.date1 = this.formatDate1(this.diag.date1)
+                this.diag.date2 = this.formatDate2(this.diag.date2)
+                this.diag.lastTime = this.diag.date1+" "+this.diag.date2;
+                let str = this.GetRequest();
+                eval(str)
+                let busId = str.busId
+
+                $.ajax({								        //ajax提交
+                    type:"POST",								//post方式
+                    url:"http://192.168.0.94:8080/tdu-base/BusinessController/insFollow.action",			//请求路径
+                    dataType: 'JSON',						//json格式，返回的数据类型
+                    data :{
+                        "content":this.diag.name,
+                        "lastTime":this.diag.lastTime,
+                        "type":this.diag.region,
+                        "businessId":busId
+                    },
+                    success:function(result){
+                        console.log(result)
+                    }
+                });
+
+            },
+            formatDate1: function (value) {
+                let date = new Date(value);
+                let y = date.getFullYear();
+                let MM = date.getMonth() + 1;
+                MM = MM < 10 ? ('0' + MM) : MM;
+                let d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                let h = date.getHours();
+                return y + '-' + MM + '-' + d + '';
+            },
+            formatDate2: function (value) {
+                let date = new Date(value);
+                let h = date.getHours();
+                h = h < 10 ? ('0' + h) : h;
+                let m = date.getMinutes();
+                m = m < 10 ? ('0' + m) : m;
+                let s = date.getSeconds();
+                s = s < 10 ? ('0' + s) : s;
+                return h + ':' + m + ':' + s;
+            },
+            GetRequest() {
+                var url = location.search; //获取url中"?"符后的字串
+                var theRequest = new Object();
+                if (url.indexOf("?") != -1) {
+                    var str = url.substr(1);
+                    strs = str.split("&");
+                    for (var i = 0; i < strs.length; i++) {
+                        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                    }
+                }
+                return theRequest;
+            },
+            getkehu() {
+                this.$http.post('http://192.168.0.94:8080/tdu-base/ItemController/getCustomers.action').then(function (res) {
+                    console.log(res.data)
+                    console.log(this.valueContent)
+                    for (let i = 0; i < res.data.length; i++) {
+                        this.valueContent.push(res.data[i].name)
+                    }
+                }, function () {
+                    console.log('请求失败处理');
+                });
+            },
+            getFollow() {
+                let str = this.GetRequest();
+                eval(str)
+                let busId = str.busId
+                this.$http.post('http://192.168.0.94:8080/tdu-base/BusinessController/getFollow.action?busId=' + busId).then(function (res) {
+                    console.log(res.data)
+                    if (res.data.length > 0) {
+                        for (let i = 0; i < res.data.length; i++) {
+                            res.data[i].lastTime = this.formatDate(res.data[i].lastTime);
+                        }
+                    }
+                    this.activities = res.data
+
+                }, function () {
+                    console.log('请求失败处理');
+                });
+            },
+            formatDate: function (value) {
+                let date = new Date(value);
+                let y = date.getFullYear();
+                let MM = date.getMonth() + 1;
+                MM = MM < 10 ? ('0' + MM) : MM;
+                let d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                let h = date.getHours();
+                h = h < 10 ? ('0' + h) : h;
+                let m = date.getMinutes();
+                m = m < 10 ? ('0' + m) : m;
+                let s = date.getSeconds();
+                s = s < 10 ? ('0' + s) : s;
+                return y + '-' + MM + '-' + d + '' + h + ':' + m + ':' + s;
+            },
+            getCustorm() {
+                let str = this.GetRequest();
+                eval(str)
+                let busId = str.busId
+                this.$http.post('http://192.168.0.94:8080/tdu-base/BusinessController/getBusinessForid.action?busId=' + busId).then(function (res) {
+                    console.log(res.data)
+                    this.form.shangjiName = res.data.name;
+                    this.form.customerId = res.data.customer.name;
+                    this.form.budget = res.data.budget;
+                    this.form.phase = res.data.phase;
+                    this.form.type = res.data.follow.type
+                    this.form.possibility = res.data.possibility;
+                    this.form.number = res.data.number;
+                    this.form.founder = res.data.founder;
+                    this.form.collaboration = res.data.collaboration;
+                    this.form.beizhu = res.data.beizhu;
+                    this.form.date3 = new Date(res.data.billTime)
+                    this.form.date4 = new Date(res.data.billTime)
+                    this.form.date5 = new Date(res.data.creationTime)
+                    this.form.date6 = new Date(res.data.creationTime)
+                    // console.log(new Date(res.data.follow.lastTime))
+                    // console.log(res.data.billTime)
+                    // console.log(res.data.creationTime)
+                    this.form.billTime = res.data.billTime;
+                    this.form.creationTime = res.data.creationTime;
+                }, function () {
+                    console.log('请求失败处理');
+                });
+            }
+        },
+
+        watch: {},
+
+        filters: {}
+    })
+</script>
+</html>

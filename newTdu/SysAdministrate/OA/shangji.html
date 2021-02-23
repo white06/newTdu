@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+
+    <!-- 引入样式 -->
+<!--    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <link rel="stylesheet" href="css/element_ui.css">
+
+
+    <style>
+        .el-dropdown-link {
+            cursor: pointer;
+            color: #409EFF;
+        }
+        .el-icon-arrow-down {
+            font-size: 12px;
+        }
+        body{
+            background-color: #F2F2F2;
+        }
+    </style>
+    <script src="js/jquery-1.8.3.min.js"></script>
+<!--    <script src="js/layer/layer.js"></script>-->
+</head>
+<body>
+<div id="app">
+
+
+    <el-row style="z-index: 20;">
+<!--        <span style="color: #459DF5;font-size: 2rem;font-weight: bold;vertical-align: middle;">商机</span>-->
+        <div style="display: inline-block;position: absolute;right: 2rem;">
+            <el-button onclick="insert()">新增商机</el-button>
+            <el-button>导入</el-button>
+        </div>
+    </el-row>
+
+    <el-tabs type="border-card">
+        <el-tab-pane label="全部商机">
+
+            <el-form ref="form" :model="form" label-width="80px">
+                <el-form-item label="所属部门">
+                    <el-select v-model="form.bumen" placeholder="请选择部门">
+                        <el-option label="商务部" value="shangwu"></el-option>
+<!--                        <el-option label="区域二" value="beijing"></el-option>-->
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="负责人">
+                    <el-select v-model="form.fuzeren" placeholder="请选择用户">
+                        <el-option label="吴茂平" value="shanghai"></el-option>
+                        <el-option label="吴锦涛" value="beijing"></el-option>
+                        <el-option label="韩思杰" value="beijing"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="对应客户">
+                    <el-select v-model="form.kehu" placeholder="全部客户">
+                        <el-option label="客户一" value="shanghai"></el-option>
+                        <el-option label="客户二" value="beijing"></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="我的商机">我的商机</el-tab-pane>
+        <el-tab-pane label="我下属的商机">我下属的商机</el-tab-pane>
+    </el-tabs>
+
+    <el-form :inline="true" :model="formInline" style="text-align: right;margin-top: 2rem" class="demo-form-inline">
+        <!--模糊查询-->
+        <el-form-item>
+            <el-input placeholder="请输入商机标题"  @blur="relsh" v-model="inputVal" ></el-input>
+        </el-form-item>
+        <el-button type="primary" icon="el-icon-search" @click="schfilter" >模糊搜索</el-button>
+    </el-form>
+
+    <!-- 表格 -->
+    <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%">
+        <el-table-column prop="name" sortable label="商机标题" width="180">
+        </el-table-column>
+        <el-table-column prop="customer.name" sortable label="对应客户">
+        </el-table-column>
+        <el-table-column prop="budget" sortable label="预计销售" >
+        </el-table-column>
+        <el-table-column prop="billTime" sortable label=" 预计签单" >
+        </el-table-column>
+        <el-table-column prop="phase" sortable label="销售阶段" >
+        </el-table-column>
+        <el-table-column prop="possibility" sortable label="签单可能性" >
+        </el-table-column>
+        <el-table-column prop="businessUser.name" sortable label="负责人" >
+        </el-table-column>
+        <el-table-column prop="follow.lastTime" sortable label="最近跟进记录" >
+        </el-table-column>
+
+        <el-table-column label="操作">
+            <template slot-scope="scope">
+                <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                <el-button
+                        size="mini"
+                        @click="handleView(scope.$index, scope.row)">查看</el-button>
+                <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+<!--    <el-pagination-->
+<!--            layout="prev, pager, next"-->
+<!--            //:total="total"-->
+<!--            :total="total"-->
+<!--            @current-change="current_change">-->
+<!--    </el-pagination>-->
+    <!-- 分页器 -->
+    <div class="block" style="margin-top:15px;">
+        <el-pagination align='center' @size-change="handleSizeChange" @current-change="current_change"
+                       :current-page="currentPage"
+                       :page-sizes="[1,5,10,20]"
+                       :page-size="pagesize"
+                       layout="total, sizes, prev, pager, next, jumper"
+                       :total="tableData.length">
+        </el-pagination>
+    </div>
+</div>
+</body>
+<script src="js/layer/layer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="js/element_ui.js"></script>
+<!-- 引入组件库 -->
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+<script>
+
+    function insert(){
+        layer.open({
+            type: 2,
+            title: '新增商机',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['80%', '90%'],
+            content: 'addShangji.html?'//iframe的url
+        });
+    }
+
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+
+            form: {
+                bumen: '',
+                fuzeren:'',
+                kehu:''
+            },
+
+            tableData: [],
+            formInline: {
+                user: '',
+                region: ''
+            },
+            inputVal: '', //模糊搜索
+            value: '', //下拉框
+            dataReturn: [],
+            total: 0,  //总条数
+            pagesize:10,  //每页的数据条数
+            currentPage:1  // 当前页码
+        },
+        computed: {
+        },
+        mounted() {
+            this.addUser();
+        },
+        methods:{
+
+            schfilter(){
+                this.tableData = this.dataReturn;
+                if(this.inputVal!=""){
+                    this.tableData = this.tableData.filter( item => (~item.name.indexOf(this.inputVal)));
+                }else{
+                    this.tableData = this.dataReturn;
+                }
+
+            },
+            relsh(){
+              console.log(this.inputVal)
+            },
+            //多条件查询
+            onSubmit() {
+                console.log('submit!');
+            },
+
+            //每页条数改变时触发 选择一页显示多少行
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+                this.currentPage = 1;
+                this.pagesize = val;
+            },
+            //当前页改变时触发 跳转其他页
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+                this.currentPage = val;
+            },
+
+            //编辑
+            handleEdit(index, row) {
+                console.log(index, row);
+                console.log(row.id);
+                window.location.href='editShangji.html?customerId='+row.id;
+            },
+            //查看
+            handleView(index, row){
+                console.log(index, row);
+                console.log(row.id);
+                window.location.href='ceshi.html?busId='+row.id;
+            },
+            //删除
+            handleDelete(index, row) {
+                console.log(index, row);
+                console.log(row.id);
+                $.ajax({
+                    url: '../../../tdu-base/BusinessController/deleBussiness.action?id='+row.id,
+                    //data: {"customerId": row.id},
+                    type: 'post',
+                    contentType: 'application/json',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        console.log(data)
+                        app.addUser();
+                    },
+                    error: function (data) {
+                        console.log(data)
+                    }
+                })
+            },
+            //获取初始数据 tableData
+            addUser() {
+                this.$http.post('../../../tdu-base/BusinessController/getBusiness.action').then(function(res){
+                    console.log(res)
+                    console.log(res.data)
+                    for(let i = 0;i<res.data.length;i++){
+                        res.data[i].billTime = this.formatDate(res.data[i].billTime);
+                        res.data[i].follow.lastTime = this.formatDate(res.data[i].follow.lastTime);
+                    }
+                    this.tableData = res.data;
+                    this.total = res.data.length;
+                    this.dataReturn = res.data;
+                },function(){
+                    console.log('请求失败处理');
+                });
+
+            },
+            formatDate: function (value) {
+                let date = new Date(value);
+                let y = date.getFullYear();
+                let MM = date.getMonth() + 1;
+                MM = MM < 10 ? ('0' + MM) : MM;
+                let d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                let h = date.getHours();
+                h = h < 10 ? ('0' + h) : h;
+                let m = date.getMinutes();
+                m = m < 10 ? ('0' + m) : m;
+                let s = date.getSeconds();
+                s = s < 10 ? ('0' + s) : s;
+                return y + '-' + MM + '-' + d + '' + h + ':' + m + ':' + s;
+            },
+            current_change:function(currentPage){
+                this.currentPage = currentPage;
+            },
+
+        },
+
+        watch:{
+
+        },
+
+        filters: {
+            /*
+             时间格式自定义 只需把字符串里面的改成自己所需的格式
+            */
+            // formatDate(time) {
+            //     var date = new Date(time);
+            //     return formatDate(date, 'yyyy.MM.dd');
+            // },
+            // formatDate2(time) {
+            //     var date = new Date(time);
+            //     return formatDate(date, 'hh:mm:ss');
+            // },
+            // formatDate3(time) {
+            //     var date = new Date(time);
+            //     return formatDate(date, 'yyyy年MM月dd日 hh:mm:ss');
+            // },
+
+        }
+    })
+</script>
+</html>
